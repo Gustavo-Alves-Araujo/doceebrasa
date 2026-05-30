@@ -81,8 +81,8 @@
 
     .section-sub {
       font-family: var(--fn-serif);
-      font-size: clamp(0.95rem, 1.8vw, 1.2rem);
-      color: var(--muted);
+      font-size: clamp(0.95rem, 1.8vw, 1.25rem);
+      color: rgba(240, 230, 214, 0.8);
       font-style: italic;
       line-height: 1.85;
     }
@@ -323,7 +323,7 @@
     .hero-bg {
       position: absolute;
       inset: 0;
-      background-image: url('https://instagram.fgru6-1.fna.fbcdn.net/v/t51.82787-15/625992657_18313449409267249_1266031383687455299_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=100&ig_cache_key=Mjc1NjMzNDE3MjMxNzE2NTA4OA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkZFRUQueHBpZHMuMTA4MC5zZHIucmVndWxhcl9waG90by5DMyJ9&_nc_ohc=fY16_VGyw54Q7kNvwH01TrU&_nc_oc=AdqFsP_P1-nJQbfRlJazReKV1N9m0IH4AALuQLIPyg8LIgiu4DWcO_gnyqWjDlg5LIiLi_Uw1ErpFcSSsMLE3LD&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=instagram.fgru6-1.fna&_nc_gid=bxa8LlRtZ-r_dxYbK2Lsig&_nc_ss=7a22e&oh=00_Af4m2YH0oaDwbFVwPMK9q_1Uo_rAXHp2kzzdoh0ieaF4cw&oe=6A20EC3C');
+      background-image: url('Design%20sem%20nome(1).jpg');
       background-size: cover;
       background-position: center 35%;
       animation: kenBurns 18s ease-out forwards;
@@ -411,9 +411,10 @@
 
     .hero-tag {
       font-family: var(--fn-serif);
-      font-size: clamp(1rem, 2.5vw, 1.45rem);
+      font-size: clamp(1.25rem, 3vw, 1.75rem);
       font-style: italic;
-      color: rgba(240,230,214,0.8);
+      color: rgba(255, 255, 255, 0.95);
+      text-shadow: 0 2px 18px rgba(0,0,0,0.6);
       opacity: 0;
       animation: fadeUp 0.9s 1.2s ease forwards;
       margin-bottom: 2.5rem;
@@ -541,7 +542,7 @@
 
     .sobre-text p {
       font-size: 1rem;
-      color: var(--muted);
+      color: rgba(240, 230, 214, 0.8);
       line-height: 1.95;
       margin-bottom: 1.4rem;
     }
@@ -650,8 +651,8 @@
 
     .sabor-desc {
       font-family: var(--fn-serif);
-      font-size: 0.9rem;
-      color: var(--muted);
+      font-size: 1.05rem;
+      color: rgba(240, 230, 214, 0.92);
       font-style: italic;
       line-height: 1.75;
       max-height: 0;
@@ -774,7 +775,15 @@
 
     .harm-card:hover::before { transform: scaleX(1); }
 
-    .harm-emoji { font-size: 3.2rem; margin-bottom: 1.5rem; display: block; }
+    .harm-badge {
+      font-family: var(--fn-display);
+      font-size: 3.2rem;
+      color: rgba(185,28,28,0.5);
+      line-height: 1;
+      letter-spacing: 2px;
+      margin-bottom: 1.5rem;
+      display: block;
+    }
 
     .harm-fl {
       font-size: 0.65rem;
@@ -800,8 +809,8 @@
       display: flex;
       align-items: center;
       gap: 0.8rem;
-      font-size: 0.88rem;
-      color: var(--muted);
+      font-size: 0.92rem;
+      color: rgba(240, 230, 214, 0.82);
     }
 
     .harm-list li::before {
@@ -853,7 +862,7 @@
       margin-bottom: 0.4rem;
     }
 
-    .step-info p { font-size: 0.9rem; color: var(--muted); line-height: 1.85; }
+    .step-info p { font-size: 0.96rem; color: rgba(240, 230, 214, 0.8); line-height: 1.85; }
 
     .proc-gallery {
       display: grid;
@@ -915,7 +924,15 @@
     .dif-item:hover { background: var(--dark-3); }
     .dif-item:hover::after { width: 60px; }
 
-    .dif-icon { font-size: 3.5rem; display: block; margin-bottom: 1.5rem; }
+    .dif-icon {
+      font-family: var(--fn-display);
+      font-size: 3.5rem;
+      color: rgba(185,28,28,0.4);
+      line-height: 1;
+      letter-spacing: 2px;
+      display: block;
+      margin-bottom: 1.5rem;
+    }
 
     .dif-item h3 {
       font-family: var(--fn-display);
@@ -926,7 +943,7 @@
       margin-bottom: 1rem;
     }
 
-    .dif-item p { font-size: 0.88rem; color: var(--muted); line-height: 1.85; }
+    .dif-item p { font-size: 0.92rem; color: rgba(240, 230, 214, 0.78); line-height: 1.85; }
 
     /* ============================================================
        SECTION 7: DEPOIMENTOS
@@ -1319,12 +1336,14 @@
   <div id="progress-bar"></div>
 
   <!-- FLOATING WHATSAPP -->
-  <a href="https://wa.me/55XXXXXXXXXXX" target="_blank" rel="noopener" class="whatsapp-float" aria-label="Fale conosco no WhatsApp">💬</a>
+  <a href="https://wa.me/55XXXXXXXXXXX" target="_blank" rel="noopener" class="whatsapp-float" aria-label="Fale conosco no WhatsApp">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
 
   <!-- MOBILE MENU -->
   <div class="mobile-menu" id="mobileMenu">
     <a href="#" class="mobile-logo" onclick="closeMobile()">
-      <img src="https://instagram.fgru6-1.fna.fbcdn.net/v/t51.2885-19/129762375_845270612901134_7477397119330238657_n.jpg?efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=instagram.fgru6-1.fna.fbcdn.net&_nc_cat=102&_nc_oc=Q6cZ2gHXQe_RR33CT3jC6BnZq-HHSVEvlOGO0zeJ9EJVGEO8FKw8fioCGABvkxvrtwam9u5u-onr1PKG8ejYr6bKXm3c&_nc_ohc=NGZqiT1nSWYQ7kNvwEbIhB3&_nc_gid=wwnlMHkSYxsXmqzEEciWnQ&edm=APoiHPcBAAAA&ccb=7-5&oh=00_Af4Hdbe2kbufwv4tgcryx52UNDCa10dDfx70lhiotprZ6w&oe=6A20F01D&_nc_sid=22de04" alt="Doce e Brasa">
+      <img src="logo.jpg" alt="Doce e Brasa">
     </a>
     <a href="#sobre"        onclick="closeMobile()">Sobre</a>
     <a href="#sabores"      onclick="closeMobile()">Sabores</a>
@@ -1337,12 +1356,7 @@
   <!-- ── NAVIGATION ─────────────────────────────────────── -->
   <nav id="navbar">
     <a href="#" class="nav-logo">
-      <img
-        src="https://instagram.fgru6-1.fna.fbcdn.net/v/t51.2885-19/129762375_845270612901134_7477397119330238657_n.jpg?efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=instagram.fgru6-1.fna.fbcdn.net&_nc_cat=102&_nc_oc=Q6cZ2gHXQe_RR33CT3jC6BnZq-HHSVEvlOGO0zeJ9EJVGEO8FKw8fioCGABvkxvrtwam9u5u-onr1PKG8ejYr6bKXm3c&_nc_ohc=NGZqiT1nSWYQ7kNvwEbIhB3&_nc_gid=wwnlMHkSYxsXmqzEEciWnQ&edm=APoiHPcBAAAA&ccb=7-5&oh=00_Af4Hdbe2kbufwv4tgcryx52UNDCa10dDfx70lhiotprZ6w&oe=6A20F01D&_nc_sid=22de04"
-        alt="Doce e Brasa"
-        width="54"
-        height="54"
-      >
+      <img src="logo.jpg" alt="Doce e Brasa" width="54" height="54">
     </a>
     <ul class="nav-links">
       <li><a href="#sobre">Sobre</a></li>
@@ -1480,8 +1494,8 @@
             </div>
           </div>
           <p class="sabor-desc">
-            A doçura tropical do abacaxi encontra o calor intenso da pimenta.
-            Uma harmonia perfeita entre o doce e o ardente que vai explodir no paladar.
+            Suculência tropical do abacaxi encontra o calor da pimenta dedo-de-moça.
+            Cada garfada é uma explosão de doçura seguida de um ardor irresistível.
           </p>
           <a href="#pedido" class="sabor-link">Pedir Agora <span class="arr">→</span></a>
         </div>
@@ -1510,8 +1524,8 @@
             </div>
           </div>
           <p class="sabor-desc">
-            Goiaba brasileira encontra o poder da defumação e o frescor da pimenta.
-            Sabor profundo com camadas que revelam notas de brasa e doçura intensa.
+            Goiaba brasileira de polpa densa, defumada artesanalmente com lenha seca.
+            Camadas de aroma, brasa e pimenta que grudam na memória — e na carne.
           </p>
           <a href="#pedido" class="sabor-link">Pedir Agora <span class="arr">→</span></a>
         </div>
@@ -1540,8 +1554,8 @@
             </div>
           </div>
           <p class="sabor-desc">
-            Cebola roxa caramelizada encontra as notas elegantes do vinho tinto.
-            Uma geleia sofisticada que eleva qualquer corte premium a outro patamar.
+            Cebola roxa caramelizada lentamente, enriquecida com vinho tinto seco.
+            Profundidade de sabor que transforma qualquer corte nobre em algo extraordinário.
           </p>
           <a href="#pedido" class="sabor-link">Pedir Agora <span class="arr">→</span></a>
         </div>
@@ -1571,7 +1585,7 @@
         <div class="harm-grid">
 
           <div class="harm-card" data-aos="fade-up" data-aos-delay="0">
-            <span class="harm-emoji">🍍</span>
+            <span class="harm-badge">01</span>
             <p class="harm-fl">Sabor 01</p>
             <h3 class="harm-ttl">Abacaxi com Pimenta</h3>
             <ul class="harm-list">
@@ -1585,7 +1599,7 @@
           </div>
 
           <div class="harm-card" data-aos="fade-up" data-aos-delay="150">
-            <span class="harm-emoji">🍀</span>
+            <span class="harm-badge">02</span>
             <p class="harm-fl">Sabor 02</p>
             <h3 class="harm-ttl">Goiaba Defumada</h3>
             <ul class="harm-list">
@@ -1599,7 +1613,7 @@
           </div>
 
           <div class="harm-card" data-aos="fade-up" data-aos-delay="300">
-            <span class="harm-emoji">🍷</span>
+            <span class="harm-badge">03</span>
             <p class="harm-fl">Sabor 03</p>
             <h3 class="harm-ttl">Cebola Roxa c/ Vinho</h3>
             <ul class="harm-list">
@@ -1677,8 +1691,8 @@
           </div>
           <div class="proc-img">
             <img
-              src="https://images.unsplash.com/photo-1615937691194-97dbd3f4b9de?auto=format&fit=crop&w=400&q=85"
-              alt="Tábua gourmet"
+              src="https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&w=400&q=85"
+              alt="Carne grelhada artesanal"
               loading="lazy"
             />
           </div>
@@ -1701,32 +1715,32 @@
 
       <div class="dif-grid">
         <div class="dif-item" data-aos="fade-up" data-aos-delay="0">
-          <span class="dif-icon">🌿</span>
+          <span class="dif-icon">01</span>
           <h3>100% Natural</h3>
           <p>Sem conservantes artificiais, sem corantes e sem segredos. Apenas ingredientes reais que você reconhece e confia.</p>
         </div>
         <div class="dif-item" data-aos="fade-up" data-aos-delay="80">
-          <span class="dif-icon">🔥</span>
+          <span class="dif-icon">02</span>
           <h3>Feito na Brasa</h3>
           <p>Nossa técnica de defumação artesanal é inspirada no churrasco. Fogo de verdade, sabor de verdade.</p>
         </div>
         <div class="dif-item" data-aos="fade-up" data-aos-delay="160">
-          <span class="dif-icon">🏆</span>
+          <span class="dif-icon">03</span>
           <h3>Qualidade Premium</h3>
           <p>Ingredientes selecionados, processo rigoroso e um padrão de qualidade que só os melhores churrasceiros merecem.</p>
         </div>
         <div class="dif-item" data-aos="fade-up" data-aos-delay="240">
-          <span class="dif-icon">🤝</span>
+          <span class="dif-icon">04</span>
           <h3>Produção Local</h3>
           <p>Apoiamos produtores locais, valorizamos o campo brasileiro e garantimos frescor do produtor à sua mesa.</p>
         </div>
         <div class="dif-item" data-aos="fade-up" data-aos-delay="320">
-          <span class="dif-icon">🎁</span>
+          <span class="dif-icon">05</span>
           <h3>Presente Perfeito</h3>
           <p>Um kit Doce e Brasa é o presente ideal para os amantes de churrasco. Embalagem especial disponível.</p>
         </div>
         <div class="dif-item" data-aos="fade-up" data-aos-delay="400">
-          <span class="dif-icon">⚡</span>
+          <span class="dif-icon">06</span>
           <h3>Entrega Rápida</h3>
           <p>Pediu, recebeu. Envio cuidadoso em todo o Brasil para que seus potes cheguem perfeitos e prontos para usar.</p>
         </div>
@@ -1840,37 +1854,37 @@
 
       <div class="gal-item" data-aos="fade-up" data-aos-delay="0">
         <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=85" alt="Churrasco na brasa" loading="lazy">
-        <div class="gal-over"><span>🔥</span></div>
+        <div class="gal-over"></div>
       </div>
 
       <div class="gal-item" data-aos="fade-up" data-aos-delay="80">
         <img src="https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&w=500&q=85" alt="Carne suculenta na grelha" loading="lazy">
-        <div class="gal-over"><span>🥩</span></div>
+        <div class="gal-over"></div>
       </div>
 
       <div class="gal-item" data-aos="fade-up" data-aos-delay="160">
         <img src="https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?auto=format&fit=crop&w=500&q=85" alt="Abacaxi fresco" loading="lazy">
-        <div class="gal-over"><span>🍍</span></div>
+        <div class="gal-over"></div>
       </div>
 
       <div class="gal-item" data-aos="fade-up" data-aos-delay="240">
         <img src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=500&q=85" alt="Vinho tinto" loading="lazy">
-        <div class="gal-over"><span>🍷</span></div>
+        <div class="gal-over"></div>
       </div>
 
       <div class="gal-item" data-aos="fade-up" data-aos-delay="320">
-        <img src="https://images.unsplash.com/photo-1615937691194-97dbd3f4b9de?auto=format&fit=crop&w=500&q=85" alt="Tábua de frios gourmet" loading="lazy">
-        <div class="gal-over"><span>🧀</span></div>
+        <img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=500&q=85" alt="Mesa de churrasco gourmet" loading="lazy">
+        <div class="gal-over"></div>
       </div>
 
       <div class="gal-item" data-aos="fade-up" data-aos-delay="400">
-        <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=500&q=85" alt="Pimenta vermelha" loading="lazy">
-        <div class="gal-over"><span>🌶️</span></div>
+        <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=500&q=85" alt="Pimenta" loading="lazy">
+        <div class="gal-over"></div>
       </div>
 
       <div class="gal-item" data-aos="fade-up" data-aos-delay="480">
-        <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=500&q=85" alt="Hambúrguer gourmet" loading="lazy">
-        <div class="gal-over"><span>🍔</span></div>
+        <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=500&q=85" alt="Carne grelhada" loading="lazy">
+        <div class="gal-over"></div>
       </div>
 
     </div>
@@ -1902,14 +1916,15 @@
         <button type="button" onclick="enviarPedido()">Quero!</button>
       </div>
 
-      <a href="https://wa.me/55XXXXXXXXXXX" target="_blank" rel="noopener" class="btn-fire" style="font-size:0.95rem;padding:1.15rem 3rem">
-        💬 &nbsp;Chamar no WhatsApp
+      <a href="https://wa.me/55XXXXXXXXXXX" target="_blank" rel="noopener" class="btn-fire" style="font-size:0.95rem;padding:1.15rem 3rem;display:inline-flex;align-items:center;gap:0.7rem">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Chamar no WhatsApp
       </a>
 
       <div class="pedido-contact">
-        <div class="ci"><span>📱</span><span>(XX) XXXXX-XXXX</span></div>
-        <div class="ci"><span>📍</span><span>Brasil · Entrega Nacional</span></div>
-        <div class="ci"><span>📸</span><span>@doceebrasa</span></div>
+        <div class="ci"><span>(XX) XXXXX-XXXX</span></div>
+        <div class="ci"><span>Brasil · Entrega Nacional</span></div>
+        <div class="ci"><span>@doceebrasa</span></div>
       </div>
     </div>
   </section>
@@ -1923,28 +1938,29 @@
 
         <div class="footer-brand">
           <a href="#" class="nav-logo">
-            <img
-              src="https://instagram.fgru6-1.fna.fbcdn.net/v/t51.2885-19/129762375_845270612901134_7477397119330238657_n.jpg?efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=instagram.fgru6-1.fna.fbcdn.net&_nc_cat=102&_nc_oc=Q6cZ2gHXQe_RR33CT3jC6BnZq-HHSVEvlOGO0zeJ9EJVGEO8FKw8fioCGABvkxvrtwam9u5u-onr1PKG8ejYr6bKXm3c&_nc_ohc=NGZqiT1nSWYQ7kNvwEbIhB3&_nc_gid=wwnlMHkSYxsXmqzEEciWnQ&edm=APoiHPcBAAAA&ccb=7-5&oh=00_Af4Hdbe2kbufwv4tgcryx52UNDCa10dDfx70lhiotprZ6w&oe=6A20F01D&_nc_sid=22de04"
-              alt="Doce e Brasa"
-              width="110"
-              height="110"
-            >
+            <img src="logo.jpg" alt="Doce e Brasa" width="110" height="110">
           </a>
           <p>Geleias artesanais criadas para transformar cada churrasco em uma experiência gastronômica inesquecível.</p>
           <div class="socials">
-            <a href="#" class="soc" aria-label="Instagram">📸</a>
-            <a href="#" class="soc" aria-label="WhatsApp">💬</a>
-            <a href="#" class="soc" aria-label="Facebook">📘</a>
+            <a href="#" class="soc" aria-label="Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <a href="https://wa.me/55XXXXXXXXXXX" target="_blank" rel="noopener" class="soc" aria-label="WhatsApp">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            </a>
+            <a href="#" class="soc" aria-label="Facebook">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
           </div>
         </div>
 
         <div class="footer-col">
           <h4>Sabores</h4>
           <ul>
-            <li><a href="#sabores">🍍 Abacaxi com Pimenta</a></li>
-            <li><a href="#sabores">🍀 Goiaba Defumada com Pimenta</a></li>
-            <li><a href="#sabores">🍷 Cebola Roxa com Vinho</a></li>
-            <li><a href="#pedido">🎁 Kit Presente</a></li>
+            <li><a href="#sabores">Abacaxi com Pimenta</a></li>
+            <li><a href="#sabores">Goiaba Defumada com Pimenta</a></li>
+            <li><a href="#sabores">Cebola Roxa com Vinho</a></li>
+            <li><a href="#pedido">Kit Presente</a></li>
           </ul>
         </div>
 
@@ -1963,7 +1979,7 @@
 
       <div class="footer-bottom">
         <p>© 2026 Doce e Brasa. Todos os direitos reservados.</p>
-        <p>Feito com 🔥 e muito amor</p>
+        <p>Feito com muito amor</p>
       </div>
     </div>
   </footer>
