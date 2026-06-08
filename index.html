@@ -72,7 +72,7 @@
 
     .section-title {
       font-family: var(--fn-display);
-      font-size: clamp(3rem, 6vw, 6.5rem);
+      font-size: clamp(2rem, 4vw, 4rem);
       line-height: 0.92;
       letter-spacing: 2px;
       text-transform: uppercase;
@@ -80,10 +80,10 @@
     }
 
     .section-sub {
-      font-family: var(--fn-serif);
-      font-size: clamp(0.95rem, 1.8vw, 1.25rem);
+      font-family: var(--fn-sans);
+      font-size: clamp(0.95rem, 1.8vw, 1.15rem);
       color: rgba(240, 230, 214, 0.8);
-      font-style: italic;
+      font-style: normal;
       line-height: 1.85;
     }
 
@@ -331,8 +331,8 @@
     }
 
     @keyframes kenBurns {
-      from { transform: scale(1.12); filter: brightness(0.4) saturate(1.3); }
-      to   { transform: scale(1.0);  filter: brightness(0.45) saturate(1.15); }
+      from { transform: scale(1.12); filter: brightness(0.52) saturate(1.3); }
+      to   { transform: scale(1.0);  filter: brightness(0.58) saturate(1.15); }
     }
 
     .hero-gradient {
@@ -340,9 +340,9 @@
       inset: 0;
       background: linear-gradient(
         180deg,
-        rgba(8,8,8,0.25) 0%,
-        rgba(8,8,8,0.05) 35%,
-        rgba(8,8,8,0.55) 75%,
+        rgba(8,8,8,0.55) 0%,
+        rgba(8,8,8,0.08) 30%,
+        rgba(8,8,8,0.45) 65%,
         rgba(8,8,8,1)    100%
       );
     }
@@ -409,11 +409,26 @@
 
     @keyframes lineExpand { to { width: 120px; } }
 
+    .hero-title {
+      font-family: var(--fn-display);
+      font-size: clamp(3rem, 7vw, 6.5rem);
+      line-height: 0.9;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--cream);
+      margin-bottom: 1.25rem;
+      text-shadow: 0 4px 40px rgba(0,0,0,0.5);
+      opacity: 0;
+      animation: fadeUp 1s 1.05s ease forwards;
+    }
+
     .hero-tag {
-      font-family: var(--fn-serif);
-      font-size: clamp(1.25rem, 3vw, 1.75rem);
-      font-style: italic;
-      color: rgba(255, 255, 255, 0.95);
+      font-family: var(--fn-sans);
+      font-size: clamp(1rem, 2.2vw, 1.3rem);
+      font-style: normal;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.88);
+      letter-spacing: 0.5px;
       text-shadow: 0 2px 18px rgba(0,0,0,0.6);
       opacity: 0;
       animation: fadeUp 0.9s 1.2s ease forwards;
@@ -650,10 +665,10 @@
     }
 
     .sabor-desc {
-      font-family: var(--fn-serif);
-      font-size: 1.05rem;
-      color: rgba(240, 230, 214, 0.92);
-      font-style: italic;
+      font-family: var(--fn-sans);
+      font-size: 0.95rem;
+      color: rgba(240, 230, 214, 0.90);
+      font-style: normal;
       line-height: 1.75;
       max-height: 0;
       overflow: hidden;
@@ -708,6 +723,27 @@
     }
 
     .sdot.on { background: var(--red-bright); box-shadow: 0 0 6px rgba(239,68,68,0.8); }
+
+    /* Product image inside sabor card */
+    .sabor-product-img {
+      position: absolute;
+      top: 7%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: clamp(150px, 52%, 215px);
+      height: auto;
+      max-height: 56%;
+      object-fit: contain;
+      z-index: 1;
+      pointer-events: none;
+      filter: drop-shadow(0 18px 48px rgba(0,0,0,0.75));
+      transition: transform 0.9s ease, filter 0.9s ease;
+    }
+
+    .sabor:hover .sabor-product-img {
+      transform: translateX(-50%) scale(1.06) translateY(-6px);
+      filter: drop-shadow(0 24px 60px rgba(0,0,0,0.85));
+    }
 
     /* ============================================================
        SECTION 4: HARMONIZAÇÃO
@@ -831,57 +867,61 @@
       overflow: hidden;
     }
 
-    .proc-grid {
+    .proc-head { text-align: center; margin-bottom: 5rem; }
+
+    .proc-cards {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 7rem;
-      align-items: center;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: rgba(185,28,28,0.08);
+      border: 1px solid rgba(185,28,28,0.08);
     }
 
-    .proc-steps { display: flex; flex-direction: column; gap: 2.8rem; }
+    .proc-card {
+      background: var(--black);
+      padding: 3.2rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.4s;
+    }
 
-    .step { display: flex; gap: 2rem; align-items: flex-start; }
+    .proc-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--red-deep), var(--red-bright));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.45s;
+    }
 
-    .step-no {
+    .proc-card:hover { background: var(--dark-3); }
+    .proc-card:hover::before { transform: scaleX(1); }
+
+    .proc-num {
       font-family: var(--fn-display);
-      font-size: 4.5rem;
-      color: rgba(185,28,28,0.2);
+      font-size: 5rem;
+      color: rgba(185,28,28,0.15);
       line-height: 1;
-      min-width: 65px;
+      letter-spacing: 2px;
+      margin-bottom: 1.25rem;
+      display: block;
       transition: color 0.35s;
     }
 
-    .step:hover .step-no { color: var(--red); }
+    .proc-card:hover .proc-num { color: rgba(185,28,28,0.45); }
 
-    .step-info h3 {
+    .proc-card h3 {
       font-family: var(--fn-display);
-      font-size: 1.7rem;
+      font-size: 1.55rem;
       letter-spacing: 2px;
       text-transform: uppercase;
       color: var(--cream);
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.75rem;
     }
 
-    .step-info p { font-size: 0.96rem; color: rgba(240, 230, 214, 0.8); line-height: 1.85; }
-
-    .proc-gallery {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: 260px 260px;
-      gap: 8px;
-    }
-
-    .proc-img { overflow: hidden; }
-    .proc-img:first-child { grid-row: span 2; }
-
-    .proc-img img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      transition: transform 0.8s ease;
-      filter: saturate(0.78) brightness(0.88);
-    }
-
-    .proc-img:hover img { transform: scale(1.06); filter: saturate(1) brightness(0.95); }
+    .proc-card p { font-size: 0.92rem; color: rgba(240, 230, 214, 0.78); line-height: 1.85; }
 
     /* ============================================================
        SECTION 6: DIFERENCIAIS
@@ -963,6 +1003,7 @@
       gap: 2rem;
       transition: transform 0.65s cubic-bezier(0.25, 1, 0.5, 1);
       will-change: transform;
+      align-items: stretch;
     }
 
     .dep-card {
@@ -973,6 +1014,10 @@
       padding: 2.8rem;
       position: relative;
       transition: border-color 0.3s;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      min-height: 320px;
     }
 
     .dep-card:hover { border-color: rgba(185,28,28,0.4); }
@@ -989,12 +1034,15 @@
     .dep-stars { color: var(--amber); margin-bottom: 1rem; letter-spacing: 3px; }
 
     .dep-text {
-      font-family: var(--fn-serif);
-      font-size: 1rem;
+      font-family: var(--fn-sans);
+      font-size: 0.95rem;
       color: rgba(240,230,214,0.82);
-      font-style: italic;
-      line-height: 1.85;
+      font-style: normal;
+      line-height: 1.8;
       margin-bottom: 2rem;
+      word-break: break-word;
+      overflow-wrap: break-word;
+      flex: 1;
     }
 
     .dep-author { display: flex; align-items: center; gap: 1rem; }
@@ -1049,58 +1097,7 @@
     .dep-dot.active { background: var(--red); width: 20px; border-radius: 3px; }
 
     /* ============================================================
-       SECTION 8: GALERIA
-    ============================================================ */
-    #galeria {
-      padding: 8rem 0 0;
-      background: var(--dark);
-      overflow: hidden;
-    }
-
-    .gal-head { text-align: center; padding-bottom: 4rem; }
-
-    .gal-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-template-rows: 230px 230px;
-      gap: 6px;
-    }
-
-    .gal-item {
-      overflow: hidden;
-      position: relative;
-    }
-
-    .gal-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
-
-    .gal-item img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      transition: transform 0.85s ease, filter 0.85s ease;
-      filter: saturate(0.65) brightness(0.88);
-    }
-
-    .gal-item:hover img {
-      transform: scale(1.09);
-      filter: saturate(1.1) brightness(1);
-    }
-
-    .gal-over {
-      position: absolute;
-      inset: 0;
-      background: rgba(185,28,28,0.55);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: opacity 0.4s;
-    }
-
-    .gal-item:hover .gal-over { opacity: 1; }
-    .gal-over span { font-size: 2.2rem; }
-
-    /* ============================================================
-       SECTION 9: CTA / PEDIDO
+       SECTION 8: CTA / PEDIDO
     ============================================================ */
     #pedido {
       position: relative;
@@ -1133,7 +1130,7 @@
       padding: 0 2rem;
     }
 
-    .pedido-inner .section-title { font-size: clamp(4rem, 8vw, 8rem); margin-bottom: 1.5rem; }
+    .pedido-inner .section-title { font-size: clamp(2.5rem, 5vw, 5rem); margin-bottom: 1.5rem; }
 
     .pedido-inner p {
       font-family: var(--fn-serif);
@@ -1281,7 +1278,7 @@
       .sobre-wrap { gap: 4rem; }
       .sobre-media img { height: 420px; }
       .harm-grid { grid-template-columns: 1fr; gap: 1.25rem; }
-      .proc-grid { gap: 4rem; }
+      .proc-cards { grid-template-columns: repeat(2, 1fr); }
       .dif-grid  { grid-template-columns: repeat(2, 1fr); }
       .footer-grid { grid-template-columns: 1fr 1fr; }
       .sabores-strip { grid-template-columns: 1fr; }
@@ -1289,7 +1286,46 @@
       .dep-card { min-width: calc(50% - 1rem); }
     }
 
+    /* ============================================================
+       MASCOTES DA MARCA
+    ============================================================ */
+    .mascot-harm {
+      display: block;
+      width: clamp(120px, 11vw, 190px);
+      height: auto;
+      margin: 2.5rem auto -1rem;
+      filter: drop-shadow(0 10px 35px rgba(185,28,28,0.25));
+      pointer-events: none;
+    }
+
+    .mascot-dif {
+      display: block;
+      width: clamp(100px, 10vw, 160px);
+      height: auto;
+      margin: 2rem auto -1rem;
+      filter: drop-shadow(0 8px 25px rgba(185,28,28,0.2));
+      pointer-events: none;
+    }
+
+    .mascot-pedido {
+      position: absolute;
+      bottom: 0;
+      left: 5%;
+      width: clamp(130px, 12vw, 210px);
+      height: auto;
+      z-index: 3;
+      filter: drop-shadow(0 5px 30px rgba(185,28,28,0.3));
+      pointer-events: none;
+    }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
     @media (max-width: 768px) {
+      .mascot-harm    { width: clamp(90px, 22vw, 140px); }
+      .mascot-dif     { width: clamp(80px, 18vw, 120px); }
+      .mascot-pedido  { display: none; }
+
       .nav-links { display: none; }
       .hamburger { display: flex; }
 
@@ -1306,22 +1342,11 @@
       .sabor-desc { max-height: 120px; opacity: 1; }
       .sabor-link { opacity: 1; transform: translateY(0); }
 
-      .proc-grid { grid-template-columns: 1fr; }
-      .proc-gallery { grid-template-columns: 1fr 1fr; grid-template-rows: 200px 200px; }
-      .proc-img:first-child { grid-row: span 1; }
+      .proc-cards { grid-template-columns: 1fr; }
 
       .dif-grid { grid-template-columns: 1fr; }
 
       .dep-card { min-width: calc(88vw); }
-
-      .gal-grid {
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: repeat(4, 160px);
-      }
-      .gal-item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
-
-      .pedido-form { flex-direction: column; }
-      .pedido-form input { border-right: 1px solid rgba(185,28,28,0.4); }
 
       .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
       .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
@@ -1336,7 +1361,7 @@
   <div id="progress-bar"></div>
 
   <!-- FLOATING WHATSAPP -->
-  <a href="https://wa.me/55XXXXXXXXXXX" target="_blank" rel="noopener" class="whatsapp-float" aria-label="Fale conosco no WhatsApp">
+  <a href="https://wa.me/553499047484" target="_blank" rel="noopener" class="whatsapp-float" aria-label="Fale conosco no WhatsApp">
     <svg width="30" height="30" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
   </a>
 
@@ -1387,7 +1412,8 @@
         >
       </a>
       <div class="hero-line"></div>
-      <p class="hero-tag">Sabor que arde. Doçura que marca.<br>Churrasco que não se esquece.</p>
+      <h1 class="hero-title">DA BRASA<br>AO SABOR</h1>
+      <p class="hero-tag">Geleias artesanais que transformam cada corte em experiência inesquecível.</p>
       <div class="hero-btns">
         <a href="#sabores" class="btn-fire">Explorar Sabores</a>
         <a href="#sobre"   class="btn-ghost">Nossa História</a>
@@ -1434,7 +1460,7 @@
           </p>
           <p>
             Criadas para elevar qualquer corte a uma <strong>experiência gastronômica
-            inesquecível</strong> — picanha, frango, costela ou queijo coalho.
+            inesquecível</strong>: picanha, frango, costela ou queijo coalho.
           </p>
           <div class="sobre-stats">
             <div class="stat">
@@ -1473,8 +1499,9 @@
 
       <!-- 01 · Abacaxi com Pimenta -->
       <div class="sabor" data-aos="fade-up" data-aos-delay="0">
-        <div class="sabor-bg" style="background-image:url('https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?auto=format&fit=crop&w=900&q=85')"></div>
+        <div class="sabor-bg" style="background:linear-gradient(160deg,#1c0a04 0%,#0a0505 60%,#110202 100%)"></div>
         <div class="sabor-shade"></div>
+        <img src="aBACAXI%20pIMENTA%20001.png" alt="Geleia Abacaxi com Pimenta" class="sabor-product-img">
         <div class="sabor-body">
           <div class="sabor-no">01</div>
           <h3 class="sabor-nm">Abacaxi<br>com Pimenta</h3>
@@ -1525,7 +1552,7 @@
           </div>
           <p class="sabor-desc">
             Goiaba brasileira de polpa densa, defumada artesanalmente com lenha seca.
-            Camadas de aroma, brasa e pimenta que grudam na memória — e na carne.
+            Camadas de aroma, brasa e pimenta que grudam na memória e na carne.
           </p>
           <a href="#pedido" class="sabor-link">Pedir Agora <span class="arr">→</span></a>
         </div>
@@ -1533,8 +1560,9 @@
 
       <!-- 03 · Cebola Roxa com Vinho -->
       <div class="sabor" data-aos="fade-up" data-aos-delay="240">
-        <div class="sabor-bg" style="background-image:url('https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=900&q=85');background-position:center 60%"></div>
+        <div class="sabor-bg" style="background:linear-gradient(160deg,#100514 0%,#07030d 60%,#0d0510 100%)"></div>
         <div class="sabor-shade"></div>
+        <img src="cEBOLA%20rOXA%20E%20vINHO%20001%20001.png" alt="Geleia Cebola Roxa com Vinho" class="sabor-product-img">
         <div class="sabor-body">
           <div class="sabor-no">03</div>
           <h3 class="sabor-nm">Cebola Roxa<br>com Vinho</h3>
@@ -1573,13 +1601,17 @@
       <div class="container">
 
         <div class="harm-head" data-aos="fade-up">
-          <span class="section-label">Guia do Churrasceiro</span>
+          <span class="section-label">Guia do Churrasqueiro</span>
           <h2 class="section-title">HARMONIZAÇÃO<br>PERFEITA</h2>
           <span class="red-bar center"></span>
           <p class="section-sub" style="max-width:540px;margin:0 auto">
             Cada sabor foi criado para transformar cortes específicos<br>
             em experiências inesquecíveis
           </p>
+          <img src="Luvas%20BBQ.png" alt="" class="mascot-harm" aria-hidden="true">
+          <div style="margin-top:2.5rem">
+            <a href="https://wa.me/553499047484" target="_blank" rel="noopener" class="btn-fire">Quero Experimentar</a>
+          </div>
         </div>
 
         <div class="harm-grid">
@@ -1636,114 +1668,39 @@
   ══════════════════════════════════════════════════════ -->
   <section id="processo">
     <div class="container">
-      <div class="proc-grid">
 
-        <div data-aos="fade-right" data-aos-duration="900">
-          <span class="section-label">Artesanal de Coração</span>
-          <h2 class="section-title">FEITO COM<br>ALMA,<br>BRASA<br>E AMOR</h2>
-          <span class="red-bar"></span>
-          <div class="proc-steps">
-            <div class="step">
-              <span class="step-no">01</span>
-              <div class="step-info">
-                <h3>Seleção dos Ingredientes</h3>
-                <p>Frutas frescas e especiarias selecionadas com rigor para garantir o máximo de sabor e qualidade em cada pote que sai da nossa cozinha.</p>
-              </div>
-            </div>
-            <div class="step">
-              <span class="step-no">02</span>
-              <div class="step-info">
-                <h3>Cozimento Artesanal</h3>
-                <p>Processo lento e cuidadoso em panelas de cobre, respeitando o tempo de cada ingrediente para extrair toda a sua essência e concentrar os sabores.</p>
-              </div>
-            </div>
-            <div class="step">
-              <span class="step-no">03</span>
-              <div class="step-info">
-                <h3>Defumação Exclusiva</h3>
-                <p>Nossa técnica artesanal de defumação confere profundidade e complexidade únicas — impossíveis de replicar pela indústria alimentícia.</p>
-              </div>
-            </div>
-            <div class="step">
-              <span class="step-no">04</span>
-              <div class="step-info">
-                <h3>Envasamento com Carinho</h3>
-                <p>Cada pote é envasado a quente e lacrado com o cuidado de quem entrega o melhor da mesa para a sua churrasqueira.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="proc-gallery" data-aos="fade-left" data-aos-delay="200" data-aos-duration="900">
-          <div class="proc-img">
-            <img
-              src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=600&q=85"
-              alt="Cozinha artesanal"
-              loading="lazy"
-            />
-          </div>
-          <div class="proc-img">
-            <img
-              src="https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?auto=format&fit=crop&w=400&q=85"
-              alt="Abacaxi fresco"
-              loading="lazy"
-            />
-          </div>
-          <div class="proc-img">
-            <img
-              src="https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&w=400&q=85"
-              alt="Carne grelhada artesanal"
-              loading="lazy"
-            />
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════════════════════
-       SECTION 6 · DIFERENCIAIS
-  ══════════════════════════════════════════════════════ -->
-  <section id="diferenciais">
-    <div class="container">
-      <div class="dif-head" data-aos="fade-up">
-        <span class="section-label">Por Que Nos Escolher</span>
-        <h2 class="section-title">NOSSOS<br>DIFERENCIAIS</h2>
+      <div class="proc-head" data-aos="fade-up">
+        <span class="section-label">Artesanal de Coração</span>
+        <h2 class="section-title">FEITO COM<br>ALMA,<br>BRASA<br>E AMOR</h2>
         <span class="red-bar center"></span>
       </div>
 
-      <div class="dif-grid">
-        <div class="dif-item" data-aos="fade-up" data-aos-delay="0">
-          <span class="dif-icon">01</span>
-          <h3>100% Natural</h3>
-          <p>Sem conservantes artificiais, sem corantes e sem segredos. Apenas ingredientes reais que você reconhece e confia.</p>
+      <div class="proc-cards">
+
+        <div class="proc-card" data-aos="fade-up" data-aos-delay="0">
+          <span class="proc-num">01</span>
+          <h3>Seleção dos Ingredientes</h3>
+          <p>Frutas frescas e especiarias selecionadas com rigor para garantir o máximo de sabor e qualidade em cada pote que sai da nossa cozinha.</p>
         </div>
-        <div class="dif-item" data-aos="fade-up" data-aos-delay="80">
-          <span class="dif-icon">02</span>
-          <h3>Feito na Brasa</h3>
-          <p>Nossa técnica de defumação artesanal é inspirada no churrasco. Fogo de verdade, sabor de verdade.</p>
+
+        <div class="proc-card" data-aos="fade-up" data-aos-delay="100">
+          <span class="proc-num">02</span>
+          <h3>Cozimento Artesanal</h3>
+          <p>Processo lento e cuidadoso em panelas de cobre, respeitando o tempo de cada ingrediente para extrair toda a sua essência e concentrar os sabores.</p>
         </div>
-        <div class="dif-item" data-aos="fade-up" data-aos-delay="160">
-          <span class="dif-icon">03</span>
-          <h3>Qualidade Premium</h3>
-          <p>Ingredientes selecionados, processo rigoroso e um padrão de qualidade que só os melhores churrasceiros merecem.</p>
+
+        <div class="proc-card" data-aos="fade-up" data-aos-delay="200">
+          <span class="proc-num">03</span>
+          <h3>Defumação Exclusiva</h3>
+          <p>Nossa técnica artesanal de defumação confere profundidade e complexidade únicas, impossíveis de replicar pela indústria alimentícia.</p>
         </div>
-        <div class="dif-item" data-aos="fade-up" data-aos-delay="240">
-          <span class="dif-icon">04</span>
-          <h3>Produção Local</h3>
-          <p>Apoiamos produtores locais, valorizamos o campo brasileiro e garantimos frescor do produtor à sua mesa.</p>
+
+        <div class="proc-card" data-aos="fade-up" data-aos-delay="300">
+          <span class="proc-num">04</span>
+          <h3>Envasamento com Carinho</h3>
+          <p>Cada pote é envasado a quente e lacrado com o cuidado de quem entrega o melhor da mesa para a sua churrasqueira.</p>
         </div>
-        <div class="dif-item" data-aos="fade-up" data-aos-delay="320">
-          <span class="dif-icon">05</span>
-          <h3>Presente Perfeito</h3>
-          <p>Um kit Doce e Brasa é o presente ideal para os amantes de churrasco. Embalagem especial disponível.</p>
-        </div>
-        <div class="dif-item" data-aos="fade-up" data-aos-delay="400">
-          <span class="dif-icon">06</span>
-          <h3>Entrega Rápida</h3>
-          <p>Pediu, recebeu. Envio cuidadoso em todo o Brasil para que seus potes cheguem perfeitos e prontos para usar.</p>
-        </div>
+
       </div>
 
     </div>
@@ -1755,7 +1712,7 @@
   <section id="depoimentos">
     <div class="container">
       <div class="dep-head" data-aos="fade-up">
-        <span class="section-label">O que dizem os Churrasceiros</span>
+        <span class="section-label">O que dizem os Churrasqueiros</span>
         <h2 class="section-title">APROVADO<br>NA BRASA</h2>
         <span class="red-bar center"></span>
       </div>
@@ -1771,7 +1728,7 @@
               <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&h=100&q=80" alt="Carlos Eduardo" class="dep-avatar" loading="lazy">
               <div>
                 <p class="dep-name">Carlos Eduardo</p>
-                <p class="dep-role">Churrasceiro Raiz · São Paulo</p>
+                <p class="dep-role">Churrasqueiro Raiz · São Paulo</p>
               </div>
             </div>
           </div>
@@ -1837,92 +1794,32 @@
         <button class="dep-btn" id="depNext" aria-label="Próximo">→</button>
       </div>
 
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════════════════════
-       SECTION 8 · GALERIA
-  ══════════════════════════════════════════════════════ -->
-  <section id="galeria">
-    <div class="container gal-head" data-aos="fade-up">
-      <span class="section-label">Na Brasa &amp; na Mesa</span>
-      <h2 class="section-title">GALERIA</h2>
-      <span class="red-bar center"></span>
-    </div>
-
-    <div class="gal-grid">
-
-      <div class="gal-item" data-aos="fade-up" data-aos-delay="0">
-        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=85" alt="Churrasco na brasa" loading="lazy">
-        <div class="gal-over"></div>
-      </div>
-
-      <div class="gal-item" data-aos="fade-up" data-aos-delay="80">
-        <img src="https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&w=500&q=85" alt="Carne suculenta na grelha" loading="lazy">
-        <div class="gal-over"></div>
-      </div>
-
-      <div class="gal-item" data-aos="fade-up" data-aos-delay="160">
-        <img src="https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?auto=format&fit=crop&w=500&q=85" alt="Abacaxi fresco" loading="lazy">
-        <div class="gal-over"></div>
-      </div>
-
-      <div class="gal-item" data-aos="fade-up" data-aos-delay="240">
-        <img src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=500&q=85" alt="Vinho tinto" loading="lazy">
-        <div class="gal-over"></div>
-      </div>
-
-      <div class="gal-item" data-aos="fade-up" data-aos-delay="320">
-        <img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=500&q=85" alt="Mesa de churrasco gourmet" loading="lazy">
-        <div class="gal-over"></div>
-      </div>
-
-      <div class="gal-item" data-aos="fade-up" data-aos-delay="400">
-        <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=500&q=85" alt="Pimenta" loading="lazy">
-        <div class="gal-over"></div>
-      </div>
-
-      <div class="gal-item" data-aos="fade-up" data-aos-delay="480">
-        <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=500&q=85" alt="Carne grelhada" loading="lazy">
-        <div class="gal-over"></div>
+      <div style="text-align:center;margin-top:3rem">
+        <a href="https://wa.me/553499047484" target="_blank" rel="noopener" class="btn-fire">Pedir e Experimentar</a>
       </div>
 
     </div>
   </section>
 
   <!-- ══════════════════════════════════════════════════════
-       SECTION 9 · PEDIDO / CTA
+       SECTION 8 · PEDIDO / CTA
   ══════════════════════════════════════════════════════ -->
   <section id="pedido">
     <div class="pedido-bg"></div>
     <div class="pedido-veil"></div>
+    <img src="Sobre%20o%20pote.png" alt="" class="mascot-pedido" aria-hidden="true">
     <div class="pedido-inner" data-aos="fade-up">
       <span class="section-label" style="display:block;text-align:center">Pronto para Elevar seu Churrasco?</span>
       <h2 class="section-title">PEÇA<br>AGORA</h2>
       <span class="red-bar center"></span>
-      <p>
-        Encomendar é simples. Deixe seu WhatsApp ou e-mail e entraremos
-        em contato para fechar seu pedido com todo o carinho.
-      </p>
 
-      <div class="pedido-form">
-        <input
-          type="tel"
-          id="pedidoTel"
-          placeholder="Seu WhatsApp: (00) 00000-0000"
-          inputmode="tel"
-          autocomplete="tel"
-        >
-        <button type="button" onclick="enviarPedido()">Quero!</button>
-      </div>
-
-      <a href="https://wa.me/55XXXXXXXXXXX" target="_blank" rel="noopener" class="btn-fire" style="font-size:0.95rem;padding:1.15rem 3rem;display:inline-flex;align-items:center;gap:0.7rem">
+      <a href="https://wa.me/553499047484" target="_blank" rel="noopener" class="btn-fire" style="font-size:0.95rem;padding:1.15rem 3rem;display:inline-flex;align-items:center;gap:0.7rem">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         Chamar no WhatsApp
       </a>
 
       <div class="pedido-contact">
-        <div class="ci"><span>(XX) XXXXX-XXXX</span></div>
+        <div class="ci"><span>(34) 99904-7484</span></div>
         <div class="ci"><span>Brasil · Entrega Nacional</span></div>
         <div class="ci"><span>@doceebrasa</span></div>
       </div>
@@ -1945,7 +1842,7 @@
             <a href="#" class="soc" aria-label="Instagram">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
             </a>
-            <a href="https://wa.me/55XXXXXXXXXXX" target="_blank" rel="noopener" class="soc" aria-label="WhatsApp">
+            <a href="https://wa.me/553499047484" target="_blank" rel="noopener" class="soc" aria-label="WhatsApp">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
             </a>
             <a href="#" class="soc" aria-label="Facebook">
@@ -2053,8 +1950,8 @@
         resetAuto();
       }
 
-      document.getElementById('depNext').addEventListener('click', () => goTo(current + 1));
-      document.getElementById('depPrev').addEventListener('click', () => goTo(current - 1));
+      document.getElementById('depNext').addEventListener('click', () => goTo(current >= maxSlide() ? 0 : current + 1));
+      document.getElementById('depPrev').addEventListener('click', () => goTo(current <= 0 ? maxSlide() : current - 1));
 
       function resetAuto() {
         clearInterval(autoTimer);
@@ -2068,17 +1965,6 @@
       buildDots();
       resetAuto();
     })();
-
-    /* ─── Pedido / order CTA ─── */
-    function enviarPedido() {
-      const tel = document.getElementById('pedidoTel').value.trim();
-      if (!tel) {
-        document.getElementById('pedidoTel').focus();
-        return;
-      }
-      const msg = encodeURIComponent('Olá! Gostaria de fazer um pedido Doce e Brasa. Meu contato: ' + tel);
-      window.open('https://wa.me/55XXXXXXXXXXX?text=' + msg, '_blank', 'noopener,noreferrer');
-    }
 
     /* ─── Subtle hero parallax ─── */
     const heroBg = document.querySelector('.hero-bg');
