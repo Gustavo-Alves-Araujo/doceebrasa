@@ -1386,6 +1386,174 @@
 
       .whatsapp-float { bottom: 1.5rem; right: 1.5rem; width: 54px; height: 54px; }
     }
+
+    /* ============================================================
+       SECTION: LINHA DE MESA
+    ============================================================ */
+    #linha-de-mesa {
+      background: #0a160a;
+    }
+
+    .mesa-head-bg {
+      background: #3d7e36;
+      padding: 7rem 0 4rem;
+    }
+
+    #linha-de-mesa .section-label { color: #c8f0c2; }
+    #linha-de-mesa .section-title { color: #f0fef0; }
+    #linha-de-mesa .section-sub   { color: rgba(240,254,240,0.85); }
+
+    .green-bar {
+      display: block;
+      width: 56px;
+      height: 3px;
+      background: linear-gradient(90deg, #1a5218, #5db358);
+      margin: 1.5rem 0;
+    }
+
+    .green-bar.center { margin-left: auto; margin-right: auto; }
+
+    .mesa-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+    }
+
+    .mesa-card {
+      position: relative;
+      height: 640px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .mesa-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.9s ease, filter 0.9s ease;
+      filter: brightness(0.5) saturate(1.2);
+    }
+
+    .mesa-card:hover .mesa-bg {
+      transform: scale(1.07);
+      filter: brightness(0.36) saturate(1.6);
+    }
+
+    .mesa-shade {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 25%, rgba(8,8,8,0.94) 100%);
+    }
+
+    .mesa-product-placeholder {
+      position: absolute;
+      top: 7%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: clamp(140px, 48%, 200px);
+      height: auto;
+      max-height: 56%;
+      z-index: 1;
+      pointer-events: none;
+      filter: drop-shadow(0 18px 48px rgba(0,0,0,0.75));
+      transition: transform 0.9s ease, filter 0.9s ease;
+    }
+
+    .mesa-card:hover .mesa-product-placeholder {
+      transform: translateX(-50%) scale(1.06) translateY(-6px);
+      filter: drop-shadow(0 24px 60px rgba(0,0,0,0.85));
+    }
+
+    .mesa-body {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 2.5rem;
+      z-index: 2;
+    }
+
+    .mesa-no {
+      font-family: var(--fn-display);
+      font-size: 5rem;
+      color: rgba(61,126,54,0.25);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+
+    .mesa-nm {
+      font-family: var(--fn-display);
+      font-size: clamp(1.7rem, 2.5vw, 2.2rem);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--cream);
+      line-height: 1.1;
+      margin-bottom: 0.75rem;
+    }
+
+    .mesa-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .mtag {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 0.3rem 0.85rem;
+      border: 1px solid rgba(61,126,54,0.5);
+      color: #7ed87a;
+    }
+
+    .mesa-desc {
+      font-family: var(--fn-sans);
+      font-size: 0.95rem;
+      color: rgba(240, 230, 214, 0.90);
+      font-style: normal;
+      line-height: 1.75;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: all 0.55s ease;
+    }
+
+    .mesa-card:hover .mesa-desc {
+      max-height: 130px;
+      opacity: 1;
+    }
+
+    .mesa-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-top: 1.2rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--cream);
+      opacity: 0;
+      transform: translateY(12px);
+      transition: all 0.45s 0.08s ease;
+    }
+
+    .mesa-link .arr { transition: transform 0.3s; }
+    .mesa-card:hover .mesa-link { opacity: 1; transform: translateY(0); }
+    .mesa-link:hover .arr { transform: translateX(5px); }
+
+    @media (max-width: 1100px) {
+      .mesa-strip { grid-template-columns: 1fr; }
+      .mesa-card  { height: 480px; }
+    }
+
+    @media (max-width: 768px) {
+      .mesa-strip { grid-template-columns: 1fr; }
+      .mesa-card  { height: 450px; }
+      .mesa-desc  { max-height: 120px; opacity: 1; }
+      .mesa-link  { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
@@ -1512,6 +1680,140 @@
         </div>
 
       </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       SECTION 2.5 · LINHA DE MESA
+  ══════════════════════════════════════════════════════ -->
+  <section id="linha-de-mesa">
+
+    <div class="mesa-head-bg">
+      <div class="container mesa-head" data-aos="fade-up">
+        <span class="section-label">Linha de Mesa</span>
+        <h2 class="section-title">LINHA DE<br>MESA</h2>
+        <span class="green-bar center"></span>
+        <p class="section-sub" style="max-width:520px;margin:0 auto">
+          Geleias de ervas aromáticas criadas para a mesa — queijos, torradas, frios e momentos especiais
+        </p>
+      </div>
+    </div>
+
+    <div class="mesa-strip">
+
+      <!-- 01 · Geleia de Alecrim com Mel -->
+      <div class="mesa-card" data-aos="fade-up" data-aos-delay="0">
+        <div class="mesa-bg" style="background:linear-gradient(160deg,#051408 0%,#030d05 60%,#081507 100%)"></div>
+        <div class="mesa-shade"></div>
+
+        <!-- Alecrim (rosemary) jar placeholder -->
+        <svg class="mesa-product-placeholder" viewBox="0 0 160 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Geleia de Alecrim com Mel – imagem do produto em breve">
+          <rect x="28" y="36" width="104" height="20" rx="5" fill="rgba(25,65,20,0.65)" stroke="rgba(80,160,70,0.7)" stroke-width="1.5"/>
+          <rect x="36" y="54" width="88" height="14" rx="2" fill="rgba(20,55,18,0.55)" stroke="rgba(70,145,62,0.6)" stroke-width="1.2"/>
+          <path d="M32 68 Q19 118 21 160 Q24 180 80 180 Q136 180 139 160 Q141 118 128 68 Z" fill="rgba(18,48,15,0.5)" stroke="rgba(70,150,62,0.65)" stroke-width="1.5"/>
+          <line x1="80" y1="155" x2="80" y2="88" stroke="rgba(100,190,85,0.85)" stroke-width="2"/>
+          <line x1="80" y1="142" x2="66" y2="128" stroke="rgba(100,190,85,0.75)" stroke-width="1.5"/>
+          <line x1="80" y1="142" x2="94" y2="128" stroke="rgba(100,190,85,0.75)" stroke-width="1.5"/>
+          <line x1="80" y1="126" x2="67" y2="113" stroke="rgba(100,190,85,0.7)" stroke-width="1.4"/>
+          <line x1="80" y1="126" x2="93" y2="113" stroke="rgba(100,190,85,0.7)" stroke-width="1.4"/>
+          <line x1="80" y1="110" x2="68" y2="99" stroke="rgba(100,190,85,0.65)" stroke-width="1.2"/>
+          <line x1="80" y1="110" x2="92" y2="99" stroke="rgba(100,190,85,0.65)" stroke-width="1.2"/>
+          <circle cx="114" cy="28" r="10" fill="rgba(200,150,30,0.35)" stroke="rgba(220,170,50,0.6)" stroke-width="1.5"/>
+          <path d="M110 28 Q114 22 118 28 Q114 34 110 28" fill="rgba(220,170,50,0.55)"/>
+          <rect x="30" y="108" width="100" height="32" rx="2" fill="rgba(40,100,35,0.2)" stroke="rgba(80,160,70,0.3)" stroke-width="1"/>
+        </svg>
+
+        <div class="mesa-body">
+          <div class="mesa-no">01</div>
+          <h3 class="mesa-nm">Alecrim<br>com Mel</h3>
+          <div class="mesa-tags">
+            <span class="mtag">Herbáceo</span>
+            <span class="mtag">Floral</span>
+            <span class="mtag">Delicado</span>
+          </div>
+          <p class="mesa-desc">
+            O aroma vibrante do alecrim fresco harmoniza com a doçura do mel silvestre artesanal.
+            Combinação refinada que eleva queijos, torradas e frios a experiências únicas.
+          </p>
+          <a href="#pedido" class="mesa-link">Pedir Agora <span class="arr">→</span></a>
+        </div>
+      </div>
+
+      <!-- 02 · Geleia de Hortelã com Limão -->
+      <div class="mesa-card" data-aos="fade-up" data-aos-delay="120">
+        <div class="mesa-bg" style="background:linear-gradient(160deg,#031206 0%,#020b04 60%,#061308 100%)"></div>
+        <div class="mesa-shade"></div>
+
+        <!-- Hortelã (mint) jar placeholder -->
+        <svg class="mesa-product-placeholder" viewBox="0 0 160 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Geleia de Hortelã com Limão – imagem do produto em breve">
+          <rect x="28" y="36" width="104" height="20" rx="5" fill="rgba(25,65,20,0.65)" stroke="rgba(80,160,70,0.7)" stroke-width="1.5"/>
+          <rect x="36" y="54" width="88" height="14" rx="2" fill="rgba(20,55,18,0.55)" stroke="rgba(70,145,62,0.6)" stroke-width="1.2"/>
+          <path d="M32 68 Q19 118 21 160 Q24 180 80 180 Q136 180 139 160 Q141 118 128 68 Z" fill="rgba(18,48,15,0.5)" stroke="rgba(70,150,62,0.65)" stroke-width="1.5"/>
+          <line x1="80" y1="158" x2="80" y2="88" stroke="rgba(100,190,85,0.7)" stroke-width="1.8"/>
+          <path d="M80 88 C58 80 44 92 46 110 C48 128 66 138 80 130 C94 138 112 128 114 110 C116 92 102 80 80 88" fill="rgba(80,180,70,0.38)" stroke="rgba(100,190,85,0.72)" stroke-width="1.5"/>
+          <path d="M80 105 C65 100 58 110 66 118" stroke="rgba(100,190,85,0.45)" stroke-width="1" fill="none"/>
+          <path d="M80 105 C95 100 102 110 94 118" stroke="rgba(100,190,85,0.45)" stroke-width="1" fill="none"/>
+          <path d="M80 130 C68 140 62 152 70 158" stroke="rgba(100,190,85,0.5)" stroke-width="1.2" fill="none"/>
+          <path d="M80 130 C92 140 98 152 90 158" stroke="rgba(100,190,85,0.5)" stroke-width="1.2" fill="none"/>
+          <ellipse cx="114" cy="27" rx="11" ry="9" fill="rgba(220,205,30,0.32)" stroke="rgba(240,225,50,0.55)" stroke-width="1.5"/>
+          <line x1="114" y1="19" x2="116" y2="14" stroke="rgba(100,190,85,0.75)" stroke-width="1.5"/>
+          <rect x="30" y="108" width="100" height="32" rx="2" fill="rgba(40,100,35,0.2)" stroke="rgba(80,160,70,0.3)" stroke-width="1"/>
+        </svg>
+
+        <div class="mesa-body">
+          <div class="mesa-no">02</div>
+          <h3 class="mesa-nm">Hortelã<br>com Limão</h3>
+          <div class="mesa-tags">
+            <span class="mtag">Refrescante</span>
+            <span class="mtag">Cítrico</span>
+            <span class="mtag">Aromático</span>
+          </div>
+          <p class="mesa-desc">
+            Frescor intenso da hortelã cultivada ao sol encontra a acidez vibrante do limão siciliano.
+            Perfeita para peixes grelhados, frango ao forno e sobremesas leves.
+          </p>
+          <a href="#pedido" class="mesa-link">Pedir Agora <span class="arr">→</span></a>
+        </div>
+      </div>
+
+      <!-- 03 · Geleia de Tomilho com Maçã -->
+      <div class="mesa-card" data-aos="fade-up" data-aos-delay="240">
+        <div class="mesa-bg" style="background:linear-gradient(160deg,#071508 0%,#040e05 60%,#081507 100%)"></div>
+        <div class="mesa-shade"></div>
+
+        <!-- Tomilho (thyme) jar placeholder -->
+        <svg class="mesa-product-placeholder" viewBox="0 0 160 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Geleia de Tomilho com Maçã – imagem do produto em breve">
+          <rect x="28" y="36" width="104" height="20" rx="5" fill="rgba(25,65,20,0.65)" stroke="rgba(80,160,70,0.7)" stroke-width="1.5"/>
+          <rect x="36" y="54" width="88" height="14" rx="2" fill="rgba(20,55,18,0.55)" stroke="rgba(70,145,62,0.6)" stroke-width="1.2"/>
+          <path d="M32 68 Q19 118 21 160 Q24 180 80 180 Q136 180 139 160 Q141 118 128 68 Z" fill="rgba(18,48,15,0.5)" stroke="rgba(70,150,62,0.65)" stroke-width="1.5"/>
+          <line x1="80" y1="155" x2="80" y2="88" stroke="rgba(100,190,85,0.82)" stroke-width="1.8"/>
+          <ellipse cx="69" cy="102" rx="7" ry="4.5" fill="rgba(80,180,70,0.52)" stroke="rgba(100,190,85,0.65)" stroke-width="1"/>
+          <ellipse cx="91" cy="102" rx="7" ry="4.5" fill="rgba(80,180,70,0.52)" stroke="rgba(100,190,85,0.65)" stroke-width="1"/>
+          <ellipse cx="67" cy="117" rx="7" ry="4.5" fill="rgba(80,180,70,0.52)" stroke="rgba(100,190,85,0.65)" stroke-width="1"/>
+          <ellipse cx="93" cy="117" rx="7" ry="4.5" fill="rgba(80,180,70,0.52)" stroke="rgba(100,190,85,0.65)" stroke-width="1"/>
+          <ellipse cx="69" cy="132" rx="7" ry="4.5" fill="rgba(80,180,70,0.52)" stroke="rgba(100,190,85,0.65)" stroke-width="1"/>
+          <ellipse cx="91" cy="132" rx="7" ry="4.5" fill="rgba(80,180,70,0.52)" stroke="rgba(100,190,85,0.65)" stroke-width="1"/>
+          <path d="M114 36 C109 22 119 13 124 20 C127 17 130 22 128 29 C132 31 132 40 125 42 C118 44 110 41 114 36" fill="rgba(200,80,60,0.32)" stroke="rgba(220,100,80,0.55)" stroke-width="1.5"/>
+          <line x1="121" y1="20" x2="123" y2="14" stroke="rgba(100,190,85,0.75)" stroke-width="1.5"/>
+          <rect x="30" y="108" width="100" height="32" rx="2" fill="rgba(40,100,35,0.2)" stroke="rgba(80,160,70,0.3)" stroke-width="1"/>
+        </svg>
+
+        <div class="mesa-body">
+          <div class="mesa-no">03</div>
+          <h3 class="mesa-nm">Tomilho<br>com Maçã</h3>
+          <div class="mesa-tags">
+            <span class="mtag">Terroso</span>
+            <span class="mtag">Frutado</span>
+            <span class="mtag">Sofisticado</span>
+          </div>
+          <p class="mesa-desc">
+            O sabor terroso e amadeirado do tomilho em harmonia com a doçura natural da maçã fuji.
+            Ideal para queijos curados, carnes brancas assadas e tábuas de frios gourmet.
+          </p>
+          <a href="#pedido" class="mesa-link">Pedir Agora <span class="arr">→</span></a>
+        </div>
+      </div>
+
     </div>
   </section>
 
