@@ -1029,7 +1029,7 @@
 
     .dep-head { text-align: center; margin-bottom: 4rem; }
 
-    .dep-slider { overflow: hidden; position: relative; }
+    .dep-slider { overflow-x: clip; position: relative; }
 
     .dep-track {
       display: flex;
@@ -1041,7 +1041,7 @@
 
     .dep-card {
       flex-shrink: 0;
-      min-width: calc(33.333% - 1.35rem);
+      width: calc(33.333% - 1.35rem);
       background: var(--dark-2);
       border: 1px solid rgba(255,255,255,0.055);
       padding: 2.8rem;
@@ -1049,7 +1049,6 @@
       transition: border-color 0.3s;
       display: flex;
       flex-direction: column;
-      height: 100%;
       min-height: 320px;
     }
 
@@ -1316,7 +1315,7 @@
       .footer-grid { grid-template-columns: 1fr 1fr; }
       .sabores-strip { grid-template-columns: 1fr; }
       .sabor { height: 480px; }
-      .dep-card { min-width: calc(50% - 1rem); }
+      .dep-card { width: calc(50% - 1rem); }
     }
 
     /* ============================================================
@@ -1403,7 +1402,7 @@
 
       .dif-grid { grid-template-columns: 1fr; }
 
-      .dep-card { min-width: 100%; padding: 1.75rem; min-height: unset; }
+      .dep-card { width: 100%; padding: 1.75rem; min-height: unset; }
 
       .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
       .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
