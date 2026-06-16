@@ -1371,8 +1371,30 @@
       .sobre-stats { flex-wrap: wrap; gap: 2rem; }
 
       .sabores-strip { grid-template-columns: 1fr; }
-      .sabor { height: 450px; }
-      .sabor-desc { max-height: 120px; opacity: 1; }
+      .sabor {
+        height: auto;
+        display: flex;
+        flex-direction: column;
+      }
+      .sabor-product-img {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        width: 65%;
+        max-height: none;
+        margin: 2.5rem auto 1rem;
+      }
+      .sabor:hover .sabor-product-img {
+        transform: none;
+        filter: drop-shadow(0 18px 48px rgba(0,0,0,0.75));
+      }
+      .sabor-body {
+        position: relative;
+        bottom: auto;
+        padding: 1rem 1.75rem 2rem;
+      }
+      .sabor-desc { max-height: none; opacity: 1; }
       .sabor-link { opacity: 1; transform: translateY(0); }
 
       .proc-cards { grid-template-columns: 1fr; }
