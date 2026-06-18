@@ -356,7 +356,7 @@
     .hero-bg {
       position: absolute;
       inset: 0;
-      background-image: url('Design%20sem%20nome(1).jpg');
+      background-image: url('Doce%20%26%20Brasa%20-%20Geleia%20de%20Abacaxi%20com%20Pimenta%20(11).jpg');
       background-size: cover;
       background-position: center 35%;
       animation: kenBurns 18s ease-out forwards;
@@ -599,6 +599,7 @@
 
     .sobre-stats {
       display: flex;
+      flex-wrap: wrap;
       gap: 3rem;
       margin-top: 3rem;
       padding-top: 2.5rem;
@@ -614,6 +615,10 @@
     #sabores {
       padding: 7rem 0 0;
       background: var(--black);
+      background-image:
+        radial-gradient(ellipse 60% 50% at 20% 40%, rgba(180,150,120,0.065) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 80% 30%, rgba(150,120,90,0.055) 0%, transparent 65%),
+        radial-gradient(ellipse 80% 60% at 50% 15%, rgba(130,110,80,0.04) 0%, transparent 80%);
     }
 
     .sabores-head {
@@ -624,7 +629,7 @@
     /* Big tri-panel cards */
     .sabores-strip {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 3px;
     }
 
@@ -810,7 +815,7 @@
 
     .harm-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 1.5rem;
     }
 
@@ -1467,12 +1472,12 @@
 
         <div class="sobre-media" data-aos="fade-right" data-aos-duration="900">
           <img
-            src="https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=850&q=85"
-            alt="Churrasco na brasa com carne suculenta"
+            src="Doce%20%26%20Brasa%20-%20Geleia%20de%20Abacaxi%20com%20Pimenta%20(1).jpg"
+            alt="Doce e Brasa - Geleia de Abacaxi com Pimenta"
             loading="lazy"
           />
           <div class="sobre-badge">
-            <span class="num">3</span>
+            <span class="num">2</span>
             <span class="lbl">Sabores<br>Únicos</span>
           </div>
         </div>
@@ -1497,7 +1502,7 @@
           </p>
           <div class="sobre-stats">
             <div class="stat">
-              <span class="n">3</span>
+              <span class="n">2</span>
               <span class="l">Sabores Exclusivos</span>
             </div>
             <div class="stat">
@@ -1507,6 +1512,14 @@
             <div class="stat">
               <span class="n">∞</span>
               <span class="l">Possibilidades</span>
+            </div>
+            <div class="stat">
+              <span class="n" style="font-size:2.2rem;letter-spacing:2px">SEM</span>
+              <span class="l">Conservantes</span>
+            </div>
+            <div class="stat">
+              <span class="n" style="font-size:2.2rem;letter-spacing:2px">SEM</span>
+              <span class="l">Glúten</span>
             </div>
           </div>
         </div>
@@ -1520,11 +1533,11 @@
   ══════════════════════════════════════════════════════ -->
   <section id="sabores">
     <div class="container sabores-head" data-aos="fade-up">
-      <span class="section-label">Linha Exclusiva</span>
+      <span class="section-label">Linha BBQ</span>
       <h2 class="section-title">OS SABORES</h2>
       <span class="red-bar center"></span>
       <p class="section-sub" style="max-width:520px;margin:0 auto">
-        Três criações para transformar seu churrasco em obra de arte gastronômica
+        Duas criações para transformar seu churrasco em obra de arte gastronômica
       </p>
     </div>
 
@@ -1541,7 +1554,7 @@
           <div class="sabor-tags">
             <span class="stag">Tropical</span>
             <span class="stag">Picante</span>
-            <span class="stag">Refrescante</span>
+            <span class="stag">Irresistível</span>
           </div>
           <div class="spice-meter">
             <span class="lbl">Ardência</span>
@@ -1561,49 +1574,18 @@
         </div>
       </div>
 
-      <!-- 02 · Goiaba Defumada com Pimenta -->
-      <div class="sabor" data-aos="fade-up" data-aos-delay="120">
-        <div class="sabor-bg" style="background:linear-gradient(160deg,#1a0808 0%,#080404 60%,#120606 100%)"></div>
-        <div class="sabor-shade"></div>
-        <img src="goiabafinal.png" alt="Geleia Goiaba Defumada com Pimenta" class="sabor-product-img">
-        <div class="sabor-body">
-          <div class="sabor-no">02</div>
-          <h3 class="sabor-nm">Goiaba<br>Defumada<br>com Pimenta</h3>
-          <div class="sabor-tags">
-            <span class="stag">Defumado</span>
-            <span class="stag">Intenso</span>
-            <span class="stag">Aromático</span>
-          </div>
-          <div class="spice-meter">
-            <span class="lbl">Ardência</span>
-            <div class="spice-dots">
-              <span class="sdot on"></span>
-              <span class="sdot on"></span>
-              <span class="sdot on"></span>
-              <span class="sdot on"></span>
-              <span class="sdot"></span>
-            </div>
-          </div>
-          <p class="sabor-desc">
-            Goiaba brasileira de polpa densa, defumada artesanalmente com lenha seca.
-            Camadas de aroma, brasa e pimenta que grudam na memória e na carne.
-          </p>
-          <a href="#pedido" class="sabor-link">Pedir Agora <span class="arr">→</span></a>
-        </div>
-      </div>
-
-      <!-- 03 · Cebola Roxa com Vinho -->
+      <!-- 02 · Cebola Roxa com Vinho -->
       <div class="sabor" data-aos="fade-up" data-aos-delay="240">
         <div class="sabor-bg" style="background:linear-gradient(160deg,#100514 0%,#07030d 60%,#0d0510 100%)"></div>
         <div class="sabor-shade"></div>
         <img src="cebolafinal.png" alt="Geleia Cebola Roxa com Vinho" class="sabor-product-img">
         <div class="sabor-body">
-          <div class="sabor-no">03</div>
+          <div class="sabor-no">02</div>
           <h3 class="sabor-nm">Cebola Roxa<br>com Vinho</h3>
           <div class="sabor-tags">
             <span class="stag">Sofisticado</span>
             <span class="stag">Agridoce</span>
-            <span class="stag">Nobre</span>
+            <span class="stag">Exótica</span>
           </div>
           <div class="spice-meter">
             <span class="lbl">Ardência</span>
@@ -1617,7 +1599,7 @@
           </div>
           <p class="sabor-desc">
             Cebola roxa caramelizada lentamente, enriquecida com vinho tinto seco.
-            Profundidade de sabor que transforma qualquer corte nobre em algo extraordinário.
+            Profundidade de sabor que transforma qualquer combinação em algo extraordinário.
           </p>
           <a href="#pedido" class="sabor-link">Pedir Agora <span class="arr">→</span></a>
         </div>
@@ -1635,7 +1617,7 @@
       <div class="container">
 
         <div class="harm-head" data-aos="fade-up">
-          <span class="section-label">Guia do Churrasqueiro</span>
+          <span class="section-label">Guia do Consumidor</span>
           <h2 class="section-title">HARMONIZAÇÃO<br>PERFEITA</h2>
           <span class="red-bar center"></span>
           <p class="section-sub" style="max-width:540px;margin:0 auto">
@@ -1667,20 +1649,6 @@
           <div class="harm-card" data-aos="fade-up" data-aos-delay="150">
             <span class="harm-badge">02</span>
             <p class="harm-fl">Sabor 02</p>
-            <h3 class="harm-ttl">Goiaba Defumada</h3>
-            <ul class="harm-list">
-              <li>Costela bovina na brasa</li>
-              <li>Brisket defumado</li>
-              <li>Panceta grelhada</li>
-              <li>Linguiça artesanal</li>
-              <li>Pernil com osso</li>
-              <li>Torresmo crocante</li>
-            </ul>
-          </div>
-
-          <div class="harm-card" data-aos="fade-up" data-aos-delay="300">
-            <span class="harm-badge">03</span>
-            <p class="harm-fl">Sabor 03</p>
             <h3 class="harm-ttl">Cebola Roxa c/ Vinho</h3>
             <ul class="harm-list">
               <li>Picanha premium</li>
@@ -1889,7 +1857,6 @@
           <h4>Sabores</h4>
           <ul>
             <li><a href="#sabores">Abacaxi com Pimenta</a></li>
-            <li><a href="#sabores">Goiaba Defumada com Pimenta</a></li>
             <li><a href="#sabores">Cebola Roxa com Vinho</a></li>
             <li><a href="#pedido">Kit Presente</a></li>
           </ul>
