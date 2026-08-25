@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Primary SEO -->
-  <title>Doce e Brasa | Geleias Artesanais para Churrasco</title>
-  <meta name="description" content="Geleias artesanais criadas para elevar seu churrasco. Sabores únicos: Abacaxi com Pimenta, Goiaba Defumada com Pimenta e Cebola Roxa com Vinho. Feitas com ingredientes selecionados, para quem leva o churrasco a sério.">
-  <meta name="keywords" content="geleia artesanal, geleia para churrasco, churrasco, abacaxi com pimenta, goiaba defumada com pimenta, cebola roxa com vinho, molho artesanal, condimento para churrasco, geleia gourmet, Doce e Brasa, geleia de pimenta, presente gourmet, acompanhamento para churrasco, geleia picante">
+  <title>Doce e Brasa | Geleias Artesanais para Churrasco · Compre Online</title>
+  <meta name="description" content="Geleias artesanais criadas para elevar seu churrasco. Sabores únicos: Abacaxi com Pimenta e Cebola Roxa com Vinho. Feitas com ingredientes selecionados, para quem leva o churrasco a sério.">
+  <meta name="keywords" content="geleia artesanal, geleia para churrasco, churrasco, abacaxi com pimenta, cebola roxa com vinho, molho artesanal, condimento para churrasco, geleia gourmet, Doce e Brasa, geleia de pimenta, presente gourmet, acompanhamento para churrasco, geleia picante">
   <meta name="author" content="Doce e Brasa">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://docebrasa.com.br/">
@@ -25,7 +25,7 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://docebrasa.com.br/">
   <meta property="og:title" content="Doce e Brasa | Geleias Artesanais para Churrasco">
-  <meta property="og:description" content="Geleias artesanais criadas para elevar seu churrasco. Sabores únicos: Abacaxi com Pimenta, Goiaba Defumada com Pimenta e Cebola Roxa com Vinho. Feitas com ingredientes selecionados, para quem leva o churrasco a sério.">
+  <meta property="og:description" content="Geleias artesanais criadas para elevar seu churrasco. Sabores únicos: Abacaxi com Pimenta e Cebola Roxa com Vinho. Feitas com ingredientes selecionados, para quem leva o churrasco a sério.">
   <meta property="og:image" content="https://docebrasa.com.br/logo.jpg">
   <meta property="og:image:alt" content="Doce e Brasa - Geleias Artesanais para Churrasco">
   <meta property="og:locale" content="pt_BR">
@@ -34,7 +34,7 @@
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Doce e Brasa | Geleias Artesanais para Churrasco">
-  <meta name="twitter:description" content="Geleias artesanais criadas para elevar seu churrasco. Sabores únicos: Abacaxi com Pimenta, Goiaba Defumada com Pimenta e Cebola Roxa com Vinho.">
+  <meta name="twitter:description" content="Geleias artesanais criadas para elevar seu churrasco. Sabores únicos: Abacaxi com Pimenta e Cebola Roxa com Vinho.">
   <meta name="twitter:image" content="https://docebrasa.com.br/logo.jpg">
   <meta name="twitter:image:alt" content="Doce e Brasa - Geleias Artesanais para Churrasco">
 
@@ -42,6 +42,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+  <link rel="stylesheet" href="/assets/loja.css">
   <style>
     /* ============================================================
        RESET & VARIABLES
@@ -521,98 +522,9 @@
     }
 
     /* ============================================================
-       SECTION 2: MANIFESTO / SOBRE
-    ============================================================ */
-    #sobre {
-      position: relative;
-      padding: 9rem 0;
-      background: var(--dark);
-      overflow: hidden;
-    }
-
-    #sobre::before {
-      content: '';
-      position: absolute;
-      top: -1px; left: 0; right: 0;
-      height: 80px;
-      background: var(--black);
-      clip-path: polygon(0 0, 100% 0, 100% 60%);
-    }
-
-    .sobre-wrap {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 7rem;
-      align-items: center;
-    }
-
-    .sobre-media {
-      position: relative;
-    }
-
-    .sobre-media::before {
-      content: '';
-      position: absolute;
-      top: -18px; left: -18px;
-      right: 18px; bottom: 18px;
-      border: 1px solid rgba(127,29,29,0.55);
-      pointer-events: none;
-    }
-
-    .sobre-media img {
-      width: 100%;
-      height: 520px;
-      object-fit: cover;
-      position: relative;
-      z-index: 1;
-      filter: brightness(0.88) saturate(0.9);
-    }
-
-    .sobre-badge {
-      position: absolute;
-      bottom: -28px;
-      right: -28px;
-      width: 140px;
-      height: 140px;
-      background: var(--red);
-      border-radius: 50%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 3;
-      text-align: center;
-      box-shadow: 0 15px 45px rgba(185,28,28,0.5);
-    }
-
-    .sobre-badge .num { font-family: var(--fn-display); font-size: 3.5rem; line-height: 1; }
-    .sobre-badge .lbl { font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(240,230,214,0.8); }
-
-    .sobre-text p {
-      font-size: 1rem;
-      color: rgba(240, 230, 214, 0.8);
-      line-height: 1.95;
-      margin-bottom: 1.4rem;
-    }
-
-    .sobre-text p strong { color: var(--warm); }
-
-    .sobre-stats {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 3rem;
-      margin-top: 3rem;
-      padding-top: 2.5rem;
-      border-top: 1px solid rgba(255,255,255,0.07);
-    }
-
-    .stat .n { font-family: var(--fn-display); font-size: 3.8rem; color: var(--red-bright); line-height: 1; }
-    .stat .l { font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-top: 0.2rem; }
-
-    /* ============================================================
        SECTION 3: SABORES
     ============================================================ */
-    #sabores {
+    #produtos {
       padding: 7rem 0 0;
       background: var(--black);
       background-image:
@@ -635,9 +547,11 @@
 
     .sabor {
       position: relative;
-      height: 640px;
+      min-height: 720px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
       overflow: hidden;
-      cursor: pointer;
     }
 
     .sabor-bg {
@@ -646,23 +560,26 @@
       background-size: cover;
       background-position: center;
       transition: transform 0.9s ease, filter 0.9s ease;
-      filter: brightness(0.48) saturate(1.2);
+      filter: brightness(0.62) saturate(1.15);
     }
 
     .sabor:hover .sabor-bg {
-      transform: scale(1.07);
-      filter: brightness(0.36) saturate(1.6);
+      transform: scale(1.06);
+      filter: brightness(0.5) saturate(1.4);
     }
 
     .sabor-shade {
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, transparent 25%, rgba(8,8,8,0.92) 100%);
+      background: linear-gradient(180deg,
+        rgba(8,8,8,0.30) 0%,
+        rgba(8,8,8,0.55) 32%,
+        rgba(8,8,8,0.90) 62%,
+        rgba(8,8,8,0.97) 100%);
     }
 
     .sabor-body {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
+      position: relative;
       padding: 2.5rem;
       z-index: 2;
     }
@@ -708,15 +625,6 @@
       color: rgba(240, 230, 214, 0.90);
       font-style: normal;
       line-height: 1.75;
-      max-height: 0;
-      overflow: hidden;
-      opacity: 0;
-      transition: all 0.55s ease;
-    }
-
-    .sabor:hover .sabor-desc {
-      max-height: 120px;
-      opacity: 1;
     }
 
     .sabor-link {
@@ -729,15 +637,81 @@
       letter-spacing: 3px;
       text-transform: uppercase;
       color: var(--cream);
-      opacity: 0;
-      transform: translateY(12px);
-      transition: all 0.45s 0.08s ease;
+      transition: color 0.3s;
     }
 
     .sabor-link .arr { transition: transform 0.3s; }
+    .sabor-link:hover      { color: var(--red-bright); }
+    .sabor-link:hover .arr { transform: translateX(5px); }
 
-    .sabor:hover .sabor-link { opacity: 1; transform: translateY(0); }
-    .sabor-link:hover .arr   { transform: translateX(5px); }
+    /* Nome do sabor como link para a página do produto */
+    .sabor-nm a:hover { color: var(--red-bright); }
+
+    /* Preço e ações de compra dentro do card */
+    .sabor-preco {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      margin-top: 1.5rem;
+    }
+
+    .sabor-preco .de {
+      font-size: 0.85rem;
+      color: var(--muted);
+      text-decoration: line-through;
+    }
+
+    .sabor-preco .agora {
+      font-family: var(--fn-display);
+      font-size: 2.4rem;
+      line-height: 1;
+      letter-spacing: 1px;
+      color: var(--cream);
+    }
+
+    .sabor-preco .off {
+      background: rgba(22,163,74,0.15);
+      border: 1px solid rgba(22,163,74,0.4);
+      color: #4ade80;
+      padding: 0.22rem 0.6rem;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .sabor-parcela {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 0.45rem;
+    }
+
+    .sabor-acoes {
+      display: flex;
+      gap: 0.7rem;
+      margin-top: 1.3rem;
+      flex-wrap: wrap;
+    }
+
+    .sabor-acoes .btn-fire,
+    .sabor-acoes .btn-ghost {
+      flex: 1 1 150px;
+      padding: 0.9rem 1.1rem;
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      text-align: center;
+    }
+
+    /* Selo de garantias sob o título da vitrine */
+    .loja-selo {
+      margin-top: 1.5rem;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
 
     /* Spice meter */
     .spice-meter {
@@ -1312,14 +1286,12 @@
     @media (max-width: 1100px) {
       nav      { padding: 1.5rem 2rem; }
       nav.scrolled { padding: 1rem 2rem; }
-      .sobre-wrap { gap: 4rem; }
-      .sobre-media img { height: 420px; }
       .harm-grid { grid-template-columns: 1fr; gap: 1.25rem; }
       .proc-cards { grid-template-columns: repeat(2, 1fr); }
       .dif-grid  { grid-template-columns: repeat(2, 1fr); }
       .footer-grid { grid-template-columns: 1fr 1fr; }
       .sabores-strip { grid-template-columns: 1fr; }
-      .sabor { height: 480px; }
+      .sabor { min-height: 640px; }
       .dep-card { width: calc(50% - 1rem); }
     }
 
@@ -1368,20 +1340,10 @@
 
       .hero-title { font-size: clamp(4.5rem, 18vw, 8rem); }
 
-      .sobre-wrap { grid-template-columns: 1fr; }
-      .sobre-media { order: -1; }
-      .sobre-media img { height: 320px; }
-      .sobre-badge { display: none; }
-      .sobre-stats { flex-wrap: wrap; gap: 2rem; }
-      .stat { display: flex; flex-direction: row; align-items: center; gap: 0.6rem; }
-      .stat .n { font-size: 2.5rem; }
-
       .sabores-strip { grid-template-columns: 1fr; }
-      .sabor {
-        height: auto;
-        display: flex;
-        flex-direction: column;
-      }
+      .sabor { min-height: 0; }
+      .loja-selo { letter-spacing: 1.5px; font-size: 0.63rem; line-height: 2; }
+      .sabor-preco .agora { font-size: 2.1rem; }
       .sabor-product-img {
         position: relative;
         top: auto;
@@ -1400,8 +1362,6 @@
         bottom: auto;
         padding: 1rem 1.75rem 2rem;
       }
-      .sabor-desc { max-height: none; opacity: 1; }
-      .sabor-link { opacity: 1; transform: translateY(0); }
 
       .proc-cards { grid-template-columns: 1fr; }
 
@@ -1432,12 +1392,12 @@
     <a href="#" class="mobile-logo" onclick="closeMobile()">
       <img src="logo.webp" alt="Doce e Brasa">
     </a>
-    <a href="#sobre"        onclick="closeMobile()">Sobre</a>
-    <a href="#sabores"      onclick="closeMobile()">Sabores</a>
+    <a href="#produtos"     onclick="closeMobile()">Produtos</a>
     <a href="#harmonizacao" onclick="closeMobile()">Harmonização</a>
     <a href="#processo"     onclick="closeMobile()">Processo</a>
     <a href="#depoimentos"  onclick="closeMobile()">Depoimentos</a>
-    <a href="#pedido"       onclick="closeMobile()" style="color:var(--red-bright)">Pedir Agora</a>
+    <a href="carrinho.html" onclick="closeMobile()">Meu Carrinho (<span data-cart-count>0</span>)</a>
+    <a href="#produtos"     onclick="closeMobile()" style="color:var(--red-bright)">Comprar Agora</a>
   </div>
 
   <!-- ── NAVIGATION ─────────────────────────────────────── -->
@@ -1446,12 +1406,18 @@
       <img src="logo.webp" alt="Doce e Brasa" width="54" height="54">
     </a>
     <ul class="nav-links">
-      <li><a href="#sobre">Sobre</a></li>
-      <li><a href="#sabores">Sabores</a></li>
+      <li><a href="#produtos">Produtos</a></li>
       <li><a href="#harmonizacao">Harmonização</a></li>
       <li><a href="#processo">Processo</a></li>
       <li><a href="#depoimentos">Depoimentos</a></li>
-      <li><a href="#pedido" class="btn-fire">Pedir Agora</a></li>
+      <li>
+        <a href="carrinho.html" class="nav-cart">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+          <span class="texto">Carrinho</span>
+          <span class="contador vazio" data-cart-count>0</span>
+        </a>
+      </li>
+      <li><a href="#produtos" class="btn-fire">Comprar Agora</a></li>
     </ul>
     <button class="hamburger" id="hamburger" onclick="toggleMobile()" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -1470,8 +1436,8 @@
       <h1 class="hero-title">DA BRASA<br>AO SABOR</h1>
       <p class="hero-tag">Geleias artesanais que transformam cada corte em experiência inesquecível.</p>
       <div class="hero-btns">
-        <a href="#sabores" class="btn-fire">Explorar Sabores</a>
-        <a href="#sobre"   class="btn-ghost">Nossa História</a>
+        <a href="#produtos"     class="btn-fire">Explorar Sabores</a>
+        <a href="#harmonizacao" class="btn-ghost">Guia de Harmonização</a>
       </div>
     </div>
     <div class="hero-scroll-hint">
@@ -1481,74 +1447,10 @@
   </section>
 
   <!-- ══════════════════════════════════════════════════════
-       SECTION 2 · MANIFESTO / SOBRE
+       SECTION 2 · LOJA · OS SABORES
   ══════════════════════════════════════════════════════ -->
-  <section id="sobre">
-    <div class="container">
-      <div class="sobre-wrap">
-
-        <div class="sobre-media" data-aos="fade-right" data-aos-duration="900">
-          <img
-            src="sobre.webp"
-            alt="Doce e Brasa - Geleia de Abacaxi com Pimenta"
-            loading="lazy"
-          />
-          <div class="sobre-badge">
-            <span class="num">2</span>
-            <span class="lbl">Sabores<br>Únicos</span>
-          </div>
-        </div>
-
-        <div data-aos="fade-left" data-aos-delay="180" data-aos-duration="900">
-          <span class="section-label">Nossa História</span>
-          <h2 class="section-title">ONDE O<br>FOGO<br>ENCONTRA<br>O SABOR</h2>
-          <span class="red-bar"></span>
-          <p>
-            A <strong>Doce e Brasa</strong> nasceu ao redor de uma churrasqueira,
-            como toda boa história brasileira. Da paixão pelo churrasco artesanal
-            e pela ousadia de criar combinações que ninguém tinha ousado antes.
-          </p>
-          <p>
-            Nossas geleias são feitas com <strong>ingredientes selecionados a dedo</strong>,
-            processo artesanal e muito amor. Cada pote carrega o perfume da fumaça,
-            o calor da brasa e a doçura que só a natureza oferece.
-          </p>
-          <p>
-            Criadas para elevar qualquer corte a uma <strong>experiência gastronômica
-            inesquecível</strong>: picanha, frango, costela ou queijo coalho.
-          </p>
-          <div class="sobre-stats">
-            <div class="stat">
-              <span class="n">2</span>
-              <span class="l">Sabores Exclusivos</span>
-            </div>
-            <div class="stat">
-              <span class="n">100%</span>
-              <span class="l">Natural</span>
-            </div>
-            <div class="stat">
-              <span class="n">∞</span>
-              <span class="l">Possibilidades</span>
-            </div>
-            <div class="stat">
-              <span class="n" style="font-size:2.2rem;letter-spacing:2px">SEM</span>
-              <span class="l">Conservantes</span>
-            </div>
-            <div class="stat">
-              <span class="n" style="font-size:2.2rem;letter-spacing:2px">SEM</span>
-              <span class="l">Glúten</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════════════════════
-       SECTION 3 · OS SABORES
-  ══════════════════════════════════════════════════════ -->
-  <section id="sabores">
+  <span id="sabores" aria-hidden="true"></span>
+  <section id="produtos">
     <div class="container sabores-head" data-aos="fade-up">
       <span class="section-label">Linha BBQ</span>
       <h2 class="section-title">OS SABORES</h2>
@@ -1556,17 +1458,18 @@
       <p class="section-sub" style="max-width:520px;margin:0 auto">
         Duas criações para transformar seu churrasco em obra de arte gastronômica
       </p>
+      <p class="loja-selo">Pote de 300 g · Entrega nacional pelos Correios · Frete grátis acima de R$ 199,90</p>
     </div>
 
     <div class="sabores-strip">
 
       <!-- 01 · Abacaxi com Pimenta -->
-      <div class="sabor" data-aos="fade-up" data-aos-delay="0">
+      <article class="sabor" data-aos="fade-up" data-aos-delay="0">
         <div class="sabor-bg" style="background-image:url('sabor-abacaxi.webp')"></div>
         <div class="sabor-shade"></div>
         <div class="sabor-body">
           <div class="sabor-no">01</div>
-          <h3 class="sabor-nm">Abacaxi<br>com Pimenta</h3>
+          <h3 class="sabor-nm"><a href="produto.html?id=abacaxi">Abacaxi<br>com Pimenta</a></h3>
           <div class="sabor-tags">
             <span class="stag">Tropical</span>
             <span class="stag">Picante</span>
@@ -1586,17 +1489,26 @@
             Suculência tropical do abacaxi encontra o calor da pimenta dedo-de-moça.
             Cada garfada é uma explosão de doçura seguida de um ardor irresistível.
           </p>
-          <a href="#pedido" class="sabor-link">Pedir Agora <span class="arr">→</span></a>
+          <div class="sabor-preco">
+            <span class="de">R$ 49,90</span>
+            <span class="agora">R$ 39,90</span>
+            <span class="off">−20%</span>
+          </div>
+          <p class="sabor-parcela">ou 3× de R$ 13,30 sem juros · R$ 37,90 no PIX</p>
+          <div class="sabor-acoes">
+            <button type="button" class="btn-fire" data-comprar="abacaxi">Comprar</button>
+            <a href="produto.html?id=abacaxi" class="btn-ghost">Ver Detalhes</a>
+          </div>
         </div>
-      </div>
+      </article>
 
       <!-- 02 · Cebola Roxa com Vinho -->
-      <div class="sabor" data-aos="fade-up" data-aos-delay="240">
+      <article class="sabor" data-aos="fade-up" data-aos-delay="240">
         <div class="sabor-bg" style="background-image:url('sabor-cebola.webp')"></div>
         <div class="sabor-shade"></div>
         <div class="sabor-body">
           <div class="sabor-no">02</div>
-          <h3 class="sabor-nm">Cebola Roxa<br>com Vinho</h3>
+          <h3 class="sabor-nm"><a href="produto.html?id=cebola">Cebola Roxa<br>com Vinho</a></h3>
           <div class="sabor-tags">
             <span class="stag">Sofisticado</span>
             <span class="stag">Agridoce</span>
@@ -1616,9 +1528,18 @@
             Cebola roxa caramelizada lentamente, enriquecida com vinho tinto seco.
             Profundidade de sabor que transforma qualquer combinação em algo extraordinário.
           </p>
-          <a href="#pedido" class="sabor-link">Pedir Agora <span class="arr">→</span></a>
+          <div class="sabor-preco">
+            <span class="de">R$ 49,90</span>
+            <span class="agora">R$ 39,90</span>
+            <span class="off">−20%</span>
+          </div>
+          <p class="sabor-parcela">ou 3× de R$ 13,30 sem juros · R$ 37,90 no PIX</p>
+          <div class="sabor-acoes">
+            <button type="button" class="btn-fire" data-comprar="cebola">Comprar</button>
+            <a href="produto.html?id=cebola" class="btn-ghost">Ver Detalhes</a>
+          </div>
         </div>
-      </div>
+      </article>
 
     </div>
   </section>
@@ -1641,7 +1562,7 @@
           </p>
           <img src="luvas-bbq.webp" alt="" class="mascot-harm" aria-hidden="true">
           <div style="margin-top:2.5rem">
-            <a href="https://wa.me/553499047484" target="_blank" rel="noopener" class="btn-fire">Quero Experimentar</a>
+            <a href="#produtos" class="btn-fire">Quero Experimentar</a>
           </div>
         </div>
 
@@ -1740,7 +1661,7 @@
           <div class="dep-card">
             <span class="dep-quote">"</span>
             <div class="dep-stars">★★★★★</div>
-            <p class="dep-text">"A geleia de Goiaba Defumada é simplesmente incrível na costela. Nunca imaginei que um produto assim poderia transformar tanto o sabor da carne. Já estou no meu quinto pote!"</p>
+            <p class="dep-text">"A geleia de Cebola Roxa com Vinho é simplesmente incrível na costela. Nunca imaginei que um produto assim poderia transformar tanto o sabor da carne. Já estou no meu quinto pote!"</p>
             <div class="dep-author">
               <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&h=100&q=80" alt="Carlos Eduardo" class="dep-avatar" loading="lazy">
               <div>
@@ -1812,7 +1733,7 @@
       </div>
 
       <div style="text-align:center;margin-top:3rem">
-        <a href="https://wa.me/553499047484" target="_blank" rel="noopener" class="btn-fire">Pedir e Experimentar</a>
+        <a href="#produtos" class="btn-fire">Pedir e Experimentar</a>
       </div>
 
     </div>
@@ -1830,7 +1751,14 @@
       <h2 class="section-title">PEÇA<br>AGORA</h2>
       <span class="red-bar center"></span>
 
-      <a href="https://wa.me/553499047484" target="_blank" rel="noopener" class="btn-fire" style="font-size:0.95rem;padding:1.15rem 3rem;display:inline-flex;align-items:center;gap:0.7rem">
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.25rem">
+        <a href="#produtos" class="btn-fire" style="font-size:0.95rem;padding:1.15rem 3rem">Comprar Agora</a>
+        <a href="carrinho.html" class="btn-ghost" style="font-size:0.95rem;padding:1.1rem 3rem">Ver Meu Carrinho</a>
+      </div>
+
+      <p style="font-size:0.78rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:1.25rem">Prefere pedir pelo WhatsApp?</p>
+
+      <a href="https://wa.me/553499047484" target="_blank" rel="noopener" class="btn-ghost" style="font-size:0.85rem;padding:0.95rem 2.2rem;display:inline-flex;align-items:center;gap:0.7rem">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         Chamar no WhatsApp
       </a>
@@ -1871,20 +1799,20 @@
         <div class="footer-col">
           <h4>Sabores</h4>
           <ul>
-            <li><a href="#sabores">Abacaxi com Pimenta</a></li>
-            <li><a href="#sabores">Cebola Roxa com Vinho</a></li>
-            <li><a href="#pedido">Kit Presente</a></li>
+            <li><a href="produto.html?id=abacaxi">Abacaxi com Pimenta</a></li>
+            <li><a href="produto.html?id=cebola">Cebola Roxa com Vinho</a></li>
+            <li><a href="carrinho.html">Meu Carrinho</a></li>
           </ul>
         </div>
 
         <div class="footer-col">
           <h4>Navegação</h4>
           <ul>
-            <li><a href="#sobre">Nossa História</a></li>
+            <li><a href="#produtos">Produtos</a></li>
             <li><a href="#harmonizacao">Harmonização</a></li>
             <li><a href="#processo">Processo</a></li>
             <li><a href="#depoimentos">Depoimentos</a></li>
-            <li><a href="#pedido">Fazer Pedido</a></li>
+            <li><a href="checkout.html">Finalizar Compra</a></li>
           </ul>
         </div>
 
@@ -1892,7 +1820,7 @@
 
       <div class="footer-bottom">
         <p>© 2026 Doce e Brasa. Todos os direitos reservados.</p>
-        <p>Feito com muito amor</p>
+        <p>Pagamentos por Asaas · Envios pelos Correios</p>
       </div>
     </div>
   </footer>
@@ -1926,7 +1854,7 @@
     "@type": "ItemList",
     "name": "Geleias Artesanais Doce e Brasa",
     "description": "Linha completa de geleias artesanais para churrasco",
-    "url": "https://docebrasa.com.br/#sabores",
+    "url": "https://docebrasa.com.br/#produtos",
     "itemListElement": [
       {
         "@type": "ListItem",
@@ -1937,6 +1865,8 @@
           "description": "A doçura tropical do abacaxi encontra o calor da pimenta numa combinação que transforma qualquer assado.",
           "brand": { "@type": "Brand", "name": "Doce e Brasa" },
           "image": "https://docebrasa.com.br/abacaxifinal.png",
+          "url": "https://docebrasa.com.br/produto.html?id=abacaxi",
+          "weight": { "@type": "QuantitativeValue", "value": 300, "unitCode": "GRM" },
           "aggregateRating": {
             "@type": "AggregateRating",
             "ratingValue": "5",
@@ -1946,8 +1876,10 @@
           },
           "offers": {
             "@type": "Offer",
+            "url": "https://docebrasa.com.br/produto.html?id=abacaxi",
             "availability": "https://schema.org/InStock",
             "priceCurrency": "BRL",
+            "price": "39.90",
             "seller": { "@type": "Organization", "name": "Doce e Brasa" }
           }
         }
@@ -1957,34 +1889,12 @@
         "position": 2,
         "item": {
           "@type": "Product",
-          "name": "Geleia de Goiaba Defumada com Pimenta",
-          "description": "O aroma da goiaba com notas de defumado e pimenta, criando um sabor complexo e irresistível para carnes.",
-          "brand": { "@type": "Brand", "name": "Doce e Brasa" },
-          "image": "https://docebrasa.com.br/goiabafinal.png",
-          "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "5",
-            "reviewCount": "5",
-            "bestRating": "5",
-            "worstRating": "1"
-          },
-          "offers": {
-            "@type": "Offer",
-            "availability": "https://schema.org/InStock",
-            "priceCurrency": "BRL",
-            "seller": { "@type": "Organization", "name": "Doce e Brasa" }
-          }
-        }
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "item": {
-          "@type": "Product",
           "name": "Geleia de Cebola Roxa com Vinho",
           "description": "A cebola roxa caramelizada encontra o vinho tinto num molho sofisticado perfeito para carnes nobres.",
           "brand": { "@type": "Brand", "name": "Doce e Brasa" },
           "image": "https://docebrasa.com.br/cebolafinal.png",
+          "url": "https://docebrasa.com.br/produto.html?id=cebola",
+          "weight": { "@type": "QuantitativeValue", "value": 300, "unitCode": "GRM" },
           "aggregateRating": {
             "@type": "AggregateRating",
             "ratingValue": "5",
@@ -1994,8 +1904,10 @@
           },
           "offers": {
             "@type": "Offer",
+            "url": "https://docebrasa.com.br/produto.html?id=cebola",
             "availability": "https://schema.org/InStock",
             "priceCurrency": "BRL",
+            "price": "39.90",
             "seller": { "@type": "Organization", "name": "Doce e Brasa" }
           }
         }
@@ -2003,6 +1915,9 @@
     ]
   }
   </script>
+
+  <!-- Loja -->
+  <script src="/assets/loja.js"></script>
 
   <!-- AOS -->
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
@@ -2088,6 +2003,15 @@
       buildDots();
       resetAuto();
     })();
+
+    /* ─── Botões "Comprar" da vitrine ─── */
+    document.querySelectorAll('[data-comprar]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var p = Loja.produto(btn.dataset.comprar);
+        Loja.Carrinho.adicionar(p.id, 1);
+        Loja.toast(p.nome + ' no carrinho.', { href: 'carrinho.html', texto: 'Finalizar compra' });
+      });
+    });
 
     /* ─── Subtle hero parallax ─── */
     const heroBg = document.querySelector('.hero-bg');

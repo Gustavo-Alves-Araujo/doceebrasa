@@ -1,0 +1,30 @@
+# Fontes pesadas que não são servidas pelo site.
+# Continuam versionadas no git — só não sobem para o deploy.
+
+Doce & Brasa - Geleia de Abacaxi com Pimenta (1).jpg
+Doce & Brasa - Geleia de Abacaxi com Pimenta (6).jpg
+Doce & Brasa - Geleia de Abacaxi com Pimenta (7).jpg
+Doce & Brasa - Geleia de Abacaxi com Pimenta (11).jpg
+
+aBACAXI pIMENTA 001.png
+cEBOLA rOXA E vINHO 001 001.png
+Cebola e vinho OFC.png
+Cebola Roxa com Vinho (1).png
+Abacaxi com Pimenta.png
+Sobre o pote.png
+Segurando Pote.png
+Luvas BBQ.png
+Espatula.png
+Chef.png
+Indica.png
+Indica 2.png
+Like.png
+
+# Sabor fora de linha e imagem da seção "Sobre", que saiu do site
+goiabafinal.png
+sobre.webp
+
+# Documentação e ferramentas
+TUTORIAL-CREDENCIAIS.md
+README.md
+.vscode

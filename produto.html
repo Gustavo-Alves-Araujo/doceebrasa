@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Produto | Doce e Brasa</title>
+  <meta name="description" content="Geleia artesanal Doce e Brasa, pote de 300 g. Feita com ingredientes selecionados para elevar seu churrasco.">
+  <meta name="robots" content="index, follow">
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/logo.jpg">
+  <meta name="theme-color" content="#b91c1c">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/loja.css">
+</head>
+<body class="loja">
+
+  <!-- ── NAVEGAÇÃO ─────────────────────────────────────── -->
+  <nav class="loja-nav">
+    <a href="/" class="nav-logo">
+      <img src="logo.webp" alt="Doce e Brasa" width="54" height="54">
+    </a>
+    <ul class="nav-links">
+      <li class="oculta-mobile"><a href="/#produtos">Produtos</a></li>
+      <li class="oculta-mobile"><a href="/#harmonizacao">Harmonização</a></li>
+      <li class="oculta-mobile"><a href="/#processo">Processo</a></li>
+      <li>
+        <a href="/carrinho.html" class="nav-cart">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+          <span class="texto">Carrinho</span>
+          <span class="contador vazio" data-cart-count>0</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <main class="container">
+
+    <nav class="migalhas" aria-label="Você está aqui">
+      <a href="/">Início</a>
+      <span class="sep">/</span>
+      <a href="/#produtos">Produtos</a>
+      <span class="sep">/</span>
+      <span class="atual" id="migalhaNome">Carregando…</span>
+    </nav>
+
+    <!-- ── FICHA DO PRODUTO ───────────────────────────── -->
+    <div class="produto-wrap" id="produtoWrap" hidden>
+
+      <div class="produto-galeria">
+        <div class="produto-palco" id="palco">
+          <span class="produto-selo">Artesanal · 300 g</span>
+          <div class="cenario" id="palcoCenario"></div>
+          <img class="pote" id="palcoPote" src="" alt="">
+        </div>
+        <div class="produto-miniaturas" id="miniaturas"></div>
+      </div>
+
+      <div class="produto-info">
+        <span class="section-label" id="produtoLinha">Linha BBQ</span>
+        <h1 class="produto-nome" id="produtoNome"></h1>
+
+        <div class="produto-avaliacao">
+          <span class="estrelas">★★★★★</span>
+          <span>5,0 · 5 avaliações</span>
+        </div>
+
+        <div class="produto-tags" id="produtoTags"></div>
+
+        <div class="spice-meter">
+          <span class="lbl">Ardência</span>
+          <div class="spice-dots" id="produtoArdencia"></div>
+        </div>
+
+        <p class="produto-resumo" id="produtoResumo"></p>
+
+        <div class="bloco-preco">
+          <div class="preco-linha">
+            <span class="preco-de" id="precoDe"></span>
+            <span class="preco-agora" id="precoAgora"></span>
+            <span class="preco-desconto" id="precoDesconto"></span>
+          </div>
+          <p class="preco-parcela" id="precoParcela"></p>
+        </div>
+
+        <div class="compra-linha">
+          <div class="seletor-qtd">
+            <button type="button" id="qtdMenos" aria-label="Diminuir quantidade">−</button>
+            <input type="number" id="qtd" value="1" min="1" max="99" inputmode="numeric" aria-label="Quantidade">
+            <button type="button" id="qtdMais" aria-label="Aumentar quantidade">+</button>
+          </div>
+          <button type="button" class="btn-fire" id="btnAdicionar">Adicionar ao Carrinho</button>
+        </div>
+
+        <button type="button" class="btn-ghost btn-bloco" id="btnComprarAgora" style="margin-top:1rem">Comprar Agora</button>
+
+        <div class="garantias">
+          <div class="garantia"><span class="ic">◆</span><span><strong>Frete grátis</strong> em pedidos acima de <span id="freteGratisValor"></span> · Entrega nacional pelos Correios</span></div>
+          <div class="garantia"><span class="ic">◆</span><span><strong>Pagamento seguro</strong> via Asaas — PIX, boleto ou cartão em até 12×</span></div>
+          <div class="garantia"><span class="ic">◆</span><span><strong>Envasado a quente e lacrado</strong> · Sem conservantes, sem glúten</span></div>
+          <div class="garantia"><span class="ic">◆</span><span><strong>Embalagem reforçada</strong> com proteção antichoque para o vidro</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── ABAS DE DETALHE ────────────────────────────── -->
+    <section class="produto-detalhes" id="detalhes" hidden>
+      <div class="abas" role="tablist">
+        <button type="button" class="ativa" data-painel="descricao" role="tab">Descrição</button>
+        <button type="button" data-painel="ficha" role="tab">Ficha Técnica</button>
+        <button type="button" data-painel="harmoniza" role="tab">Harmonização</button>
+        <button type="button" data-painel="entrega" role="tab">Entrega e Trocas</button>
+      </div>
+
+      <div class="painel ativo" id="painel-descricao">
+        <p id="textoDescricao"></p>
+      </div>
+
+      <div class="painel" id="painel-ficha">
+        <table class="tabela-ficha"><tbody id="corpoFicha"></tbody></table>
+      </div>
+
+      <div class="painel" id="painel-harmoniza">
+        <p style="margin-bottom:1.75rem">Cada sabor foi criado para transformar cortes específicos em experiências inesquecíveis. Combina especialmente bem com:</p>
+        <ul class="lista-harmoniza" id="listaHarmoniza"></ul>
+      </div>
+
+      <div class="painel" id="painel-entrega">
+        <p>
+          Enviamos para todo o Brasil pelos <strong>Correios</strong> (PAC ou SEDEX, você escolhe no checkout).
+          O prazo e o valor são calculados pelo seu CEP na hora de finalizar a compra — sem surpresa depois.
+          Pedidos aprovados até 14h saem no mesmo dia útil.
+        </p>
+        <p style="margin-top:1.25rem">
+          Cada pote viaja em embalagem reforçada, com proteção antichoque para o vidro.
+          Se algo chegar quebrado ou fora do padrão, é só falar com a gente pelo WhatsApp em até 7 dias
+          que reenviamos ou devolvemos o valor.
+        </p>
+      </div>
+    </section>
+
+    <!-- ── PRODUTO RELACIONADO ────────────────────────── -->
+    <section class="relacionado" id="relacionado" hidden>
+      <span class="section-label">Vai bem junto</span>
+      <h2 class="section-title" style="font-size:2rem">COMPLETE A DUPLA</h2>
+      <div class="relacionado-grid" id="gradeRelacionados"></div>
+    </section>
+
+    <div id="naoEncontrado" hidden>
+      <div class="vazio-estado">
+        <h2>Produto não encontrado</h2>
+        <p>O sabor que você procurou não está no catálogo.</p>
+        <a href="/#produtos" class="btn-fire">Ver Todos os Sabores</a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ── RODAPÉ ─────────────────────────────────────── -->
+  <footer class="loja-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/"><img src="logo.webp" alt="Doce e Brasa" width="110" height="110"></a>
+          <p>Geleias artesanais criadas para transformar cada churrasco em uma experiência gastronômica inesquecível.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Sabores</h4>
+          <ul>
+            <li><a href="/produto.html?id=abacaxi">Abacaxi com Pimenta</a></li>
+            <li><a href="/produto.html?id=cebola">Cebola Roxa com Vinho</a></li>
+            <li><a href="/carrinho.html">Meu Carrinho</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Navegação</h4>
+          <ul>
+            <li><a href="/#produtos">Produtos</a></li>
+            <li><a href="/#harmonizacao">Harmonização</a></li>
+            <li><a href="/#processo">Processo</a></li>
+            <li><a href="/#depoimentos">Depoimentos</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Doce e Brasa. Todos os direitos reservados.</p>
+        <p>Feito com muito amor</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/loja.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    var params = new URLSearchParams(location.search);
+    var id = params.get('id') || 'abacaxi';
+    var p = Loja.produto(id);
+
+    if (!p || !p.vitrine) {
+      document.getElementById('naoEncontrado').hidden = false;
+      document.getElementById('migalhaNome').textContent = 'Não encontrado';
+      document.title = 'Produto não encontrado | Doce e Brasa';
+      return;
+    }
+
+    /* ---- Cabeçalho da página ---- */
+    document.title = 'Geleia de ' + p.nome + ' · 300 g | Doce e Brasa';
+    document.querySelector('meta[name="description"]').setAttribute('content', p.resumo);
+    document.getElementById('migalhaNome').textContent = p.nome;
+    document.getElementById('produtoNome').innerHTML = p.titulo || p.nome;
+    document.getElementById('produtoResumo').textContent = p.resumo;
+    document.getElementById('textoDescricao').textContent = p.descricao;
+
+    /* ---- Tags e ardência ---- */
+    document.getElementById('produtoTags').innerHTML =
+      p.tags.map(function (t) { return '<span class="stag">' + t + '</span>'; }).join('');
+    var pontos = '';
+    for (var i = 1; i <= 5; i++) pontos += '<span class="sdot' + (i <= p.ardencia ? ' on' : '') + '"></span>';
+    document.getElementById('produtoArdencia').innerHTML = pontos;
+
+    /* ---- Preço ---- */
+    document.getElementById('precoAgora').textContent = Loja.brl(p.preco);
+    if (p.precoDe && p.precoDe > p.preco) {
+      document.getElementById('precoDe').textContent = Loja.brl(p.precoDe);
+      var off = Math.round((1 - p.preco / p.precoDe) * 100);
+      document.getElementById('precoDesconto').textContent = '−' + off + '%';
+    } else {
+      document.getElementById('precoDe').hidden = true;
+      document.getElementById('precoDesconto').hidden = true;
+    }
+    document.getElementById('precoParcela').innerHTML =
+      'ou <strong>' + Loja.brl(p.preco / 3) + '</strong> em 3× sem juros no cartão · ' +
+      '<strong>' + Loja.brl(p.preco * 0.95) + '</strong> no PIX';
+    document.getElementById('freteGratisValor').textContent = Loja.brl(Loja.CONFIG.freteGratisAcimaDe);
+
+    /* ---- Galeria ---- */
+    var vistas = [
+      { tipo: 'composta', pote: p.imagem, cenario: p.fundo, miniatura: p.imagem, alt: 'Pote de geleia de ' + p.nome },
+      { tipo: 'cheia', src: p.fundo, miniatura: p.fundo, alt: p.nome + ' harmonizando com churrasco' },
+      { tipo: 'cheia', src: 'Design sem nome(1).jpg', miniatura: 'Design sem nome(1).jpg', alt: 'Linha completa de geleias Doce e Brasa' }
+    ];
+
+    var palco = document.getElementById('palco');
+    var cenarioEl = document.getElementById('palcoCenario');
+    var poteEl = document.getElementById('palcoPote');
+
+    function mostrarVista(idx) {
+      var v = vistas[idx];
+      if (v.tipo === 'composta') {
+        cenarioEl.hidden = false;
+        cenarioEl.style.backgroundImage = "url('" + v.cenario + "')";
+        poteEl.className = 'pote';
+        poteEl.src = v.pote;
+      } else {
+        cenarioEl.hidden = true;
+        poteEl.className = 'cheia';
+        poteEl.src = v.src;
+      }
+      poteEl.alt = v.alt;
+      Array.prototype.forEach.call(palco.parentNode.querySelectorAll('.produto-miniaturas button'), function (b, i) {
+        b.classList.toggle('ativa', i === idx);
+      });
+    }
+
+    document.getElementById('miniaturas').innerHTML = vistas.map(function (v, i) {
+      return '<button type="button" class="' + (i === 0 ? 'ativa' : '') + '" data-vista="' + i + '" aria-label="Ver imagem ' + (i + 1) + '">' +
+             '<img src="' + v.miniatura + '" alt="" loading="lazy"></button>';
+    }).join('');
+
+    document.getElementById('miniaturas').addEventListener('click', function (e) {
+      var btn = e.target.closest('button[data-vista]');
+      if (btn) mostrarVista(parseInt(btn.dataset.vista, 10));
+    });
+
+    mostrarVista(0);
+
+    /* ---- Ficha técnica ---- */
+    document.getElementById('corpoFicha').innerHTML = p.ficha.map(function (par) {
+      return '<tr><th>' + par[0] + '</th><td>' + par[1] + '</td></tr>';
+    }).join('');
+
+    /* ---- Harmonização ---- */
+    document.getElementById('listaHarmoniza').innerHTML = p.harmoniza.map(function (h) {
+      return '<li>' + h + '</li>';
+    }).join('');
+
+    /* ---- Quantidade ---- */
+    var inputQtd = document.getElementById('qtd');
+    function lerQtd() { return Math.min(99, Math.max(1, parseInt(inputQtd.value, 10) || 1)); }
+    function ajustar(delta) { inputQtd.value = Math.min(99, Math.max(1, lerQtd() + delta)); }
+    document.getElementById('qtdMenos').addEventListener('click', function () { ajustar(-1); });
+    document.getElementById('qtdMais').addEventListener('click', function () { ajustar(1); });
+    inputQtd.addEventListener('change', function () { inputQtd.value = lerQtd(); });
+
+    /* ---- Ações de compra ---- */
+    document.getElementById('btnAdicionar').addEventListener('click', function () {
+      Loja.Carrinho.adicionar(p.id, lerQtd());
+      Loja.toast(lerQtd() + '× ' + p.nome + ' no carrinho.', { href: '/carrinho.html', texto: 'Ver carrinho' });
+    });
+
+    document.getElementById('btnComprarAgora').addEventListener('click', function () {
+      Loja.Carrinho.adicionar(p.id, lerQtd());
+      location.href = '/carrinho.html';
+    });
+
+    /* ---- Abas ---- */
+    document.querySelector('.abas').addEventListener('click', function (e) {
+      var btn = e.target.closest('button[data-painel]');
+      if (!btn) return;
+      document.querySelectorAll('.abas button').forEach(function (b) { b.classList.toggle('ativa', b === btn); });
+      document.querySelectorAll('.painel').forEach(function (pn) {
+        pn.classList.toggle('ativo', pn.id === 'painel-' + btn.dataset.painel);
+      });
+    });
+
+    /* ---- Relacionados ---- */
+    var outros = Loja.catalogo().filter(function (o) { return o.id !== p.id; });
+    outros.push(Loja.produto('kit-brasa'));
+    document.getElementById('gradeRelacionados').innerHTML = outros.map(function (o) {
+      var capa = o.fundo
+        ? '<div class="cenario" style="background-image:url(\'' + o.fundo + '\')"></div><img class="pote" src="' + o.imagem + '" alt="' + o.nome + '" loading="lazy">'
+        : '<div class="cenario" style="background-image:url(\'' + o.imagem + '\')"></div>';
+      var link = o.vitrine ? '/produto.html?id=' + o.id : '/carrinho.html';
+      return '' +
+        '<article class="card-produto">' +
+          '<a href="' + link + '" class="capa">' + capa + '</a>' +
+          '<div class="corpo">' +
+            '<h3>' + o.nome + '</h3>' +
+            '<p style="font-size:0.85rem;color:var(--muted);line-height:1.6">' + o.resumo + '</p>' +
+            '<div class="preco">' + Loja.brl(o.preco) +
+              (o.precoDe ? '<small>' + Loja.brl(o.precoDe) + '</small>' : '') +
+            '</div>' +
+            '<div class="acoes">' +
+              '<button type="button" class="btn-fire" data-add="' + o.id + '">Adicionar</button>' +
+              (o.vitrine ? '<a href="' + link + '" class="btn-ghost">Ver</a>' : '') +
+            '</div>' +
+          '</div>' +
+        '</article>';
+    }).join('');
+
+    document.getElementById('gradeRelacionados').addEventListener('click', function (e) {
+      var btn = e.target.closest('button[data-add]');
+      if (!btn) return;
+      var alvo = Loja.produto(btn.dataset.add);
+      Loja.Carrinho.adicionar(alvo.id, 1);
+      Loja.toast(alvo.nome + ' no carrinho.', { href: '/carrinho.html', texto: 'Ver carrinho' });
+    });
+
+    /* ---- Revela a página ---- */
+    document.getElementById('produtoWrap').hidden = false;
+    document.getElementById('detalhes').hidden = false;
+    document.getElementById('relacionado').hidden = false;
+
+    /* ---- Dados estruturados ---- */
+    var ld = document.createElement('script');
+    ld.type = 'application/ld+json';
+    ld.textContent = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Product',
+      name: 'Geleia de ' + p.nome,
+      description: p.descricao,
+      image: [location.origin + '/' + p.imagem],
+      brand: { '@type': 'Brand', name: 'Doce e Brasa' },
+      weight: { '@type': 'QuantitativeValue', value: 300, unitCode: 'GRM' },
+      aggregateRating: { '@type': 'AggregateRating', ratingValue: '5', reviewCount: '5', bestRating: '5', worstRating: '1' },
+      offers: {
+        '@type': 'Offer',
+        url: location.href,
+        priceCurrency: 'BRL',
+        price: p.preco.toFixed(2),
+        availability: 'https://schema.org/InStock',
+        seller: { '@type': 'Organization', name: 'Doce e Brasa' }
+      }
+    });
+    document.head.appendChild(ld);
+  })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Carrinho | Doce e Brasa</title>
+  <meta name="description" content="Revise seu pedido de geleias artesanais Doce e Brasa antes de finalizar a compra.">
+  <meta name="robots" content="noindex, follow">
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/logo.jpg">
+  <meta name="theme-color" content="#b91c1c">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/loja.css">
+</head>
+<body class="loja">
+
+  <nav class="loja-nav">
+    <a href="/" class="nav-logo">
+      <img src="logo.webp" alt="Doce e Brasa" width="54" height="54">
+    </a>
+    <ul class="nav-links">
+      <li class="oculta-mobile"><a href="/#produtos">Produtos</a></li>
+      <li class="oculta-mobile"><a href="/#harmonizacao">Harmonização</a></li>
+      <li class="oculta-mobile"><a href="/#processo">Processo</a></li>
+      <li>
+        <a href="/carrinho.html" class="nav-cart">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+          <span class="texto">Carrinho</span>
+          <span class="contador vazio" data-cart-count>0</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <main class="container">
+
+    <nav class="migalhas" aria-label="Você está aqui">
+      <a href="/">Início</a>
+      <span class="sep">/</span>
+      <span class="atual">Carrinho</span>
+    </nav>
+
+    <!-- ── CARRINHO VAZIO ─────────────────────────────── -->
+    <div class="vazio-estado" id="estadoVazio" hidden>
+      <img src="sobre-o-pote.webp" alt="" aria-hidden="true">
+      <h2>Seu carrinho está vazio</h2>
+      <p>A brasa está acesa, mas falta a geleia. Escolha um sabor e volte aqui.</p>
+      <a href="/#produtos" class="btn-fire">Ver os Sabores</a>
+    </div>
+
+    <!-- ── CARRINHO COM ITENS ─────────────────────────── -->
+    <div class="carrinho-wrap" id="carrinhoWrap" hidden>
+
+      <div>
+        <h1 class="section-title" style="font-size:2.4rem;margin-bottom:0.4rem">SEU CARRINHO</h1>
+        <p style="color:var(--muted);font-size:0.88rem" id="contagemItens"></p>
+        <span class="red-bar"></span>
+
+        <div id="listaItens"></div>
+
+        <!-- Upsell -->
+        <section class="upsell" id="upsell" hidden>
+          <h2 class="upsell-titulo">Leve também</h2>
+          <p class="upsell-sub">Quem comprou o seu pedido levou junto — e o frete continua o mesmo.</p>
+          <div id="listaUpsell"></div>
+        </section>
+      </div>
+
+      <!-- Resumo -->
+      <aside class="resumo">
+        <h2>Resumo</h2>
+
+        <div id="resumoItens"></div>
+
+        <div class="resumo-linha" style="border-top:1px solid var(--line);margin-top:0.8rem;padding-top:1.2rem">
+          <span class="rot">Subtotal</span>
+          <span id="resumoSubtotal">R$ 0,00</span>
+        </div>
+        <div class="resumo-linha">
+          <span class="rot">Frete</span>
+          <span style="color:var(--muted);font-size:0.82rem">calculado no checkout</span>
+        </div>
+        <div class="resumo-linha total">
+          <span class="rot">Total</span>
+          <span id="resumoTotal">R$ 0,00</span>
+        </div>
+
+        <div class="barra-frete-gratis" id="barraFrete">
+          <div class="trilho"><div class="preenchido" id="barraPreenchida" style="width:0%"></div></div>
+          <p id="textoFreteGratis"></p>
+        </div>
+
+        <a href="/checkout.html" class="btn-fire btn-bloco">Finalizar Compra</a>
+        <a href="/#produtos" class="continuar">Continuar comprando</a>
+      </aside>
+
+    </div>
+  </main>
+
+  <footer class="loja-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/"><img src="logo.webp" alt="Doce e Brasa" width="110" height="110"></a>
+          <p>Geleias artesanais criadas para transformar cada churrasco em uma experiência gastronômica inesquecível.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Sabores</h4>
+          <ul>
+            <li><a href="/produto.html?id=abacaxi">Abacaxi com Pimenta</a></li>
+            <li><a href="/produto.html?id=cebola">Cebola Roxa com Vinho</a></li>
+            <li><a href="/carrinho.html">Meu Carrinho</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Navegação</h4>
+          <ul>
+            <li><a href="/#produtos">Produtos</a></li>
+            <li><a href="/#harmonizacao">Harmonização</a></li>
+            <li><a href="/#processo">Processo</a></li>
+            <li><a href="/#depoimentos">Depoimentos</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Doce e Brasa. Todos os direitos reservados.</p>
+        <p>Feito com muito amor</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/loja.js"></script>
+  <script>
+  (function () {
+    'use strict';
+
+    var elVazio    = document.getElementById('estadoVazio');
+    var elWrap     = document.getElementById('carrinhoWrap');
+    var elLista    = document.getElementById('listaItens');
+    var elUpsell   = document.getElementById('upsell');
+    var elUpsLista = document.getElementById('listaUpsell');
+
+    function renderizar() {
+      var itens = Loja.Carrinho.detalhado();
+
+      elVazio.hidden = itens.length > 0;
+      elWrap.hidden  = itens.length === 0;
+      if (!itens.length) return;
+
+      var totalUnidades = Loja.Carrinho.quantidade();
+      document.getElementById('contagemItens').textContent =
+        totalUnidades + (totalUnidades === 1 ? ' item no pedido' : ' itens no pedido');
+
+      /* ---- Linhas do carrinho ---- */
+      elLista.innerHTML = itens.map(function (i) {
+        var p = Loja.produto(i.id);
+        var link = p.vitrine ? '/produto.html?id=' + p.id : null;
+        return '' +
+          '<div class="linha-item">' +
+            '<div class="thumb">' +
+              (link ? '<a href="' + link + '">' : '') +
+              '<img src="' + i.imagem + '" alt="' + i.nome + '" loading="lazy">' +
+              (link ? '</a>' : '') +
+            '</div>' +
+            '<div>' +
+              '<h3>' + (link ? '<a href="' + link + '">' + i.nome + '</a>' : i.nome) + '</h3>' +
+              '<p class="meta">' + p.peso + ' · ' + Loja.brl(i.preco) + ' cada</p>' +
+              '<div class="controles">' +
+                '<div class="seletor-qtd compacto">' +
+                  '<button type="button" data-menos="' + i.id + '" aria-label="Diminuir">−</button>' +
+                  '<input type="number" min="1" max="99" value="' + i.qtd + '" data-qtd="' + i.id + '" inputmode="numeric" aria-label="Quantidade de ' + i.nome + '">' +
+                  '<button type="button" data-mais="' + i.id + '" aria-label="Aumentar">+</button>' +
+                '</div>' +
+                '<button type="button" class="remover" data-remover="' + i.id + '">Remover</button>' +
+              '</div>' +
+            '</div>' +
+            '<div class="valor">' +
+              '<div class="total">' + Loja.brl(i.subtotal) + '</div>' +
+              (i.qtd > 1 ? '<div class="unit">' + i.qtd + ' × ' + Loja.brl(i.preco) + '</div>' : '') +
+            '</div>' +
+          '</div>';
+      }).join('');
+
+      /* ---- Upsell ---- */
+      var sugestoes = Loja.Carrinho.upsells();
+      elUpsell.hidden = sugestoes.length === 0;
+      elUpsLista.innerHTML = sugestoes.map(function (s) {
+        var p = s.produto;
+        return '' +
+          '<div class="upsell-card">' +
+            '<div class="thumb"><img src="' + p.imagem + '" alt="' + p.nome + '" loading="lazy"></div>' +
+            '<div>' +
+              '<span class="chamada">' + s.chamada + '</span>' +
+              '<h4>' + p.nome + '</h4>' +
+              '<p>' + s.motivo + '</p>' +
+            '</div>' +
+            '<div class="lado">' +
+              '<span class="preco">' + Loja.brl(p.preco) + '</span>' +
+              '<button type="button" data-add="' + p.id + '">+ Adicionar</button>' +
+            '</div>' +
+          '</div>';
+      }).join('');
+
+      /* ---- Resumo ---- */
+      document.getElementById('resumoItens').innerHTML = itens.map(function (i) {
+        return '' +
+          '<div class="mini-item">' +
+            '<div class="thumb"><img src="' + i.imagem + '" alt="" loading="lazy"></div>' +
+            '<div><div class="nm">' + i.nome + '</div><div class="qt">Qtd: ' + i.qtd + '</div></div>' +
+            '<div class="vl">' + Loja.brl(i.subtotal) + '</div>' +
+          '</div>';
+      }).join('');
+
+      var subtotal = Loja.Carrinho.subtotal();
+      document.getElementById('resumoSubtotal').textContent = Loja.brl(subtotal);
+      document.getElementById('resumoTotal').textContent = Loja.brl(subtotal);
+
+      /* ---- Barra de frete grátis ---- */
+      var alvo = Loja.CONFIG.freteGratisAcimaDe;
+      var pct = Math.min(100, (subtotal / alvo) * 100);
+      document.getElementById('barraPreenchida').style.width = pct + '%';
+      document.getElementById('textoFreteGratis').innerHTML = subtotal >= alvo
+        ? '🔥 <strong>Frete grátis liberado!</strong> Nós pagamos o envio.'
+        : 'Faltam <strong>' + Loja.brl(alvo - subtotal) + '</strong> para o frete sair de graça.';
+    }
+
+    /* ---- Interações ---- */
+    document.addEventListener('click', function (e) {
+      var b;
+      if ((b = e.target.closest('[data-remover]'))) {
+        Loja.Carrinho.remover(b.dataset.remover);
+      } else if ((b = e.target.closest('[data-mais]'))) {
+        Loja.Carrinho.adicionar(b.dataset.mais, 1);
+      } else if ((b = e.target.closest('[data-menos]'))) {
+        var atual = Loja.Carrinho.itens().find(function (i) { return i.id === b.dataset.menos; });
+        if (atual) Loja.Carrinho.definirQtd(b.dataset.menos, atual.qtd - 1);
+      } else if ((b = e.target.closest('[data-add]'))) {
+        var p = Loja.produto(b.dataset.add);
+        Loja.Carrinho.adicionar(p.id, 1);
+        Loja.toast(p.nome + ' adicionado ao pedido.');
+      }
+    });
+
+    document.addEventListener('change', function (e) {
+      var input = e.target.closest('[data-qtd]');
+      if (input) Loja.Carrinho.definirQtd(input.dataset.qtd, input.value);
+    });
+
+    Loja.Carrinho.aoMudar(renderizar);
+  })();
+  </script>
+</body>
+</html>

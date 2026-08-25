@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Finalizar Compra | Doce e Brasa</title>
+  <meta name="description" content="Finalize seu pedido de geleias artesanais Doce e Brasa com entrega pelos Correios para todo o Brasil.">
+  <meta name="robots" content="noindex, nofollow">
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/logo.jpg">
+  <meta name="theme-color" content="#b91c1c">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/loja.css">
+</head>
+<body class="loja">
+
+  <nav class="loja-nav">
+    <a href="/" class="nav-logo">
+      <img src="logo.webp" alt="Doce e Brasa" width="54" height="54">
+    </a>
+    <ul class="nav-links">
+      <li>
+        <a href="/carrinho.html" class="nav-cart">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+          <span class="texto">Carrinho</span>
+          <span class="contador vazio" data-cart-count>0</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <main class="container">
+
+    <nav class="migalhas" aria-label="Você está aqui">
+      <a href="/">Início</a>
+      <span class="sep">/</span>
+      <a href="/carrinho.html">Carrinho</a>
+      <span class="sep">/</span>
+      <span class="atual">Finalizar compra</span>
+    </nav>
+
+    <div class="vazio-estado" id="estadoVazio" hidden>
+      <h2>Nada para finalizar</h2>
+      <p>Seu carrinho está vazio. Escolha um sabor para continuar.</p>
+      <a href="/#produtos" class="btn-fire">Ver os Sabores</a>
+    </div>
+
+    <div class="checkout-wrap" id="checkoutWrap" hidden>
+
+      <div>
+        <!-- ── PASSOS ─────────────────────────────────── -->
+        <div class="passos" id="passos">
+          <div class="passo ativo" data-passo="1"><span class="bolha">1</span><span class="rot">Seus dados</span></div>
+          <span class="traco"></span>
+          <div class="passo" data-passo="2"><span class="bolha">2</span><span class="rot">Entrega</span></div>
+          <span class="traco"></span>
+          <div class="passo" data-passo="3"><span class="bolha">3</span><span class="rot">Pagamento</span></div>
+        </div>
+
+        <!-- ── ETAPA 1 · DADOS ────────────────────────── -->
+        <section class="etapa ativa" id="etapa-1">
+          <h2>Seus dados</h2>
+          <p class="ajuda">Precisamos disso para emitir a nota, gerar a cobrança e avisar você do rastreio.</p>
+
+          <form id="formDados" novalidate>
+            <div class="grade-campos">
+              <div class="campo largo" data-campo="nome">
+                <label for="nome">Nome completo</label>
+                <input type="text" id="nome" name="nome" autocomplete="name" placeholder="Como está no documento">
+                <span class="erro">Informe seu nome completo (nome e sobrenome).</span>
+              </div>
+
+              <div class="campo" data-campo="email">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" name="email" autocomplete="email" placeholder="voce@email.com">
+                <span class="erro">Informe um e-mail válido.</span>
+              </div>
+
+              <div class="campo" data-campo="telefone">
+                <label for="telefone">WhatsApp / Telefone</label>
+                <input type="tel" id="telefone" name="telefone" autocomplete="tel" placeholder="(34) 99999-9999" maxlength="15">
+                <span class="erro">Informe um telefone com DDD.</span>
+              </div>
+
+              <div class="campo" data-campo="cpf">
+                <label for="cpf">CPF</label>
+                <input type="text" id="cpf" name="cpf" inputmode="numeric" placeholder="000.000.000-00" maxlength="14">
+                <span class="erro">CPF inválido.</span>
+              </div>
+            </div>
+
+            <div class="aviso">
+              <span>🔒</span>
+              <span>O CPF é exigido pelo <strong>Asaas</strong> para emitir PIX, boleto ou cobrança no cartão. Seus dados não são compartilhados com terceiros.</span>
+            </div>
+
+            <div class="acoes-etapa">
+              <button type="submit" class="btn-fire">Continuar para Entrega</button>
+            </div>
+          </form>
+        </section>
+
+        <!-- ── ETAPA 2 · ENTREGA ──────────────────────── -->
+        <section class="etapa" id="etapa-2">
+          <h2>Entrega</h2>
+          <p class="ajuda">Enviamos pelos Correios para todo o Brasil. Informe o CEP para calcular prazo e valor.</p>
+
+          <form id="formEntrega" novalidate>
+            <div class="grade-campos">
+              <div class="campo" data-campo="cep">
+                <label for="cep">CEP</label>
+                <input type="text" id="cep" name="cep" inputmode="numeric" placeholder="00000-000" maxlength="9" autocomplete="postal-code">
+                <span class="erro">CEP inválido ou não encontrado.</span>
+              </div>
+
+              <div class="campo" data-campo="numero">
+                <label for="numero">Número</label>
+                <input type="text" id="numero" name="numero" placeholder="123" autocomplete="address-line2">
+                <span class="erro">Informe o número.</span>
+              </div>
+
+              <div class="campo largo" data-campo="logradouro">
+                <label for="logradouro">Endereço</label>
+                <input type="text" id="logradouro" name="logradouro" placeholder="Preenchido pelo CEP" autocomplete="address-line1">
+                <span class="erro">Informe o endereço.</span>
+              </div>
+
+              <div class="campo" data-campo="bairro">
+                <label for="bairro">Bairro</label>
+                <input type="text" id="bairro" name="bairro" placeholder="Preenchido pelo CEP">
+                <span class="erro">Informe o bairro.</span>
+              </div>
+
+              <div class="campo" data-campo="complemento">
+                <label for="complemento">Complemento <span style="text-transform:none;letter-spacing:0">(opcional)</span></label>
+                <input type="text" id="complemento" name="complemento" placeholder="Apto, bloco, referência">
+              </div>
+
+              <div class="campo" data-campo="cidade">
+                <label for="cidade">Cidade</label>
+                <input type="text" id="cidade" name="cidade" placeholder="Preenchido pelo CEP">
+                <span class="erro">Informe a cidade.</span>
+              </div>
+
+              <div class="campo" data-campo="uf">
+                <label for="uf">Estado</label>
+                <input type="text" id="uf" name="uf" placeholder="UF" maxlength="2">
+                <span class="erro">Informe o estado.</span>
+              </div>
+            </div>
+
+            <div id="areaFrete" style="margin-top:2.5rem">
+              <h3 style="font-family:var(--fn-display);font-size:1.3rem;letter-spacing:2px;text-transform:uppercase;color:var(--cream)">Forma de envio</h3>
+              <div id="freteConteudo">
+                <p style="color:var(--muted);font-size:0.86rem;margin-top:0.8rem">Digite o CEP acima para ver as opções dos Correios.</p>
+              </div>
+            </div>
+
+            <div class="acoes-etapa">
+              <button type="button" class="voltar-etapa" data-ir="1">← Voltar</button>
+              <button type="submit" class="btn-fire" id="btnIrPagamento">Continuar para Pagamento</button>
+            </div>
+          </form>
+        </section>
+
+        <!-- ── ETAPA 3 · PAGAMENTO ────────────────────── -->
+        <section class="etapa" id="etapa-3">
+          <h2>Pagamento</h2>
+          <p class="ajuda">Processado pelo Asaas. Você é levado para o ambiente seguro deles para concluir.</p>
+
+          <div class="metodos" id="metodos">
+            <button type="button" class="metodo selecionado" data-metodo="PIX">
+              <span class="ic">⚡</span>
+              <span><span class="nome">PIX</span><br><span class="obs">Aprovação na hora · 5% off</span></span>
+            </button>
+            <button type="button" class="metodo" data-metodo="CREDIT_CARD">
+              <span class="ic">💳</span>
+              <span><span class="nome">Cartão</span><br><span class="obs">Até 12× · 3× sem juros</span></span>
+            </button>
+            <button type="button" class="metodo" data-metodo="BOLETO">
+              <span class="ic">🧾</span>
+              <span><span class="nome">Boleto</span><br><span class="obs">Compensa em até 3 dias úteis</span></span>
+            </button>
+          </div>
+
+          <div class="revisao">
+            <h3>Confira antes de pagar</h3>
+            <dl id="revisaoDados"></dl>
+            <button type="button" class="editar" data-ir="1">Editar dados</button>
+          </div>
+
+          <div class="revisao">
+            <h3>Entrega</h3>
+            <dl id="revisaoEntrega"></dl>
+            <button type="button" class="editar" data-ir="2">Editar entrega</button>
+          </div>
+
+          <div id="erroPagamento"></div>
+
+          <div class="acoes-etapa">
+            <button type="button" class="voltar-etapa" data-ir="2">← Voltar</button>
+            <button type="button" class="btn-fire" id="btnPagar">Finalizar e Pagar</button>
+          </div>
+
+          <p style="font-size:0.75rem;color:var(--muted);margin-top:1.5rem;line-height:1.7">
+            Ao finalizar você concorda com nossos termos de compra. O pedido é separado assim que o
+            pagamento é confirmado e o código de rastreio chega no seu WhatsApp e e-mail.
+          </p>
+        </section>
+      </div>
+
+      <!-- ── RESUMO LATERAL ─────────────────────────────── -->
+      <aside class="resumo">
+        <h2>Seu pedido</h2>
+        <div id="resumoItens"></div>
+
+        <div class="resumo-linha" style="border-top:1px solid var(--line);margin-top:0.8rem;padding-top:1.2rem">
+          <span class="rot">Subtotal</span>
+          <span id="resumoSubtotal">R$ 0,00</span>
+        </div>
+        <div class="resumo-linha" id="linhaFrete">
+          <span class="rot">Frete</span>
+          <span id="resumoFrete" style="color:var(--muted);font-size:0.82rem">a calcular</span>
+        </div>
+        <div class="resumo-linha" id="linhaDesconto" hidden>
+          <span class="rot">Desconto PIX (5%)</span>
+          <span id="resumoDesconto" style="color:#4ade80">−R$ 0,00</span>
+        </div>
+        <div class="resumo-linha total">
+          <span class="rot">Total</span>
+          <span id="resumoTotal">R$ 0,00</span>
+        </div>
+
+        <a href="/carrinho.html" class="continuar">← Voltar ao carrinho</a>
+      </aside>
+
+    </div>
+  </main>
+
+  <footer class="loja-footer">
+    <div class="container">
+      <div class="footer-bottom" style="border:0;margin:0;padding:0">
+        <p>© 2026 Doce e Brasa. Todos os direitos reservados.</p>
+        <p>Pagamentos processados por Asaas · Envios pelos Correios</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/loja.js"></script>
+  <script>
+  (function () {
+    'use strict';
+
+    var estado = {
+      passo: 1,
+      dados: {},
+      entrega: {},
+      frete: null,
+      metodo: 'PIX',
+      opcoesFrete: []
+    };
+
+    var elWrap  = document.getElementById('checkoutWrap');
+    var elVazio = document.getElementById('estadoVazio');
+
+    if (Loja.Carrinho.itens().length === 0) {
+      elVazio.hidden = false;
+      return;
+    }
+    elWrap.hidden = false;
+
+    /* Recupera o que já foi preenchido antes (voltou pra loja e retornou) */
+    var salvo = Loja.Pedido.ler();
+    if (salvo.dados) { estado.dados = salvo.dados; preencher(salvo.dados); }
+    if (salvo.entrega) { estado.entrega = salvo.entrega; preencher(salvo.entrega); }
+
+    function preencher(obj) {
+      Object.keys(obj).forEach(function (k) {
+        var el = document.getElementById(k);
+        if (el && !el.value) el.value = obj[k];
+      });
+    }
+
+    /* ------------------------------------------------------
+       NAVEGAÇÃO ENTRE ETAPAS
+    ------------------------------------------------------ */
+    function irPara(n) {
+      estado.passo = n;
+      document.querySelectorAll('.etapa').forEach(function (s) {
+        s.classList.toggle('ativa', s.id === 'etapa-' + n);
+      });
+      document.querySelectorAll('.passo').forEach(function (p) {
+        var num = parseInt(p.dataset.passo, 10);
+        p.classList.toggle('ativo', num === n);
+        p.classList.toggle('feito', num < n);
+      });
+      if (n === 3) montarRevisao();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-ir]');
+      if (b) irPara(parseInt(b.dataset.ir, 10));
+    });
+
+    /* ------------------------------------------------------
+       VALIDAÇÃO
+    ------------------------------------------------------ */
+    function marcar(nome, valido) {
+      var campo = document.querySelector('[data-campo="' + nome + '"]');
+      if (campo) campo.classList.toggle('invalido', !valido);
+      return valido;
+    }
+
+    function valor(id) { return (document.getElementById(id).value || '').trim(); }
+
+    /* ------------------------------------------------------
+       ETAPA 1 · DADOS
+    ------------------------------------------------------ */
+    document.getElementById('telefone').addEventListener('input', function (e) {
+      e.target.value = Loja.mascaraTelefone(e.target.value);
+    });
+    document.getElementById('cpf').addEventListener('input', function (e) {
+      e.target.value = Loja.mascaraCpf(e.target.value);
+    });
+
+    document.getElementById('formDados').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var nome = valor('nome');
+      var ok = true;
+      ok = marcar('nome', nome.length >= 5 && nome.indexOf(' ') > 0) && ok;
+      ok = marcar('email', Loja.emailValido(valor('email'))) && ok;
+      ok = marcar('telefone', Loja.digitos(valor('telefone')).length >= 10) && ok;
+      ok = marcar('cpf', Loja.cpfValido(valor('cpf'))) && ok;
+      if (!ok) return;
+
+      estado.dados = {
+        nome: nome,
+        email: valor('email'),
+        telefone: valor('telefone'),
+        cpf: valor('cpf')
+      };
+      Loja.Pedido.gravar({ dados: estado.dados });
+      irPara(2);
+    });
+
+    /* ------------------------------------------------------
+       ETAPA 2 · ENDEREÇO + FRETE
+    ------------------------------------------------------ */
+    var inputCep = document.getElementById('cep');
+
+    inputCep.addEventListener('input', function (e) {
+      e.target.value = Loja.mascaraCep(e.target.value);
+      if (Loja.digitos(e.target.value).length === 8) buscarCep();
+    });
+
+    function buscarCep() {
+      var cep = Loja.digitos(inputCep.value);
+      if (cep.length !== 8) return;
+
+      marcar('cep', true);
+
+      fetch('https://viacep.com.br/ws/' + cep + '/json/')
+        .then(function (r) { return r.json(); })
+        .then(function (d) {
+          /* CEPs "gerais" de cidade (ex.: 38400-000) voltam com erro no ViaCEP,
+             mas são válidos para entrega. Só preenchemos o que veio e seguimos. */
+          if (!d.erro) {
+            if (d.logradouro) document.getElementById('logradouro').value = d.logradouro;
+            if (d.bairro)     document.getElementById('bairro').value = d.bairro;
+            if (d.localidade) document.getElementById('cidade').value = d.localidade;
+            if (d.uf)         document.getElementById('uf').value = d.uf;
+            document.getElementById('numero').focus();
+          } else {
+            document.getElementById('logradouro').focus();
+          }
+        })
+        .catch(function () { /* ViaCEP fora do ar: preenchimento manual */ })
+        .then(function () { calcularFrete(); });
+    }
+
+    function calcularFrete() {
+      var cep = Loja.digitos(inputCep.value);
+      if (cep.length !== 8) return;
+
+      var vol = Loja.Carrinho.volume();
+      var conteudo = document.getElementById('freteConteudo');
+      conteudo.innerHTML = '<div class="carregando-frete"><span class="girando"></span> Consultando os Correios…</div>';
+      estado.frete = null;
+      atualizarResumo();
+
+      fetch('/api/frete', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          cepDestino: cep,
+          peso: vol.peso,
+          comprimento: vol.comprimento,
+          largura: vol.largura,
+          altura: vol.altura,
+          valorDeclarado: Loja.Carrinho.subtotal()
+        })
+      })
+        .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, body: j }; }); })
+        .then(function (res) {
+          if (!res.ok || !res.body.opcoes || !res.body.opcoes.length) {
+            throw new Error(res.body && res.body.erro ? res.body.erro : 'Sem retorno dos Correios');
+          }
+          estado.opcoesFrete = res.body.opcoes;
+          renderizarFrete(res.body);
+        })
+        .catch(function (err) {
+          conteudo.innerHTML =
+            '<div class="aviso erro"><span>⚠</span><span>' +
+            '<strong>Não conseguimos calcular o frete agora.</strong><br>' +
+            (err.message || 'Erro de conexão') + '.<br>' +
+            'Finalize o pedido normalmente e combinamos o frete pelo WhatsApp, ou tente de novo em instantes.' +
+            '</span></div>' +
+            '<button type="button" class="btn-ghost" id="tentarFrete" style="margin-top:1rem">Tentar novamente</button>';
+          var btn = document.getElementById('tentarFrete');
+          if (btn) btn.addEventListener('click', calcularFrete);
+        });
+    }
+
+    function renderizarFrete(resposta) {
+      var gratis = Loja.Carrinho.freteGratis();
+      var html = '<div class="opcoes-frete">';
+
+      resposta.opcoes.forEach(function (o, i) {
+        var valorFinal = gratis ? 0 : o.valor;
+        html += '' +
+          '<label class="opcao-frete' + (i === 0 ? ' selecionada' : '') + '" data-opcao="' + i + '">' +
+            '<input type="radio" name="frete" value="' + i + '"' + (i === 0 ? ' checked' : '') + '>' +
+            '<span>' +
+              '<span class="nome">' + o.nome + '</span>' +
+              '<span class="prazo">Entrega em até ' + o.prazo + ' ' + (o.prazo === 1 ? 'dia útil' : 'dias úteis') + '</span>' +
+            '</span>' +
+            '<span class="valor' + (valorFinal === 0 ? ' gratis' : '') + '">' +
+              (valorFinal === 0 ? 'GRÁTIS' : Loja.brl(valorFinal)) +
+            '</span>' +
+          '</label>';
+      });
+
+      html += '</div>';
+
+      if (gratis) {
+        html += '<div class="aviso ok"><span>🔥</span><span>Seu pedido passou de ' +
+                Loja.brl(Loja.CONFIG.freteGratisAcimaDe) + ' — <strong>o frete é por nossa conta</strong>.</span></div>';
+      }
+
+      if (resposta.simulado) {
+        html += '<div class="aviso"><span>ℹ</span><span><strong>Valores simulados.</strong> ' +
+                'As credenciais dos Correios ainda não foram configuradas no servidor — ' +
+                'assim que forem, esta tela passa a mostrar o preço real da API.</span></div>';
+      }
+
+      document.getElementById('freteConteudo').innerHTML = html;
+      selecionarFrete(0);
+    }
+
+    /* Listener único no container — o conteúdo é re-renderizado a cada consulta */
+    document.getElementById('freteConteudo').addEventListener('change', function (e) {
+      if (e.target.name === 'frete') selecionarFrete(parseInt(e.target.value, 10));
+    });
+
+    function selecionarFrete(idx) {
+      var o = estado.opcoesFrete[idx];
+      if (!o) return;
+      estado.frete = {
+        codigo: o.codigo,
+        nome: o.nome,
+        prazo: o.prazo,
+        valor: Loja.Carrinho.freteGratis() ? 0 : o.valor,
+        valorTabela: o.valor
+      };
+      document.querySelectorAll('.opcao-frete').forEach(function (el, i) {
+        el.classList.toggle('selecionada', i === idx);
+      });
+      atualizarResumo();
+    }
+
+    document.getElementById('formEntrega').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var ok = true;
+      ok = marcar('cep', Loja.digitos(valor('cep')).length === 8) && ok;
+      ok = marcar('logradouro', valor('logradouro').length >= 3) && ok;
+      ok = marcar('numero', valor('numero').length >= 1) && ok;
+      ok = marcar('bairro', valor('bairro').length >= 2) && ok;
+      ok = marcar('cidade', valor('cidade').length >= 2) && ok;
+      ok = marcar('uf', valor('uf').length === 2) && ok;
+      if (!ok) return;
+
+      if (!estado.frete) {
+        var area = document.getElementById('areaFrete');
+        var jaAvisou = document.getElementById('avisoSemFrete');
+        if (!jaAvisou) {
+          var aviso = document.createElement('div');
+          aviso.id = 'avisoSemFrete';
+          aviso.className = 'aviso erro';
+          aviso.innerHTML = '<span>⚠</span><span>Escolha uma forma de envio para continuar. ' +
+                            'Se as opções não carregaram, confira o CEP e tente de novo.</span>';
+          area.appendChild(aviso);
+        }
+        area.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+      var avisoAntigo = document.getElementById('avisoSemFrete');
+      if (avisoAntigo) avisoAntigo.remove();
+
+      estado.entrega = {
+        cep: valor('cep'),
+        logradouro: valor('logradouro'),
+        numero: valor('numero'),
+        complemento: valor('complemento'),
+        bairro: valor('bairro'),
+        cidade: valor('cidade'),
+        uf: valor('uf').toUpperCase()
+      };
+      Loja.Pedido.gravar({ entrega: estado.entrega, frete: estado.frete });
+      irPara(3);
+    });
+
+    /* ------------------------------------------------------
+       ETAPA 3 · PAGAMENTO
+    ------------------------------------------------------ */
+    document.getElementById('metodos').addEventListener('click', function (e) {
+      var b = e.target.closest('[data-metodo]');
+      if (!b) return;
+      estado.metodo = b.dataset.metodo;
+      document.querySelectorAll('.metodo').forEach(function (m) {
+        m.classList.toggle('selecionado', m === b);
+      });
+      atualizarResumo();
+    });
+
+    function montarRevisao() {
+      var d = estado.dados, en = estado.entrega;
+      document.getElementById('revisaoDados').innerHTML =
+        '<dt>Nome</dt><dd>' + d.nome + '</dd>' +
+        '<dt>E-mail</dt><dd>' + d.email + '</dd>' +
+        '<dt>Telefone</dt><dd>' + d.telefone + '</dd>' +
+        '<dt>CPF</dt><dd>' + d.cpf + '</dd>';
+
+      document.getElementById('revisaoEntrega').innerHTML =
+        '<dt>Endereço</dt><dd>' + en.logradouro + ', ' + en.numero +
+          (en.complemento ? ' — ' + en.complemento : '') + '</dd>' +
+        '<dt>Bairro</dt><dd>' + en.bairro + '</dd>' +
+        '<dt>Cidade</dt><dd>' + en.cidade + ' / ' + en.uf + '</dd>' +
+        '<dt>CEP</dt><dd>' + en.cep + '</dd>' +
+        '<dt>Envio</dt><dd>' + estado.frete.nome + ' · ' + estado.frete.prazo + ' dias úteis · ' +
+          (estado.frete.valor === 0 ? 'grátis' : Loja.brl(estado.frete.valor)) + '</dd>';
+    }
+
+    document.getElementById('btnPagar').addEventListener('click', function () {
+      var btn = this;
+      var totais = calcularTotais();
+
+      btn.disabled = true;
+      btn.classList.add('carregando');
+      btn.textContent = 'Gerando cobrança…';
+      document.getElementById('erroPagamento').innerHTML = '';
+
+      fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          cliente: estado.dados,
+          entrega: estado.entrega,
+          frete: estado.frete,
+          metodo: estado.metodo,
+          itens: Loja.Carrinho.itens()
+        })
+      })
+        .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, body: j }; }); })
+        .then(function (res) {
+          if (!res.ok) throw new Error(res.body && res.body.erro ? res.body.erro : 'Falha ao gerar a cobrança');
+
+          Loja.Pedido.gravar({
+            referencia: res.body.referencia,
+            invoiceUrl: res.body.invoiceUrl,
+            metodo: estado.metodo,
+            totais: res.body.totais || totais,
+            itens: Loja.Carrinho.detalhado(),
+            simulado: !!res.body.simulado,
+            criadoEm: new Date().toISOString()
+          });
+          Loja.Carrinho.limpar();
+          location.href = '/pedido.html';
+        })
+        .catch(function (err) {
+          document.getElementById('erroPagamento').innerHTML =
+            '<div class="aviso erro"><span>⚠</span><span><strong>Não foi possível gerar a cobrança.</strong><br>' +
+            (err.message || 'Erro de conexão') + '<br>' +
+            'Tente de novo ou chame a gente no WhatsApp que finalizamos o pedido por lá.</span></div>';
+          btn.disabled = false;
+          btn.classList.remove('carregando');
+          btn.textContent = 'Finalizar e Pagar';
+        });
+    });
+
+    /* ------------------------------------------------------
+       RESUMO LATERAL
+    ------------------------------------------------------ */
+    function calcularTotais() {
+      var subtotal = Loja.Carrinho.subtotal();
+      var frete = estado.frete ? estado.frete.valor : 0;
+      var desconto = estado.metodo === 'PIX' ? subtotal * 0.05 : 0;
+      return {
+        subtotal: subtotal,
+        frete: frete,
+        desconto: desconto,
+        total: subtotal + frete - desconto
+      };
+    }
+
+    function atualizarResumo() {
+      var itens = Loja.Carrinho.detalhado();
+      document.getElementById('resumoItens').innerHTML = itens.map(function (i) {
+        return '' +
+          '<div class="mini-item">' +
+            '<div class="thumb"><img src="' + i.imagem + '" alt="" loading="lazy"></div>' +
+            '<div><div class="nm">' + i.nome + '</div><div class="qt">Qtd: ' + i.qtd + '</div></div>' +
+            '<div class="vl">' + Loja.brl(i.subtotal) + '</div>' +
+          '</div>';
+      }).join('');
+
+      var t = calcularTotais();
+      document.getElementById('resumoSubtotal').textContent = Loja.brl(t.subtotal);
+
+      var elFrete = document.getElementById('resumoFrete');
+      if (!estado.frete) {
+        elFrete.textContent = 'a calcular';
+        elFrete.style.color = 'var(--muted)';
+        elFrete.style.fontSize = '0.82rem';
+      } else {
+        elFrete.textContent = t.frete === 0 ? 'GRÁTIS' : Loja.brl(t.frete);
+        elFrete.style.color = t.frete === 0 ? '#4ade80' : '';
+        elFrete.style.fontSize = '';
+      }
+
+      var linhaDesc = document.getElementById('linhaDesconto');
+      linhaDesc.hidden = t.desconto <= 0;
+      document.getElementById('resumoDesconto').textContent = '−' + Loja.brl(t.desconto);
+
+      document.getElementById('resumoTotal').textContent = Loja.brl(t.total);
+    }
+
+    atualizarResumo();
+
+    /* Se o CEP já veio salvo de uma sessão anterior, recalcula na entrada da etapa 2 */
+    if (estado.entrega.cep) {
+      inputCep.value = Loja.mascaraCep(estado.entrega.cep);
+      calcularFrete();
+    }
+  })();
+  </script>
+</body>
+</html>

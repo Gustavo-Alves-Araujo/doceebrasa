@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Pedido Confirmado | Doce e Brasa</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/logo.jpg">
+  <meta name="theme-color" content="#b91c1c">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/loja.css">
+</head>
+<body class="loja">
+
+  <nav class="loja-nav">
+    <a href="/" class="nav-logo">
+      <img src="logo.webp" alt="Doce e Brasa" width="54" height="54">
+    </a>
+    <ul class="nav-links">
+      <li><a href="/#produtos">Voltar à loja</a></li>
+    </ul>
+  </nav>
+
+  <main class="container">
+    <div class="confirma" id="conteudo">
+      <div class="selo">✓</div>
+      <h1 id="titulo">Pedido registrado!</h1>
+      <p class="sub" id="subtitulo">Falta só o pagamento para a brasa acender.</p>
+
+      <div class="caixa-pedido" id="caixaPedido"></div>
+
+      <a href="#" class="btn-fire" id="btnPagar" style="font-size:0.95rem;padding:1.15rem 3rem">Pagar Agora</a>
+      <p style="margin-top:2rem;font-size:0.8rem;color:var(--muted);line-height:1.8" id="rodapeAviso">
+        Assim que o pagamento for confirmado a gente separa e posta seu pedido.
+        O código de rastreio dos Correios chega no seu WhatsApp e e-mail.
+      </p>
+
+      <p style="margin-top:2.5rem">
+        <a href="/#produtos" class="btn-ghost">Voltar à loja</a>
+      </p>
+    </div>
+
+    <div class="vazio-estado" id="semPedido" hidden>
+      <h2>Nenhum pedido aqui</h2>
+      <p>Não encontramos um pedido recente neste navegador.</p>
+      <a href="/#produtos" class="btn-fire">Ver os Sabores</a>
+    </div>
+  </main>
+
+  <footer class="loja-footer">
+    <div class="container">
+      <div class="footer-bottom" style="border:0;margin:0;padding:0">
+        <p>© 2026 Doce e Brasa. Todos os direitos reservados.</p>
+        <p>Pagamentos processados por Asaas · Envios pelos Correios</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/loja.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    var pedido = Loja.Pedido.ler();
+
+    if (!pedido || !pedido.referencia) {
+      document.getElementById('conteudo').hidden = true;
+      document.getElementById('semPedido').hidden = false;
+      return;
+    }
+
+    var rotuloMetodo = { PIX: 'PIX', CREDIT_CARD: 'Cartão de crédito', BOLETO: 'Boleto bancário' };
+    var t = pedido.totais || {};
+    var en = (pedido.entrega || Loja.Pedido.ler().entrega) || {};
+    var fr = pedido.frete || Loja.Pedido.ler().frete || {};
+
+    var linhasItens = (pedido.itens || []).map(function (i) {
+      return '' +
+        '<div class="mini-item">' +
+          '<div class="thumb"><img src="' + i.imagem + '" alt="" loading="lazy"></div>' +
+          '<div><div class="nm">' + i.nome + '</div><div class="qt">Qtd: ' + i.qtd + '</div></div>' +
+          '<div class="vl">' + Loja.brl(i.subtotal) + '</div>' +
+        '</div>';
+    }).join('');
+
+    document.getElementById('caixaPedido').innerHTML =
+      '<h3 style="font-size:0.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:1rem">' +
+        'Pedido ' + pedido.referencia +
+      '</h3>' +
+      linhasItens +
+      '<div class="resumo-linha" style="border-top:1px solid var(--line);margin-top:0.8rem;padding-top:1.2rem">' +
+        '<span class="rot">Subtotal</span><span>' + Loja.brl(t.subtotal) + '</span></div>' +
+      '<div class="resumo-linha"><span class="rot">Frete · ' + (fr.nome || 'Correios') + '</span><span>' +
+        (t.frete ? Loja.brl(t.frete) : 'GRÁTIS') + '</span></div>' +
+      (t.desconto > 0
+        ? '<div class="resumo-linha"><span class="rot">Desconto PIX</span><span style="color:#4ade80">−' + Loja.brl(t.desconto) + '</span></div>'
+        : '') +
+      '<div class="resumo-linha total"><span class="rot">Total</span><span>' + Loja.brl(t.total) + '</span></div>' +
+      '<div class="resumo-linha" style="padding-top:1.2rem">' +
+        '<span class="rot">Pagamento</span><span>' + (rotuloMetodo[pedido.metodo] || pedido.metodo) + '</span></div>' +
+      (en.cep
+        ? '<div class="resumo-linha"><span class="rot">Entrega</span><span style="text-align:right">' +
+            en.logradouro + ', ' + en.numero + '<br>' + en.cidade + '/' + en.uf + ' · ' + en.cep + '</span></div>'
+        : '');
+
+    var btn = document.getElementById('btnPagar');
+
+    if (pedido.simulado) {
+      document.getElementById('titulo').textContent = 'Pedido simulado com sucesso!';
+      document.getElementById('subtitulo').innerHTML =
+        'Esta é a <strong>prévia</strong> do fluxo de compra. Com a chave do Asaas configurada, ' +
+        'este botão levaria o cliente direto para a tela de pagamento (PIX, boleto ou cartão).';
+      btn.textContent = 'Pagar Agora (demonstração)';
+      btn.href = '#';
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        Loja.toast('Modo demonstração: aqui abriria a fatura do Asaas.');
+      });
+      document.getElementById('rodapeAviso').innerHTML =
+        '<strong>Modo demonstração.</strong> Nenhuma cobrança real foi gerada e nenhum dado foi enviado ao Asaas.';
+    } else {
+      btn.href = pedido.invoiceUrl;
+      btn.target = '_blank';
+      btn.rel = 'noopener';
+      /* Abre a fatura automaticamente na primeira visita */
+      if (!sessionStorage.getItem('db_fatura_aberta_' + pedido.referencia)) {
+        sessionStorage.setItem('db_fatura_aberta_' + pedido.referencia, '1');
+        setTimeout(function () { window.open(pedido.invoiceUrl, '_blank', 'noopener'); }, 900);
+      }
+    }
+  })();
+  </script>
+</body>
+</html>
