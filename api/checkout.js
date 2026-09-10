@@ -191,22 +191,40 @@ export default async function handler(req, res) {
       idCliente = novo.id;
     }
 
-    /* 2. Cria a cobrança */
-    const cobranca = await asaas('/payments', {
-      method: 'POST',
-      body: JSON.stringify({
-        customer: idCliente,
-        billingType: metodo,
-        value: total,
-        dueDate: dataEm(metodo === 'BOLETO' ? 3 : 1),
-        description: descricao,
-        externalReference: referencia,
-        callback: {
-          successUrl: `${SITE}/pedido.html`,
-          autoRedirect: true
-        }
-      })
-    });
+    /* 2. Cria a cobrança.
+       O `callback` devolve o cliente ao site depois de pagar, mas o Asaas só
+       aceita URL de retorno se a conta tiver um site cadastrado em
+       "Minha Conta → Informações". Enquanto não tiver, a cobrança é criada
+       sem o retorno — o cliente paga normalmente, só não volta sozinho. */
+    const cobrancaBase = {
+      customer: idCliente,
+      billingType: metodo,
+      value: total,
+      dueDate: dataEm(metodo === 'BOLETO' ? 3 : 1),
+      description: descricao,
+      externalReference: referencia
+    };
+
+    let cobranca;
+    try {
+      cobranca = await asaas('/payments', {
+        method: 'POST',
+        body: JSON.stringify({
+          ...cobrancaBase,
+          callback: { successUrl: `${SITE}/pedido.html`, autoRedirect: true }
+        })
+      });
+    } catch (erroCallback) {
+      const semDominio = /dom[íi]nio|site/i.test(erroCallback.message || '');
+      if (!semDominio) throw erroCallback;
+      console.warn('[checkout] Asaas recusou a URL de retorno (%s). ' +
+        'Cadastre o site em Minha Conta → Informações para o cliente voltar ' +
+        'ao site após pagar. Criando a cobrança sem retorno.', erroCallback.message);
+      cobranca = await asaas('/payments', {
+        method: 'POST',
+        body: JSON.stringify(cobrancaBase)
+      });
+    }
 
     return res.status(200).json({
       referencia,
