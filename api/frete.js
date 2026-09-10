@@ -28,6 +28,15 @@ const SERVICOS = (process.env.CORREIOS_SERVICOS || '03220:SEDEX,03298:PAC')
   })
   .filter((s) => s.codigo);
 
+/* Códigos de "valor declarado" por serviço. Vazio = seguro desligado. */
+const CODIGOS_VALOR_DECLARADO = (process.env.CORREIOS_COD_VALOR_DECLARADO || '')
+  .split(',')
+  .map((par) => par.split(':'))
+  .reduce((mapa, [servico, codigo]) => {
+    if (servico && codigo) mapa[servico.trim()] = codigo.trim();
+    return mapa;
+  }, {});
+
 const temCredenciais = Boolean(CORREIOS.usuario && CORREIOS.codigo && CORREIOS.cartao);
 
 /* ------------------------------------------------------------
@@ -92,8 +101,18 @@ async function consultarServico(token, servico, params) {
   });
   if (CORREIOS.contrato) qsPreco.set('nuContrato', CORREIOS.contrato);
   if (CORREIOS.dr) qsPreco.set('nuDR', CORREIOS.dr);
-  if (params.valorDeclarado > 0) {
+
+  /* Valor declarado (seguro da encomenda) só pode ser enviado junto com o
+     código do serviço adicional correspondente, que muda por produto —
+     SEDEX usa 019 e PAC usa 064. Mandar `vlDeclarado` sozinho faz os
+     Correios responderem ERP-052 e derruba o cálculo inteiro.
+     Fica desligado por padrão. Para ativar, defina:
+        CORREIOS_COD_VALOR_DECLARADO="03220:019,03298:064"
+     conferindo antes com os Correios os códigos válidos no contrato. */
+  const codSeguro = CODIGOS_VALOR_DECLARADO[servico.codigo];
+  if (codSeguro && params.valorDeclarado > 0) {
     qsPreco.set('vlDeclarado', params.valorDeclarado.toFixed(2));
+    qsPreco.set('servicosAdicionais', codSeguro);
   }
 
   const qsPrazo = new URLSearchParams(comum);
