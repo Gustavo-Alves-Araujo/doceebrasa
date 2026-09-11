@@ -54,8 +54,11 @@ function cpfValido(v) {
 }
 
 function dataEm(dias) {
+  /* O Asaas valida datas no fuso de Brasília. Usar toISOString() (UTC) faz a
+     data virar cedo demais entre 21h e meia-noite, jogando o vencimento um
+     dia para frente. `en-CA` devolve YYYY-MM-DD, que é o formato esperado. */
   const d = new Date(Date.now() + dias * 86400000);
-  return d.toISOString().slice(0, 10);
+  return d.toLocaleDateString('en-CA', { timeZone: 'America/Sao_Paulo' });
 }
 
 function gerarReferencia() {
