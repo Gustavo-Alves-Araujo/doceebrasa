@@ -84,7 +84,6 @@
             <span class="preco-agora" id="precoAgora"></span>
             <span class="preco-desconto" id="precoDesconto"></span>
           </div>
-          <p class="preco-parcela" id="precoParcela"></p>
         </div>
 
         <div class="compra-linha">
@@ -99,8 +98,8 @@
         <button type="button" class="btn-ghost btn-bloco" id="btnComprarAgora" style="margin-top:1rem">Comprar Agora</button>
 
         <div class="garantias">
-          <div class="garantia"><span class="ic">◆</span><span><strong>Frete grátis</strong> em pedidos acima de <span id="freteGratisValor"></span> · Entrega nacional pelos Correios</span></div>
-          <div class="garantia"><span class="ic">◆</span><span><strong>Pagamento seguro</strong> via Asaas — PIX, boleto ou cartão em até 12×</span></div>
+          <div class="garantia"><span class="ic">◆</span><span><strong>Entrega nacional</strong> pelos Correios, com frete calculado pelo seu CEP</span></div>
+          <div class="garantia"><span class="ic">◆</span><span><strong>Pagamento seguro</strong> via Asaas — PIX, boleto ou cartão</span></div>
           <div class="garantia"><span class="ic">◆</span><span><strong>Envasado a quente e lacrado</strong> · Sem conservantes, sem glúten</span></div>
           <div class="garantia"><span class="ic">◆</span><span><strong>Embalagem reforçada</strong> com proteção antichoque para o vidro</span></div>
         </div>
@@ -113,7 +112,6 @@
         <button type="button" class="ativa" data-painel="descricao" role="tab">Descrição</button>
         <button type="button" data-painel="ficha" role="tab">Ficha Técnica</button>
         <button type="button" data-painel="harmoniza" role="tab">Harmonização</button>
-        <button type="button" data-painel="entrega" role="tab">Entrega e Trocas</button>
       </div>
 
       <div class="painel ativo" id="painel-descricao">
@@ -129,24 +127,12 @@
         <ul class="lista-harmoniza" id="listaHarmoniza"></ul>
       </div>
 
-      <div class="painel" id="painel-entrega">
-        <p>
-          Enviamos para todo o Brasil pelos <strong>Correios</strong> (PAC ou SEDEX, você escolhe no checkout).
-          O prazo e o valor são calculados pelo seu CEP na hora de finalizar a compra — sem surpresa depois.
-          Pedidos aprovados até 14h saem no mesmo dia útil.
-        </p>
-        <p style="margin-top:1.25rem">
-          Cada pote viaja em embalagem reforçada, com proteção antichoque para o vidro.
-          Se algo chegar quebrado ou fora do padrão, é só falar com a gente pelo WhatsApp em até 7 dias
-          que reenviamos ou devolvemos o valor.
-        </p>
-      </div>
     </section>
 
     <!-- ── PRODUTO RELACIONADO ────────────────────────── -->
     <section class="relacionado" id="relacionado" hidden>
       <span class="section-label">Vai bem junto</span>
-      <h2 class="section-title" style="font-size:2rem">COMPLETE A DUPLA</h2>
+      <h2 class="section-title" style="font-size:2rem">O OUTRO SABOR</h2>
       <div class="relacionado-grid" id="gradeRelacionados"></div>
     </section>
 
@@ -233,10 +219,6 @@
       document.getElementById('precoDe').hidden = true;
       document.getElementById('precoDesconto').hidden = true;
     }
-    document.getElementById('precoParcela').innerHTML =
-      'ou <strong>' + Loja.brl(p.preco / 3) + '</strong> em 3× sem juros no cartão · ' +
-      '<strong>' + Loja.brl(p.preco - Number((p.preco * 0.05).toFixed(2))) + '</strong> no PIX';
-    document.getElementById('freteGratisValor').textContent = Loja.brl(Loja.CONFIG.freteGratisAcimaDe);
 
     /* ---- Galeria ---- */
     var vistas = [
@@ -320,7 +302,6 @@
 
     /* ---- Relacionados ---- */
     var outros = Loja.catalogo().filter(function (o) { return o.id !== p.id; });
-    outros.push(Loja.produto('kit-brasa'));
     document.getElementById('gradeRelacionados').innerHTML = outros.map(function (o) {
       var capa = o.fundo
         ? '<div class="cenario" style="background-image:url(\'' + o.fundo + '\')"></div><img class="pote" src="' + o.imagem + '" alt="' + o.nome + '" loading="lazy">'

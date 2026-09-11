@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pedidos | Doce e Brasa</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta name="theme-color" content="#b91c1c">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* `hidden` precisa vencer o display das classes abaixo */
+    [hidden] { display: none !important; }
+
+    :root {
+      --black: #080808;  --dark: #0f0f0f;  --dark-2: #161616;  --dark-3: #1e1e1e;
+      --red: #b91c1c;    --red-bright: #ef4444;
+      --cream: #faf7f2;  --warm: #f0e6d6;  --muted: #9ca3af;
+      --line: rgba(240,230,214,0.12);
+      --fn-display: 'Bebas Neue', sans-serif;
+      --fn-sans: 'Inter', sans-serif;
+
+      /* Paleta de status — reservada, nunca usada para outra coisa.
+         Toda cor aqui anda junto de um rótulo escrito. */
+      --st-espera:  #d9a441;  --st-espera-bg:  rgba(217,164,65,0.14);
+      --st-pago:    #4ade80;  --st-pago-bg:    rgba(74,222,128,0.14);
+      --st-separa:  #60a5fa;  --st-separa-bg:  rgba(96,165,250,0.14);
+      --st-envio:   #a78bfa;  --st-envio-bg:   rgba(167,139,250,0.14);
+      --st-fim:     #34d399;  --st-fim-bg:     rgba(52,211,153,0.12);
+      --st-morto:   #8b8b8b;  --st-morto-bg:   rgba(139,139,139,0.12);
+      --st-grave:   #f87171;  --st-grave-bg:   rgba(248,113,113,0.14);
+    }
+
+    body {
+      background: var(--black); color: var(--warm);
+      font-family: var(--fn-sans); line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--red-bright); text-decoration: none; }
+    button, input, select, textarea { font-family: inherit; font-size: inherit; }
+    :focus-visible { outline: 2px solid var(--red-bright); outline-offset: 2px; }
+
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
+
+    /* ── Topo ─────────────────────────────────────────── */
+    header.topo {
+      border-bottom: 1px solid var(--line); background: var(--dark);
+      position: sticky; top: 0; z-index: 50;
+    }
+    .topo-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; flex-wrap: wrap; padding: .9rem 0;
+    }
+    .marca { display: flex; align-items: center; gap: .85rem; }
+    .marca img { height: 40px; width: auto; mix-blend-mode: screen; }
+    .marca h1 {
+      font-family: var(--fn-display); font-size: 1.5rem; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--cream); font-weight: 400; line-height: 1;
+    }
+    .topo-acoes { display: flex; align-items: center; gap: .6rem; }
+
+    .btn {
+      background: var(--red); color: var(--cream); border: 1px solid var(--red);
+      padding: .55rem 1.1rem; cursor: pointer;
+      font-size: .72rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      transition: background .25s, border-color .25s, opacity .25s;
+    }
+    .btn:hover { background: var(--red-bright); border-color: var(--red-bright); }
+    .btn[disabled] { opacity: .5; cursor: not-allowed; }
+    .btn.fantasma { background: transparent; color: var(--warm); border-color: rgba(240,230,214,.28); }
+    .btn.fantasma:hover { border-color: var(--red-bright); color: var(--red-bright); background: transparent; }
+
+    /* ── Login ────────────────────────────────────────── */
+    .tela-login { min-height: 100vh; display: grid; place-items: center; padding: 2rem 1.5rem; }
+    .caixa-login {
+      width: 100%; max-width: 24rem; background: var(--dark);
+      border: 1px solid var(--line); padding: 2.5rem 2rem; text-align: center;
+    }
+    .caixa-login img { height: 72px; width: auto; margin: 0 auto 1.5rem; mix-blend-mode: screen; }
+    .caixa-login h2 {
+      font-family: var(--fn-display); font-size: 1.9rem; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--cream); font-weight: 400; margin-bottom: .4rem;
+    }
+    .caixa-login p { font-size: .85rem; color: var(--muted); margin-bottom: 1.75rem; }
+    .caixa-login input {
+      width: 100%; background: var(--black); border: 1px solid var(--line);
+      color: var(--cream); padding: .85rem 1rem; margin-bottom: .9rem; text-align: center;
+    }
+    .caixa-login input:focus { outline: none; border-color: var(--red); }
+    .caixa-login .btn { width: 100%; padding: .85rem; }
+    .erro-login { color: var(--st-grave); font-size: .82rem; margin-top: .9rem; min-height: 1.2em; }
+
+    /* ── Indicadores ──────────────────────────────────── */
+    .indicadores {
+      display: grid; gap: 1px; background: var(--line);
+      grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+      border: 1px solid var(--line); margin: 1.75rem 0;
+    }
+    .tile { background: var(--dark); padding: 1.15rem 1.25rem; }
+    .tile .rot {
+      font-size: .64rem; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--muted); margin-bottom: .5rem;
+    }
+    .tile .num {
+      font-family: var(--fn-display); font-size: 2.3rem; line-height: 1;
+      letter-spacing: 1px; color: var(--cream); font-variant-numeric: tabular-nums;
+    }
+    .tile .sub { font-size: .74rem; color: var(--muted); margin-top: .3rem; }
+
+    /* ── Filtros ──────────────────────────────────────── */
+    .filtros {
+      display: flex; gap: .6rem; flex-wrap: wrap; align-items: center;
+      margin-bottom: 1.25rem;
+    }
+    .filtros select, .filtros input {
+      background: var(--dark); border: 1px solid var(--line);
+      color: var(--cream); padding: .55rem .8rem; font-size: .88rem;
+    }
+    .filtros input { min-width: 15rem; flex: 1 1 15rem; }
+    .filtros select:focus, .filtros input:focus { outline: none; border-color: var(--red); }
+
+    /* ── Lista de pedidos ─────────────────────────────── */
+    .pedido {
+      background: var(--dark); border: 1px solid var(--line);
+      margin-bottom: .6rem; transition: border-color .25s;
+    }
+    .pedido:hover { border-color: rgba(185,28,28,.4); }
+    .pedido.aberta { border-color: rgba(185,28,28,.55); }
+
+    .pedido-linha {
+      display: grid; gap: 1rem; align-items: center; cursor: pointer;
+      grid-template-columns: 8.5rem 1fr 7rem 6.5rem 7.5rem 1.5rem;
+      padding: .95rem 1.25rem;
+    }
+    .pedido-linha .ref {
+      font-family: ui-monospace, Menlo, monospace; font-size: .78rem;
+      color: var(--muted); font-variant-numeric: tabular-nums;
+    }
+    .pedido-linha .quem { min-width: 0; }
+    .pedido-linha .quem b { display: block; color: var(--cream); font-weight: 600; font-size: .93rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .pedido-linha .quem span { font-size: .76rem; color: var(--muted); }
+    .pedido-linha .quando { font-size: .78rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+    .pedido-linha .valor {
+      font-family: var(--fn-display); font-size: 1.35rem; letter-spacing: .5px;
+      color: var(--cream); font-variant-numeric: tabular-nums; text-align: right;
+    }
+    .pedido-linha .seta { color: var(--muted); transition: transform .25s; text-align: center; }
+    .pedido.aberta .seta { transform: rotate(90deg); }
+
+    .chip {
+      display: inline-flex; align-items: center; gap: .4rem;
+      padding: .25rem .65rem; border-radius: 999px;
+      font-size: .68rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .chip::before { content: ''; width: .45rem; height: .45rem; border-radius: 50%; background: currentColor; }
+    .chip.aguardando { color: var(--st-espera); background: var(--st-espera-bg); }
+    .chip.pago       { color: var(--st-pago);   background: var(--st-pago-bg); }
+    .chip.separando  { color: var(--st-separa); background: var(--st-separa-bg); }
+    .chip.enviado    { color: var(--st-envio);  background: var(--st-envio-bg); }
+    .chip.entregue   { color: var(--st-fim);    background: var(--st-fim-bg); }
+    .chip.vencido, .chip.cancelado, .chip.estornado, .chip.recusado {
+      color: var(--st-morto); background: var(--st-morto-bg);
+    }
+    .chip.chargeback { color: var(--st-grave); background: var(--st-grave-bg); }
+
+    /* ── Detalhe ──────────────────────────────────────── */
+    .detalhe { display: none; border-top: 1px solid var(--line); padding: 1.5rem 1.25rem; }
+    .pedido.aberta .detalhe { display: block; }
+    .detalhe-grade {
+      display: grid; gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    }
+    .bloco h3 {
+      font-size: .64rem; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--muted); margin-bottom: .75rem;
+    }
+    .bloco dl { display: grid; grid-template-columns: 6.5rem 1fr; gap: .4rem .8rem; font-size: .86rem; }
+    .bloco dt { color: var(--muted); }
+    .bloco dd { color: var(--warm); word-break: break-word; }
+    .bloco .itens-lista { font-size: .88rem; }
+    .bloco .itens-lista div {
+      display: flex; justify-content: space-between; gap: 1rem;
+      padding: .4rem 0; border-bottom: 1px solid var(--line);
+    }
+    .bloco .itens-lista div:last-child { border-bottom: 0; }
+    .bloco .itens-lista .tot { color: var(--cream); font-weight: 600; }
+
+    .acoes-pedido {
+      display: flex; gap: .6rem; flex-wrap: wrap; align-items: center;
+      margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--line);
+    }
+    .acoes-pedido select, .acoes-pedido input {
+      background: var(--black); border: 1px solid var(--line);
+      color: var(--cream); padding: .55rem .8rem; font-size: .86rem;
+    }
+    .acoes-pedido input { flex: 1 1 12rem; min-width: 10rem; }
+    .acoes-pedido select:focus, .acoes-pedido input:focus { outline: none; border-color: var(--red); }
+    .salvo { font-size: .78rem; color: var(--st-pago); opacity: 0; transition: opacity .3s; }
+    .salvo.ver { opacity: 1; }
+
+    .copiar {
+      background: transparent; border: 1px solid var(--line); color: var(--muted);
+      padding: .3rem .6rem; font-size: .68rem; letter-spacing: 1px;
+      text-transform: uppercase; cursor: pointer; margin-top: .6rem;
+    }
+    .copiar:hover { border-color: var(--red); color: var(--red-bright); }
+
+    /* ── Estados ──────────────────────────────────────── */
+    .vazio, .carregando { text-align: center; padding: 5rem 1rem; color: var(--muted); }
+    .vazio h2 {
+      font-family: var(--fn-display); font-size: 1.9rem; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--cream); font-weight: 400; margin-bottom: .5rem;
+    }
+    .aviso-erro {
+      border-left: 3px solid var(--st-grave); background: var(--st-grave-bg);
+      padding: 1rem 1.25rem; margin: 1.5rem 0; font-size: .88rem;
+    }
+
+    @media (max-width: 900px) {
+      .pedido-linha {
+        grid-template-columns: 1fr auto; gap: .5rem 1rem; padding: 1rem;
+      }
+      .pedido-linha .ref { grid-column: 1 / -1; }
+      .pedido-linha .quando { grid-column: 1; }
+      .pedido-linha .chip-cel { grid-column: 2; justify-self: end; }
+      .pedido-linha .valor { grid-column: 1 / -1; text-align: left; }
+      .pedido-linha .seta { display: none; }
+      .bloco dl { grid-template-columns: 5.5rem 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── LOGIN ──────────────────────────────────────── -->
+  <div class="tela-login" id="telaLogin">
+    <form class="caixa-login" id="formLogin">
+      <img src="logo.webp" alt="Doce e Brasa">
+      <h2>Pedidos</h2>
+      <p>Painel interno da loja</p>
+      <input type="password" id="senha" placeholder="Senha" autocomplete="current-password" required>
+      <button type="submit" class="btn" id="btnEntrar">Entrar</button>
+      <p class="erro-login" id="erroLogin"></p>
+    </form>
+  </div>
+
+  <!-- ── PAINEL ─────────────────────────────────────── -->
+  <div id="painel" hidden>
+    <header class="topo">
+      <div class="container topo-inner">
+        <div class="marca">
+          <img src="logo.webp" alt="Doce e Brasa">
+          <h1>Pedidos</h1>
+        </div>
+        <div class="topo-acoes">
+          <button class="btn fantasma" id="btnAtualizar">Atualizar</button>
+          <button class="btn fantasma" id="btnSair">Sair</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <div class="indicadores" id="indicadores"></div>
+
+      <div class="filtros">
+        <select id="filtroStatus">
+          <option value="">Todos os status</option>
+          <option value="aguardando">Aguardando pagamento</option>
+          <option value="pago">Pago</option>
+          <option value="separando">Separando</option>
+          <option value="enviado">Enviado</option>
+          <option value="entregue">Entregue</option>
+          <option value="vencido">Vencido</option>
+          <option value="cancelado">Cancelado</option>
+          <option value="estornado">Estornado</option>
+          <option value="chargeback">Chargeback</option>
+        </select>
+        <input type="search" id="filtroBusca" placeholder="Buscar por nome, e-mail, pedido ou rastreio">
+      </div>
+
+      <div id="lista"></div>
+    </main>
+  </div>
+
+  <script>
+  (function () {
+    'use strict';
+
+    var CHAVE = 'db_admin_senha';
+    var senha = sessionStorage.getItem(CHAVE) || '';
+    var pedidos = [];
+
+    var ROTULO = {
+      aguardando: 'Aguardando pagamento', pago: 'Pago', separando: 'Separando',
+      enviado: 'Enviado', entregue: 'Entregue', vencido: 'Vencido',
+      cancelado: 'Cancelado', estornado: 'Estornado',
+      chargeback: 'Chargeback', recusado: 'Recusado'
+    };
+    var METODO = { PIX: 'PIX', BOLETO: 'Boleto', CREDIT_CARD: 'Cartão' };
+
+    function brl(v) {
+      return (Number(v) || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
+    function dataHora(iso) {
+      if (!iso) return '—';
+      var d = new Date(iso);
+      return d.toLocaleDateString('pt-BR') + ' ' + d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+    }
+    function esc(t) {
+      return String(t == null ? '' : t).replace(/[&<>"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      });
+    }
+
+    function api(opcoes) {
+      opcoes = opcoes || {};
+      var url = '/api/admin-pedidos' + (opcoes.query || '');
+      return fetch(url, {
+        method: opcoes.method || 'GET',
+        headers: Object.assign({ 'x-admin-senha': senha }, opcoes.body ? { 'Content-Type': 'application/json' } : {}),
+        body: opcoes.body ? JSON.stringify(opcoes.body) : undefined
+      }).then(function (r) {
+        return r.json().then(function (j) {
+          if (!r.ok) { var e = new Error(j.erro || 'Erro'); e.status = r.status; throw e; }
+          return j;
+        });
+      });
+    }
+
+    /* ── Login ───────────────────────────────────── */
+    document.getElementById('formLogin').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var btn = document.getElementById('btnEntrar');
+      var msg = document.getElementById('erroLogin');
+      senha = document.getElementById('senha').value;
+      btn.disabled = true; btn.textContent = 'Entrando…'; msg.textContent = '';
+
+      api({ query: '?limit=1' })
+        .then(function () {
+          sessionStorage.setItem(CHAVE, senha);
+          abrirPainel();
+        })
+        .catch(function (err) {
+          msg.textContent = err.status === 401 ? 'Senha incorreta.' : (err.message || 'Não consegui entrar.');
+          senha = '';
+        })
+        .then(function () { btn.disabled = false; btn.textContent = 'Entrar'; });
+    });
+
+    document.getElementById('btnSair').addEventListener('click', function () {
+      sessionStorage.removeItem(CHAVE);
+      location.reload();
+    });
+    document.getElementById('btnAtualizar').addEventListener('click', carregar);
+    document.getElementById('filtroStatus').addEventListener('change', carregar);
+
+    var timerBusca;
+    document.getElementById('filtroBusca').addEventListener('input', function () {
+      clearTimeout(timerBusca);
+      timerBusca = setTimeout(carregar, 350);
+    });
+
+    function abrirPainel() {
+      document.getElementById('telaLogin').hidden = true;
+      document.getElementById('painel').hidden = false;
+      carregar();
+    }
+
+    /* ── Carregar ────────────────────────────────── */
+    function carregar() {
+      var status = document.getElementById('filtroStatus').value;
+      var busca = document.getElementById('filtroBusca').value.trim();
+      var q = [];
+      if (status) q.push('status=' + encodeURIComponent(status));
+      if (busca) q.push('busca=' + encodeURIComponent(busca));
+
+      document.getElementById('lista').innerHTML = '<div class="carregando">Carregando…</div>';
+
+      api({ query: q.length ? '?' + q.join('&') : '' })
+        .then(function (d) {
+          pedidos = d.pedidos || [];
+          desenharIndicadores(d.resumo || {});
+          desenharLista();
+        })
+        .catch(function (err) {
+          if (err.status === 401) { sessionStorage.removeItem(CHAVE); location.reload(); return; }
+          document.getElementById('lista').innerHTML =
+            '<div class="aviso-erro"><b>Não consegui carregar os pedidos.</b><br>' + esc(err.message) + '</div>';
+        });
+    }
+
+    function desenharIndicadores(r) {
+      document.getElementById('indicadores').innerHTML =
+        tile('Pedidos', r.total || 0, 'no período carregado') +
+        tile('Aguardando pagamento', r.aguardando || 0, 'ainda não pagos') +
+        tile('Pagos', r.pago || 0, 'prontos para separar') +
+        tile('Faturado', brl(r.faturado || 0), 'pedidos já pagos');
+    }
+    function tile(rot, num, sub) {
+      return '<div class="tile"><div class="rot">' + rot + '</div>' +
+             '<div class="num">' + num + '</div>' +
+             '<div class="sub">' + sub + '</div></div>';
+    }
+
+    function desenharLista() {
+      var el = document.getElementById('lista');
+      if (!pedidos.length) {
+        el.innerHTML = '<div class="vazio"><h2>Nenhum pedido</h2>' +
+          '<p>Quando alguém comprar, o pedido aparece aqui na hora.</p></div>';
+        return;
+      }
+      el.innerHTML = pedidos.map(linhaPedido).join('');
+    }
+
+    function linhaPedido(p) {
+      var itens = Array.isArray(p.itens) ? p.itens : [];
+      var endereco = p.logradouro + ', ' + p.numero +
+        (p.complemento ? ' — ' + p.complemento : '') + '\n' +
+        (p.bairro ? p.bairro + '\n' : '') +
+        p.cidade + '/' + p.uf + ' · ' + p.cep;
+
+      return '' +
+      '<article class="pedido" data-ref="' + esc(p.referencia) + '">' +
+        '<div class="pedido-linha" data-abrir>' +
+          '<span class="ref">' + esc(p.referencia) + '</span>' +
+          '<span class="quem"><b>' + esc(p.cliente_nome) + '</b><span>' + esc(p.cliente_email) + '</span></span>' +
+          '<span class="quando">' + dataHora(p.criado_em) + '</span>' +
+          '<span class="chip-cel"><span class="chip ' + esc(p.status) + '">' + (ROTULO[p.status] || p.status) + '</span></span>' +
+          '<span class="valor">' + brl(p.total) + '</span>' +
+          '<span class="seta">›</span>' +
+        '</div>' +
+
+        '<div class="detalhe">' +
+          '<div class="detalhe-grade">' +
+
+            '<div class="bloco"><h3>Cliente</h3><dl>' +
+              '<dt>Nome</dt><dd>' + esc(p.cliente_nome) + '</dd>' +
+              '<dt>E-mail</dt><dd>' + esc(p.cliente_email) + '</dd>' +
+              '<dt>Telefone</dt><dd>' + esc(p.cliente_telefone) + '</dd>' +
+              '<dt>CPF</dt><dd>' + esc(p.cliente_cpf) + '</dd>' +
+            '</dl></div>' +
+
+            '<div class="bloco"><h3>Entrega</h3><dl>' +
+              '<dt>Endereço</dt><dd>' + esc(p.logradouro) + ', ' + esc(p.numero) +
+                (p.complemento ? ' — ' + esc(p.complemento) : '') + '</dd>' +
+              '<dt>Bairro</dt><dd>' + esc(p.bairro || '—') + '</dd>' +
+              '<dt>Cidade</dt><dd>' + esc(p.cidade) + '/' + esc(p.uf) + '</dd>' +
+              '<dt>CEP</dt><dd>' + esc(p.cep) + '</dd>' +
+              '<dt>Envio</dt><dd>' + esc(p.frete_servico || '—') + ' · ' + brl(p.frete_valor) +
+                (p.frete_prazo ? ' · ' + p.frete_prazo + ' dias úteis' : '') + '</dd>' +
+            '</dl>' +
+            '<button class="copiar" data-copiar="' + esc(endereco) + '">Copiar endereço</button>' +
+            '</div>' +
+
+            '<div class="bloco"><h3>Itens</h3><div class="itens-lista">' +
+              itens.map(function (i) {
+                return '<div><span>' + i.qtd + '× ' + esc(i.nome) + '</span><span>' + brl(i.subtotal) + '</span></div>';
+              }).join('') +
+              '<div><span>Frete</span><span>' + brl(p.frete_valor) + '</span></div>' +
+              '<div class="tot"><span>Total</span><span>' + brl(p.total) + '</span></div>' +
+            '</div>' +
+            '<dl style="margin-top:1rem">' +
+              '<dt>Pagamento</dt><dd>' + (METODO[p.metodo] || esc(p.metodo)) + '</dd>' +
+              '<dt>Pago em</dt><dd>' + dataHora(p.pago_em) + '</dd>' +
+              (p.invoice_url ? '<dt>Fatura</dt><dd><a href="' + esc(p.invoice_url) + '" target="_blank" rel="noopener">abrir no Asaas</a></dd>' : '') +
+            '</dl></div>' +
+
+          '</div>' +
+
+          '<div class="acoes-pedido">' +
+            '<select data-status>' +
+              ['aguardando','pago','separando','enviado','entregue','cancelado','estornado','vencido','chargeback']
+                .map(function (s) {
+                  return '<option value="' + s + '"' + (s === p.status ? ' selected' : '') + '>' + ROTULO[s] + '</option>';
+                }).join('') +
+            '</select>' +
+            '<input type="text" data-rastreio placeholder="Código de rastreio dos Correios" value="' + esc(p.rastreio || '') + '">' +
+            '<button class="btn" data-salvar>Salvar</button>' +
+            '<span class="salvo">salvo ✓</span>' +
+          '</div>' +
+        '</div>' +
+      '</article>';
+    }
+
+    /* ── Interações da lista ─────────────────────── */
+    document.getElementById('lista').addEventListener('click', function (e) {
+      var art = e.target.closest('.pedido');
+      if (!art) return;
+
+      if (e.target.closest('[data-abrir]')) { art.classList.toggle('aberta'); return; }
+
+      var btnCopiar = e.target.closest('[data-copiar]');
+      if (btnCopiar) {
+        navigator.clipboard.writeText(btnCopiar.dataset.copiar).then(function () {
+          var antes = btnCopiar.textContent;
+          btnCopiar.textContent = 'Copiado ✓';
+          setTimeout(function () { btnCopiar.textContent = antes; }, 1600);
+        });
+        return;
+      }
+
+      if (e.target.closest('[data-salvar]')) {
+        var btn = e.target.closest('[data-salvar]');
+        var ref = art.dataset.ref;
+        var novo = art.querySelector('[data-status]').value;
+        var rastreio = art.querySelector('[data-rastreio]').value;
+        var aviso = art.querySelector('.salvo');
+
+        btn.disabled = true; btn.textContent = 'Salvando…';
+        api({ method: 'PATCH', body: { referencia: ref, status: novo, rastreio: rastreio } })
+          .then(function (d) {
+            var chip = art.querySelector('.chip');
+            chip.className = 'chip ' + d.pedido.status;
+            chip.textContent = ROTULO[d.pedido.status] || d.pedido.status;
+            aviso.classList.add('ver');
+            setTimeout(function () { aviso.classList.remove('ver'); }, 2200);
+          })
+          .catch(function (err) { alert('Não consegui salvar: ' + err.message); })
+          .then(function () { btn.disabled = false; btn.textContent = 'Salvar'; });
+      }
+    });
+
+    /* ── Início ──────────────────────────────────── */
+    if (senha) {
+      api({ query: '?limit=1' }).then(abrirPainel).catch(function () {
+        sessionStorage.removeItem(CHAVE); senha = '';
+      });
+    }
+  })();
+  </script>
+</body>
+</html>

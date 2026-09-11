@@ -1,22 +1,30 @@
 /* ============================================================
    POST /api/webhook-asaas
-   Recebe as notificações de pagamento do Asaas.
+   Recebe as notificações de pagamento do Asaas e atualiza o
+   pedido no banco — é o que faz o status mudar sozinho de
+   "aguardando" para "pago" no painel.
 
-   Configure em: Asaas → Integrações → Webhooks
-   URL:    https://SEUDOMINIO/api/webhook-asaas
-   Token:  o mesmo valor de ASAAS_WEBHOOK_TOKEN
-
-   Hoje ele só valida e registra o evento no log da Vercel.
-   É aqui que entra o e-mail de confirmação / baixa no estoque
-   quando o cliente quiser esse passo.
+   Configurado em: Asaas → Integrações → Webhooks
+   URL:   https://www.docebrasa.com.br/api/webhook-asaas
+   Token: o mesmo valor de ASAAS_WEBHOOK_TOKEN
 ============================================================ */
+
+import { atualizarPedido } from '../lib/supabase.js';
 
 const TOKEN = process.env.ASAAS_WEBHOOK_TOKEN;
 
-const EVENTOS_PAGOS = new Set([
-  'PAYMENT_RECEIVED',
-  'PAYMENT_CONFIRMED'
-]);
+/* Como cada evento do Asaas se traduz no status do pedido. */
+const STATUS_POR_EVENTO = {
+  PAYMENT_CONFIRMED:            'pago',
+  PAYMENT_RECEIVED:             'pago',
+  PAYMENT_RECEIVED_IN_CASH:     'pago',
+  PAYMENT_OVERDUE:              'vencido',
+  PAYMENT_DELETED:              'cancelado',
+  PAYMENT_REFUNDED:             'estornado',
+  PAYMENT_PARTIALLY_REFUNDED:   'estornado',
+  PAYMENT_CHARGEBACK_REQUESTED: 'chargeback',
+  PAYMENT_REPROVED_BY_RISK_ANALYSIS: 'recusado'
+};
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -33,14 +41,21 @@ export default async function handler(req, res) {
   const corpo = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body || {});
   const evento = corpo.event;
   const cobranca = corpo.payment || {};
+  const referencia = cobranca.externalReference;
 
   console.log('[webhook] evento=%s pedido=%s valor=%s status=%s',
-    evento, cobranca.externalReference, cobranca.value, cobranca.status);
+    evento, referencia, cobranca.value, cobranca.status);
 
-  if (EVENTOS_PAGOS.has(evento)) {
-    /* TODO: disparar e-mail de confirmação, dar baixa no estoque,
-       gerar a etiqueta dos Correios. */
-    console.log('[webhook] PAGAMENTO CONFIRMADO do pedido', cobranca.externalReference);
+  const novoStatus = STATUS_POR_EVENTO[evento];
+
+  if (novoStatus && referencia) {
+    const campos = { status: novoStatus };
+    if (novoStatus === 'pago') {
+      campos.pago_em = cobranca.paymentDate || cobranca.confirmedDate || new Date().toISOString();
+    }
+    const atualizado = await atualizarPedido(referencia, campos);
+    console.log('[webhook] pedido %s -> %s %s',
+      referencia, novoStatus, atualizado ? '(gravado)' : '(não encontrado no banco)');
   }
 
   /* O Asaas reenvia o evento enquanto não receber 200. */

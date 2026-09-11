@@ -7,3 +7,4 @@ Sitemap: https://docebrasa.com.br/sitemap.xml
 Disallow: /carrinho.html
 Disallow: /checkout.html
 Disallow: /pedido.html
+Disallow: /admin.html

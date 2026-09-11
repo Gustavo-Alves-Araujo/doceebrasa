@@ -9,6 +9,8 @@
    a prévia rodar do começo ao fim sem cobrar ninguém.
 ============================================================ */
 
+import { salvarPedido } from '../lib/supabase.js';
+
 const ASAAS_KEY = process.env.ASAAS_API_KEY;
 const ASAAS_BASE = process.env.ASAAS_API_BASE ||
   (String(ASAAS_KEY || '').includes('_hmlg_')
@@ -23,14 +25,10 @@ const SITE = process.env.SITE_URL || 'https://docebrasa.com.br';
    `{ id, qtd }`. Mantenha em sincronia com assets/loja.js.
 ------------------------------------------------------------ */
 const PRECOS = {
-  abacaxi:      { nome: 'Geleia de Abacaxi com Pimenta 300g',   preco: 39.90 },
-  cebola:       { nome: 'Geleia de Cebola Roxa com Vinho 300g', preco: 39.90 },
-  'kit-brasa':  { nome: 'Kit Brasa · 4 potes 300g',             preco: 134.90 },
-  presente:     { nome: 'Embalagem Presente',                   preco: 12.90 }
+  abacaxi: { nome: 'Geleia de Abacaxi com Pimenta 300g',   preco: 39.90 },
+  cebola:  { nome: 'Geleia de Cebola Roxa com Vinho 300g', preco: 39.90 }
 };
 
-const DESCONTO_PIX = 0.05;
-const FRETE_GRATIS_ACIMA_DE = 199.90;
 const METODOS = ['PIX', 'BOLETO', 'CREDIT_CARD'];
 
 /* ------------------------------------------------------------
@@ -136,23 +134,45 @@ export default async function handler(req, res) {
   }
 
   const subtotal = +linhas.reduce((t, l) => t + l.subtotal, 0).toFixed(2);
-  const valorFreteInformado = Math.max(0, Number(frete.valor) || 0);
-  const valorFrete = subtotal >= FRETE_GRATIS_ACIMA_DE ? 0 : valorFreteInformado;
-  const desconto = metodo === 'PIX' ? +(subtotal * DESCONTO_PIX).toFixed(2) : 0;
-  const total = +(subtotal + valorFrete - desconto).toFixed(2);
+  const valorFrete = Math.max(0, Number(frete.valor) || 0);
+  const total = +(subtotal + valorFrete).toFixed(2);
 
   if (total < 5) {
     return res.status(400).json({ erro: 'Valor mínimo de cobrança é R$ 5,00' });
   }
 
   const referencia = gerarReferencia();
-  const totais = { subtotal, frete: valorFrete, desconto, total };
+  const totais = { subtotal, frete: valorFrete, total };
 
   const descricao = [
     `Pedido ${referencia} · Doce e Brasa`,
     ...linhas.map((l) => `${l.qtd}× ${l.nome}`),
-    `Envio: ${frete.nome || 'Correios'}${valorFrete === 0 ? ' (grátis)' : ` — R$ ${valorFrete.toFixed(2)}`}`
+    `Envio: ${frete.nome || 'Correios'} — R$ ${valorFrete.toFixed(2)}`
   ].join(' | ').slice(0, 500);
+
+  /* Dados do pedido que vão para o banco, iguais nos dois caminhos. */
+  const registro = {
+    referencia,
+    cliente_nome: String(cliente.nome).trim(),
+    cliente_email: String(cliente.email).trim(),
+    cliente_telefone: String(cliente.telefone).trim(),
+    cliente_cpf: digitos(cliente.cpf),
+    cep: digitos(entrega.cep),
+    logradouro: entrega.logradouro,
+    numero: String(entrega.numero),
+    complemento: entrega.complemento || null,
+    bairro: entrega.bairro || null,
+    cidade: entrega.cidade,
+    uf: String(entrega.uf).toUpperCase().slice(0, 2),
+    frete_servico: frete.nome || 'Correios',
+    frete_valor: valorFrete,
+    frete_prazo: Number(frete.prazo) || null,
+    itens: linhas,
+    subtotal,
+    total,
+    metodo,
+    status: 'aguardando'
+  };
 
   /* ---- Modo demonstração ---- */
   if (!ASAAS_KEY) {
@@ -228,6 +248,14 @@ export default async function handler(req, res) {
         body: JSON.stringify(cobrancaBase)
       });
     }
+
+    /* 3. Registra o pedido. Se o banco falhar, o checkout continua:
+       a cobrança já existe no Asaas e é ela que vale para o cliente. */
+    await salvarPedido({
+      ...registro,
+      asaas_payment_id: cobranca.id,
+      invoice_url: cobranca.invoiceUrl
+    });
 
     return res.status(200).json({
       referencia,

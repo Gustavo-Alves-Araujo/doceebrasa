@@ -176,11 +176,11 @@
           <div class="metodos" id="metodos">
             <button type="button" class="metodo selecionado" data-metodo="PIX">
               <span class="ic">⚡</span>
-              <span><span class="nome">PIX</span><br><span class="obs">Aprovação na hora · 5% off</span></span>
+              <span><span class="nome">PIX</span><br><span class="obs">Aprovação na hora</span></span>
             </button>
             <button type="button" class="metodo" data-metodo="CREDIT_CARD">
               <span class="ic">💳</span>
-              <span><span class="nome">Cartão</span><br><span class="obs">Até 12× · 3× sem juros</span></span>
+              <span><span class="nome">Cartão</span><br><span class="obs">Crédito ou débito</span></span>
             </button>
             <button type="button" class="metodo" data-metodo="BOLETO">
               <span class="ic">🧾</span>
@@ -226,10 +226,6 @@
         <div class="resumo-linha" id="linhaFrete">
           <span class="rot">Frete</span>
           <span id="resumoFrete" style="color:var(--muted);font-size:0.82rem">a calcular</span>
-        </div>
-        <div class="resumo-linha" id="linhaDesconto" hidden>
-          <span class="rot">Desconto PIX (5%)</span>
-          <span id="resumoDesconto" style="color:#4ade80">−R$ 0,00</span>
         </div>
         <div class="resumo-linha total">
           <span class="rot">Total</span>
@@ -428,11 +424,9 @@
     }
 
     function renderizarFrete(resposta) {
-      var gratis = Loja.Carrinho.freteGratis();
       var html = '<div class="opcoes-frete">';
 
       resposta.opcoes.forEach(function (o, i) {
-        var valorFinal = gratis ? 0 : o.valor;
         html += '' +
           '<label class="opcao-frete' + (i === 0 ? ' selecionada' : '') + '" data-opcao="' + i + '">' +
             '<input type="radio" name="frete" value="' + i + '"' + (i === 0 ? ' checked' : '') + '>' +
@@ -440,18 +434,11 @@
               '<span class="nome">' + o.nome + '</span>' +
               '<span class="prazo">Entrega em até ' + o.prazo + ' ' + (o.prazo === 1 ? 'dia útil' : 'dias úteis') + '</span>' +
             '</span>' +
-            '<span class="valor' + (valorFinal === 0 ? ' gratis' : '') + '">' +
-              (valorFinal === 0 ? 'GRÁTIS' : Loja.brl(valorFinal)) +
-            '</span>' +
+            '<span class="valor">' + Loja.brl(o.valor) + '</span>' +
           '</label>';
       });
 
       html += '</div>';
-
-      if (gratis) {
-        html += '<div class="aviso ok"><span>🔥</span><span>Seu pedido passou de ' +
-                Loja.brl(Loja.CONFIG.freteGratisAcimaDe) + ' — <strong>o frete é por nossa conta</strong>.</span></div>';
-      }
 
       if (resposta.simulado) {
         html += '<div class="aviso"><span>ℹ</span><span><strong>Valores simulados.</strong> ' +
@@ -475,8 +462,7 @@
         codigo: o.codigo,
         nome: o.nome,
         prazo: o.prazo,
-        valor: Loja.Carrinho.freteGratis() ? 0 : o.valor,
-        valorTabela: o.valor
+        valor: o.valor
       };
       document.querySelectorAll('.opcao-frete').forEach(function (el, i) {
         el.classList.toggle('selecionada', i === idx);
@@ -553,7 +539,7 @@
         '<dt>Cidade</dt><dd>' + en.cidade + ' / ' + en.uf + '</dd>' +
         '<dt>CEP</dt><dd>' + en.cep + '</dd>' +
         '<dt>Envio</dt><dd>' + estado.frete.nome + ' · ' + estado.frete.prazo + ' dias úteis · ' +
-          (estado.frete.valor === 0 ? 'grátis' : Loja.brl(estado.frete.valor)) + '</dd>';
+          Loja.brl(estado.frete.valor) + '</dd>';
     }
 
     document.getElementById('btnPagar').addEventListener('click', function () {
@@ -608,15 +594,13 @@
     ------------------------------------------------------ */
     function calcularTotais() {
       /* Arredonda exatamente como api/checkout.js, senão a tela mostra um
-         total e o Asaas cobra outro (diferença de centavos no desconto). */
+         total e o Asaas cobra outro. */
       var subtotal = Loja.Carrinho.subtotal();
       var frete = estado.frete ? estado.frete.valor : 0;
-      var desconto = estado.metodo === 'PIX' ? Number((subtotal * 0.05).toFixed(2)) : 0;
       return {
         subtotal: subtotal,
         frete: frete,
-        desconto: desconto,
-        total: Number((subtotal + frete - desconto).toFixed(2))
+        total: Number((subtotal + frete).toFixed(2))
       };
     }
 
@@ -640,14 +624,10 @@
         elFrete.style.color = 'var(--muted)';
         elFrete.style.fontSize = '0.82rem';
       } else {
-        elFrete.textContent = t.frete === 0 ? 'GRÁTIS' : Loja.brl(t.frete);
-        elFrete.style.color = t.frete === 0 ? '#4ade80' : '';
+        elFrete.textContent = Loja.brl(t.frete);
+        elFrete.style.color = '';
         elFrete.style.fontSize = '';
       }
-
-      var linhaDesc = document.getElementById('linhaDesconto');
-      linhaDesc.hidden = t.desconto <= 0;
-      document.getElementById('resumoDesconto').textContent = '−' + Loja.brl(t.desconto);
 
       document.getElementById('resumoTotal').textContent = Loja.brl(t.total);
     }

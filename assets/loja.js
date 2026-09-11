@@ -12,7 +12,6 @@
      >>> Ajuste aqui: preços, frete grátis e peso/volume da caixa.
   ------------------------------------------------------------ */
   var CONFIG = {
-    freteGratisAcimaDe: 199.90,
     whatsapp: '553499047484',
     moeda: 'BRL'
   };
@@ -100,38 +99,6 @@
         ['Conservação', 'Local seco e arejado. Após aberto, manter refrigerado'],
         ['Restrições', 'Sem glúten · Sem conservantes · Sem corantes artificiais']
       ]
-    },
-
-    /* ---- SKUs de upsell (não aparecem na vitrine) ---- */
-    'kit-brasa': {
-      id: 'kit-brasa',
-      nome: 'Kit Brasa · 4 potes',
-      nomeCurto: 'Kit Brasa',
-      preco: 134.90,
-      precoDe: 159.60,
-      peso: '4 × 300 g',
-      pesoBruto: 2320,
-      unidades: 4,
-      vitrine: false,
-      imagem: 'Design sem nome(1).jpg',
-      resumo: '2 potes de Abacaxi com Pimenta + 2 de Cebola Roxa com Vinho. O churrasco inteiro resolvido.',
-      composicao: [
-        { id: 'abacaxi', qtd: 2 },
-        { id: 'cebola', qtd: 2 }
-      ]
-    },
-
-    presente: {
-      id: 'presente',
-      nome: 'Embalagem Presente',
-      nomeCurto: 'Embalagem Presente',
-      preco: 12.90,
-      peso: '—',
-      pesoBruto: 90,
-      unidades: 0,
-      vitrine: false,
-      imagem: 'logo.webp',
-      resumo: 'Caixa kraft com lacre da marca, palha e cartão escrito à mão. Chega pronto para presentear.'
     }
   };
 
@@ -308,46 +275,6 @@
         largura: caixa.largura,
         altura: caixa.altura
       };
-    },
-
-    freteGratis: function () {
-      return Carrinho.subtotal() >= CONFIG.freteGratisAcimaDe;
-    },
-
-    /* Sugestões de upsell para o carrinho */
-    upsells: function () {
-      var sugestoes = [];
-      var itens = Carrinho.itens();
-      var temAbacaxi = Carrinho.contem('abacaxi');
-      var temCebola = Carrinho.contem('cebola');
-      var temKit = Carrinho.contem('kit-brasa');
-
-      if (!temKit && !(temAbacaxi && temCebola)) {
-        var faltando = temAbacaxi ? 'cebola' : 'abacaxi';
-        sugestoes.push({
-          produto: PRODUTOS[faltando],
-          chamada: 'Complete a dupla',
-          motivo: 'Quem leva os dois sabores nunca mais serve churrasco sem eles.'
-        });
-      }
-
-      if (!temKit && itens.length > 0) {
-        sugestoes.push({
-          produto: PRODUTOS['kit-brasa'],
-          chamada: 'Economize ' + brl(PRODUTOS['kit-brasa'].precoDe - PRODUTOS['kit-brasa'].preco),
-          motivo: '2 de cada sabor pelo preço de 3 potes e meio. Estoque para o ano inteiro de brasa.'
-        });
-      }
-
-      if (!Carrinho.contem('presente')) {
-        sugestoes.push({
-          produto: PRODUTOS.presente,
-          chamada: 'Vai de presente?',
-          motivo: 'Caixa kraft, palha, lacre da marca e cartão escrito à mão.'
-        });
-      }
-
-      return sugestoes;
     },
 
     /* ---- Observers ---- */
