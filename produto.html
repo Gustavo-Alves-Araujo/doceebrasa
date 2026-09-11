@@ -235,7 +235,7 @@
     }
     document.getElementById('precoParcela').innerHTML =
       'ou <strong>' + Loja.brl(p.preco / 3) + '</strong> em 3× sem juros no cartão · ' +
-      '<strong>' + Loja.brl(p.preco * 0.95) + '</strong> no PIX';
+      '<strong>' + Loja.brl(p.preco - Number((p.preco * 0.05).toFixed(2))) + '</strong> no PIX';
     document.getElementById('freteGratisValor').textContent = Loja.brl(Loja.CONFIG.freteGratisAcimaDe);
 
     /* ---- Galeria ---- */

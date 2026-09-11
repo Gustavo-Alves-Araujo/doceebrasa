@@ -607,14 +607,16 @@
        RESUMO LATERAL
     ------------------------------------------------------ */
     function calcularTotais() {
+      /* Arredonda exatamente como api/checkout.js, senão a tela mostra um
+         total e o Asaas cobra outro (diferença de centavos no desconto). */
       var subtotal = Loja.Carrinho.subtotal();
       var frete = estado.frete ? estado.frete.valor : 0;
-      var desconto = estado.metodo === 'PIX' ? subtotal * 0.05 : 0;
+      var desconto = estado.metodo === 'PIX' ? Number((subtotal * 0.05).toFixed(2)) : 0;
       return {
         subtotal: subtotal,
         frete: frete,
         desconto: desconto,
-        total: subtotal + frete - desconto
+        total: Number((subtotal + frete - desconto).toFixed(2))
       };
     }
 
