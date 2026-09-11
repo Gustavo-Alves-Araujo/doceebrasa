@@ -685,9 +685,20 @@ footer.loja-footer {
 .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
 .footer-col ul li a { font-size: 0.85rem; color: rgba(240,230,214,0.7); transition: color 0.25s; }
 .footer-col ul li a:hover { color: var(--red-bright); }
+
+/* Dados da empresa no rodapé — exigidos para venda online */
+.dados-empresa {
+  margin-top: 3rem;
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.95;
+}
+.dados-empresa a { color: var(--muted); }
+.dados-empresa a:hover { color: var(--red-bright); }
+
 .footer-bottom {
   display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
-  border-top: 1px solid var(--line); margin-top: 3rem; padding-top: 1.75rem;
+  border-top: 1px solid var(--line); margin-top: 1.5rem; padding-top: 1.5rem;
   font-size: 0.78rem; color: var(--muted);
 }
 

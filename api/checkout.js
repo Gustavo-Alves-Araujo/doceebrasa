@@ -25,8 +25,8 @@ const SITE = process.env.SITE_URL || 'https://docebrasa.com.br';
    `{ id, qtd }`. Mantenha em sincronia com assets/loja.js.
 ------------------------------------------------------------ */
 const PRECOS = {
-  abacaxi: { nome: 'Geleia de Abacaxi com Pimenta 300g',   preco: 39.90 },
-  cebola:  { nome: 'Geleia de Cebola Roxa com Vinho 300g', preco: 39.90 }
+  abacaxi: { nome: 'Geleia de Abacaxi com Pimenta 300g',   preco: 35.90 },
+  cebola:  { nome: 'Geleia de Cebola Roxa com Vinho 300g', preco: 35.90 }
 };
 
 const METODOS = ['PIX', 'BOLETO', 'CREDIT_CARD'];

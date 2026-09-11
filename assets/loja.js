@@ -20,8 +20,8 @@
      CATÁLOGO
      `pesoBruto` = pote + vidro + embalagem, em gramas (usado no frete).
      `unidades`  = quantos potes o SKU ocupa na caixa.
-     ATENÇÃO: ingredientes/validade são sugestões — o cliente
-     precisa confirmar os dados reais do rótulo antes de publicar.
+     Ingredientes, validade e conservação vieram do rótulo, informados
+     pelo cliente em 10/09/2026.
   ------------------------------------------------------------ */
   var PRODUTOS = {
     abacaxi: {
@@ -30,10 +30,10 @@
       nomeCurto: 'Abacaxi',
       titulo: 'Abacaxi<br>com Pimenta',
       numero: '01',
-      preco: 39.90,
-      precoDe: 49.90,
+      preco: 35.90,
+      precoDe: 44.90,
       peso: '300 g',
-      pesoBruto: 580,
+      pesoBruto: 450,
       unidades: 1,
       vitrine: true,
       imagem: 'abacaxifinal.png',
@@ -56,10 +56,9 @@
       ],
       ficha: [
         ['Peso líquido', '300 g'],
-        ['Ingredientes', 'Abacaxi, açúcar cristal, pimenta dedo-de-moça, suco de limão e especiarias'],
-        ['Validade', '12 meses fechado · 30 dias refrigerado após aberto'],
-        ['Conservação', 'Local seco e arejado. Após aberto, manter refrigerado'],
-        ['Restrições', 'Sem glúten · Sem conservantes · Sem corantes artificiais']
+        ['Ingredientes', 'Abacaxi, açúcar e pimenta dedo de moça'],
+        ['Validade', '24 meses'],
+        ['Conservação', 'Manter em local fresco, seco e arejado. Após aberto, manter refrigerado entre 1 °C e 10 °C e consumir em até 30 dias']
       ]
     },
 
@@ -69,10 +68,10 @@
       nomeCurto: 'Cebola Roxa',
       titulo: 'Cebola Roxa<br>com Vinho',
       numero: '02',
-      preco: 39.90,
-      precoDe: 49.90,
+      preco: 35.90,
+      precoDe: 44.90,
       peso: '300 g',
-      pesoBruto: 580,
+      pesoBruto: 450,
       unidades: 1,
       vitrine: true,
       imagem: 'cebolafinal.png',
@@ -94,10 +93,9 @@
       ],
       ficha: [
         ['Peso líquido', '300 g'],
-        ['Ingredientes', 'Cebola roxa, vinho tinto seco, açúcar mascavo, azeite, sal e especiarias'],
-        ['Validade', '12 meses fechado · 30 dias refrigerado após aberto'],
-        ['Conservação', 'Local seco e arejado. Após aberto, manter refrigerado'],
-        ['Restrições', 'Sem glúten · Sem conservantes · Sem corantes artificiais']
+        ['Ingredientes', 'Cebola roxa, açúcar, vinho tinto, vinagre balsâmico, azeite de oliva e sal'],
+        ['Validade', '24 meses'],
+        ['Conservação', 'Manter em local fresco, seco e arejado. Após aberto, manter refrigerado entre 1 °C e 10 °C e consumir em até 30 dias']
       ]
     }
   };
@@ -263,13 +261,26 @@
       var det = Carrinho.detalhado();
       var peso = det.reduce(function (t, i) { return t + i.pesoBruto; }, 0);
       var potes = det.reduce(function (t, i) { return t + i.unidades; }, 0);
-      var caixa;
-      if (potes <= 2)      caixa = { comprimento: 16, largura: 12, altura: 11 };
-      else if (potes <= 4) caixa = { comprimento: 22, largura: 17, altura: 11 };
-      else if (potes <= 6) caixa = { comprimento: 27, largura: 19, altura: 12 };
-      else                 caixa = { comprimento: 33, largura: 24, altura: 13 };
+      /* Pesos e medidas de caixa pesados pelo cliente. Até 3 potes são os
+         valores reais; acima disso a gente estima somando 570 g por pote e
+         subindo a caixa — vale confirmar quando aparecer pedido maior.
+         Caixas menores que o mínimo dos Correios (16 cm de comprimento)
+         são ajustadas pela própria API, que cobra pelo mínimo. */
+      var MEDIDAS = {
+        1: { peso:  550, comprimento: 12, largura: 12, altura: 12 },
+        2: { peso: 1100, comprimento: 20, largura: 15, altura: 12 },
+        3: { peso: 1700, comprimento: 25, largura: 20, altura: 20 }
+      };
+
+      var caixa = MEDIDAS[potes];
+      if (!caixa) {
+        caixa = potes <= 6
+          ? { peso: 1700 + (potes - 3) * 570, comprimento: 30, largura: 25, altura: 20 }
+          : { peso: 1700 + (potes - 3) * 570, comprimento: 40, largura: 30, altura: 25 };
+      }
+
       return {
-        peso: Math.max(300, peso),
+        peso: Math.max(300, caixa.peso || peso),
         potes: potes,
         comprimento: caixa.comprimento,
         largura: caixa.largura,
