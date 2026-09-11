@@ -2,3 +2,8 @@ User-agent: *
 Allow: /
 
 Sitemap: https://docebrasa.com.br/sitemap.xml
+
+# Páginas de compra não precisam ser indexadas
+Disallow: /carrinho.html
+Disallow: /checkout.html
+Disallow: /pedido.html
