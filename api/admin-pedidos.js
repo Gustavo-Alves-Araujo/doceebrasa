@@ -33,7 +33,7 @@ const CAMPOS = [
   'cliente_nome', 'cliente_email', 'cliente_telefone', 'cliente_cpf',
   'cep', 'logradouro', 'numero', 'complemento', 'bairro', 'cidade', 'uf',
   'frete_servico', 'frete_valor', 'frete_prazo',
-  'itens', 'subtotal', 'total', 'invoice_url', 'rastreio', 'observacoes'
+  'itens', 'subtotal', 'total', 'presente', 'invoice_url', 'rastreio', 'observacoes'
 ].join(',');
 
 export default async function handler(req, res) {

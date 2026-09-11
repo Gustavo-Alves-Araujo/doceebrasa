@@ -554,6 +554,20 @@ nav.loja-nav {
 }
 .voltar-etapa:hover { color: var(--cream); }
 
+/* Caixinha de embalagem para presente */
+.opcao-presente {
+  display: grid; grid-template-columns: 22px 1fr; gap: 1rem;
+  align-items: start; margin-top: 1.5rem;
+  padding: 1.1rem 1.35rem;
+  background: var(--dark); border: 1px solid var(--line);
+  cursor: pointer; transition: border-color 0.3s, background 0.3s;
+}
+.opcao-presente:hover { border-color: rgba(185,28,28,0.5); }
+.opcao-presente:has(input:checked) { border-color: var(--red); background: rgba(185,28,28,0.08); }
+.opcao-presente input { accent-color: var(--red); width: 18px; height: 18px; margin-top: 2px; }
+.opcao-presente .nome { display: block; font-weight: 700; color: var(--cream); font-size: 0.95rem; }
+.opcao-presente .obs { display: block; font-size: 0.8rem; color: var(--muted); margin-top: 0.2rem; line-height: 1.5; }
+
 /* Opções de frete */
 .opcoes-frete { display: flex; flex-direction: column; gap: 0.8rem; margin-top: 1.75rem; }
 .opcao-frete {

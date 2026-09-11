@@ -29,6 +29,7 @@ const PRECOS = {
   cebola:  { nome: 'Geleia de Cebola Roxa com Vinho 300g', preco: 35.90 }
 };
 
+const DESCONTO_PIX = 0.05;
 const METODOS = ['PIX', 'BOLETO', 'CREDIT_CARD'];
 
 /* ------------------------------------------------------------
@@ -99,7 +100,7 @@ export default async function handler(req, res) {
   }
 
   const corpo = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body || {});
-  const { cliente = {}, entrega = {}, frete = {}, metodo = 'PIX', itens = [] } = corpo;
+  const { cliente = {}, entrega = {}, frete = {}, metodo = 'PIX', itens = [], presente = false } = corpo;
 
   /* ---- Validação ---- */
   if (!Array.isArray(itens) || itens.length === 0) {
@@ -135,19 +136,22 @@ export default async function handler(req, res) {
 
   const subtotal = +linhas.reduce((t, l) => t + l.subtotal, 0).toFixed(2);
   const valorFrete = Math.max(0, Number(frete.valor) || 0);
-  const total = +(subtotal + valorFrete).toFixed(2);
+  const desconto = metodo === 'PIX' ? +(subtotal * DESCONTO_PIX).toFixed(2) : 0;
+  const total = +(subtotal + valorFrete - desconto).toFixed(2);
 
   if (total < 5) {
     return res.status(400).json({ erro: 'Valor mínimo de cobrança é R$ 5,00' });
   }
 
   const referencia = gerarReferencia();
-  const totais = { subtotal, frete: valorFrete, total };
+  const totais = { subtotal, frete: valorFrete, desconto, total };
 
   const descricao = [
     `Pedido ${referencia} · Doce e Brasa`,
     ...linhas.map((l) => `${l.qtd}× ${l.nome}`),
-    `Envio: ${frete.nome || 'Correios'} — R$ ${valorFrete.toFixed(2)}`
+    `Envio: ${frete.nome || 'Correios'} — R$ ${valorFrete.toFixed(2)}`,
+    ...(presente ? ['EMBALAR PARA PRESENTE'] : []),
+    ...(desconto > 0 ? [`Desconto PIX: -R$ ${desconto.toFixed(2)}`] : [])
   ].join(' | ').slice(0, 500);
 
   /* Dados do pedido que vão para o banco, iguais nos dois caminhos. */
@@ -171,6 +175,7 @@ export default async function handler(req, res) {
     subtotal,
     total,
     metodo,
+    presente: Boolean(presente),
     status: 'aguardando'
   };
 

@@ -169,6 +169,8 @@
       color: var(--st-morto); background: var(--st-morto-bg);
     }
     .chip.chargeback { color: var(--st-grave); background: var(--st-grave-bg); }
+    .chip.presente   { color: var(--st-envio); background: var(--st-envio-bg); }
+    .chip.presente::before { display: none; }
 
     /* ── Detalhe ──────────────────────────────────────── */
     .detalhe { display: none; border-top: 1px solid var(--line); padding: 1.5rem 1.25rem; }
@@ -431,7 +433,9 @@
           '<span class="ref">' + esc(p.referencia) + '</span>' +
           '<span class="quem"><b>' + esc(p.cliente_nome) + '</b><span>' + esc(p.cliente_email) + '</span></span>' +
           '<span class="quando">' + dataHora(p.criado_em) + '</span>' +
-          '<span class="chip-cel"><span class="chip ' + esc(p.status) + '">' + (ROTULO[p.status] || p.status) + '</span></span>' +
+          '<span class="chip-cel">' +
+            (p.presente ? '<span class="chip presente" title="Embalar para presente">🎁 presente</span> ' : '') +
+            '<span class="chip ' + esc(p.status) + '">' + (ROTULO[p.status] || p.status) + '</span></span>' +
           '<span class="valor">' + brl(p.total) + '</span>' +
           '<span class="seta">›</span>' +
         '</div>' +
@@ -454,6 +458,7 @@
               '<dt>CEP</dt><dd>' + esc(p.cep) + '</dd>' +
               '<dt>Envio</dt><dd>' + esc(p.frete_servico || '—') + ' · ' + brl(p.frete_valor) +
                 (p.frete_prazo ? ' · ' + p.frete_prazo + ' dias úteis' : '') + '</dd>' +
+              (p.presente ? '<dt>Presente</dt><dd style="color:var(--st-envio);font-weight:600">🎁 Embalar para presente</dd>' : '') +
             '</dl>' +
             '<button class="copiar" data-copiar="' + esc(endereco) + '">Copiar endereço</button>' +
             '</div>' +

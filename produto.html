@@ -84,6 +84,7 @@
             <span class="preco-agora" id="precoAgora"></span>
             <span class="preco-desconto" id="precoDesconto"></span>
           </div>
+          <p class="preco-parcela" id="precoPix"></p>
         </div>
 
         <div class="compra-linha">
@@ -112,6 +113,7 @@
         <button type="button" class="ativa" data-painel="descricao" role="tab">Descrição</button>
         <button type="button" data-painel="ficha" role="tab">Ficha Técnica</button>
         <button type="button" data-painel="harmoniza" role="tab">Harmonização</button>
+        <button type="button" data-painel="entrega" role="tab">Entrega</button>
       </div>
 
       <div class="painel ativo" id="painel-descricao">
@@ -127,6 +129,23 @@
         <ul class="lista-harmoniza" id="listaHarmoniza"></ul>
       </div>
 
+      <div class="painel" id="painel-entrega">
+        <p>
+          Enviamos para todo o Brasil pelos <strong>Correios</strong>, em PAC ou SEDEX —
+          você escolhe no fechamento do pedido. O valor e o prazo aparecem ali na hora,
+          calculados pelo seu CEP, sem surpresa depois.
+        </p>
+        <p style="margin-top:1.25rem">
+          Pedidos com pagamento confirmado são <strong>postados em até 2 dias úteis</strong>.
+          O prazo dos Correios começa a contar a partir da postagem, e o código de rastreio
+          chega no seu e-mail e WhatsApp.
+        </p>
+        <p style="margin-top:1.25rem">
+          Cada pote viaja em embalagem reforçada, com proteção para o vidro.
+          As regras de troca, devolução e arrependimento estão em
+          <a href="/politicas.html#trocas" style="color:var(--red-bright)">trocas e devoluções</a>.
+        </p>
+      </div>
     </section>
 
     <!-- ── PRODUTO RELACIONADO ────────────────────────── -->
@@ -176,6 +195,11 @@
         <p>68.796.597 Pedro Henrique Vieira Martins · CNPJ 68.796.597/0001-66</p>
         <p>Rua dos Pinheiros, 406 · Cidade Jardim · Uberlândia/MG · CEP 38.412-102</p>
         <p>Atendimento: <a href="https://wa.me/553499047484" target="_blank" rel="noopener">(34) 99904-7484</a></p>
+        <p>
+          <a href="/politicas.html#termos">Termos de compra</a> ·
+          <a href="/politicas.html#trocas">Trocas e devoluções</a> ·
+          <a href="/politicas.html#privacidade">Privacidade</a>
+        </p>
       </div>
 
       <div class="footer-bottom">
@@ -225,6 +249,8 @@
       document.getElementById('precoDe').hidden = true;
       document.getElementById('precoDesconto').hidden = true;
     }
+    document.getElementById('precoPix').innerHTML =
+      '<strong>' + Loja.brl(p.preco - Number((p.preco * 0.05).toFixed(2))) + '</strong> no PIX · 5% de desconto';
 
     /* ---- Galeria ---- */
     var vistas = [

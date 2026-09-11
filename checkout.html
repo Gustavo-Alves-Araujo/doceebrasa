@@ -154,6 +154,14 @@
               </div>
             </div>
 
+            <label class="opcao-presente" for="presente">
+              <input type="checkbox" id="presente" name="presente">
+              <span>
+                <span class="nome">Embalar para presente</span>
+                <span class="obs">Vai numa embalagem especial, sem valores impressos. Sem custo.</span>
+              </span>
+            </label>
+
             <div id="areaFrete" style="margin-top:2.5rem">
               <h3 style="font-family:var(--fn-display);font-size:1.3rem;letter-spacing:2px;text-transform:uppercase;color:var(--cream)">Forma de envio</h3>
               <div id="freteConteudo">
@@ -176,7 +184,7 @@
           <div class="metodos" id="metodos">
             <button type="button" class="metodo selecionado" data-metodo="PIX">
               <span class="ic">⚡</span>
-              <span><span class="nome">PIX</span><br><span class="obs">Aprovação na hora</span></span>
+              <span><span class="nome">PIX</span><br><span class="obs">Aprovação na hora · 5% de desconto</span></span>
             </button>
             <button type="button" class="metodo" data-metodo="CREDIT_CARD">
               <span class="ic">💳</span>
@@ -208,8 +216,11 @@
           </div>
 
           <p style="font-size:0.75rem;color:var(--muted);margin-top:1.5rem;line-height:1.7">
-            Ao finalizar você concorda com nossos termos de compra. O pedido é separado assim que o
-            pagamento é confirmado e o código de rastreio chega no seu WhatsApp e e-mail.
+            Ao finalizar você concorda com os
+            <a href="/politicas.html#termos" target="_blank" rel="noopener" style="color:var(--red-bright)">termos de compra</a>
+            e com a <a href="/politicas.html#privacidade" target="_blank" rel="noopener" style="color:var(--red-bright)">política de privacidade</a>.
+            O pedido é postado em até 2 dias úteis após a confirmação do pagamento, e o código de
+            rastreio chega no seu WhatsApp e e-mail.
           </p>
         </section>
       </div>
@@ -222,6 +233,10 @@
         <div class="resumo-linha" style="border-top:1px solid var(--line);margin-top:0.8rem;padding-top:1.2rem">
           <span class="rot">Subtotal</span>
           <span id="resumoSubtotal">R$ 0,00</span>
+        </div>
+        <div class="resumo-linha" id="linhaDesconto" hidden>
+          <span class="rot">Desconto PIX (5%)</span>
+          <span id="resumoDesconto" style="color:#4ade80">−R$ 0,00</span>
         </div>
         <div class="resumo-linha" id="linhaFrete">
           <span class="rot">Frete</span>
@@ -244,6 +259,11 @@
         <p>68.796.597 Pedro Henrique Vieira Martins · CNPJ 68.796.597/0001-66</p>
         <p>Rua dos Pinheiros, 406 · Cidade Jardim · Uberlândia/MG · CEP 38.412-102</p>
         <p>Atendimento: <a href="https://wa.me/553499047484" target="_blank" rel="noopener">(34) 99904-7484</a></p>
+        <p>
+          <a href="/politicas.html#termos">Termos de compra</a> ·
+          <a href="/politicas.html#trocas">Trocas e devoluções</a> ·
+          <a href="/politicas.html#privacidade">Privacidade</a>
+        </p>
       </div>
 
       <div class="footer-bottom" style="border:0;margin:0;padding:0">
@@ -280,6 +300,7 @@
     var salvo = Loja.Pedido.ler();
     if (salvo.dados) { estado.dados = salvo.dados; preencher(salvo.dados); }
     if (salvo.entrega) { estado.entrega = salvo.entrega; preencher(salvo.entrega); }
+    if (salvo.presente) { estado.presente = true; document.getElementById('presente').checked = true; }
 
     function preencher(obj) {
       Object.keys(obj).forEach(function (k) {
@@ -504,6 +525,7 @@
       var avisoAntigo = document.getElementById('avisoSemFrete');
       if (avisoAntigo) avisoAntigo.remove();
 
+      estado.presente = document.getElementById('presente').checked;
       estado.entrega = {
         cep: valor('cep'),
         logradouro: valor('logradouro'),
@@ -513,7 +535,7 @@
         cidade: valor('cidade'),
         uf: valor('uf').toUpperCase()
       };
-      Loja.Pedido.gravar({ entrega: estado.entrega, frete: estado.frete });
+      Loja.Pedido.gravar({ entrega: estado.entrega, frete: estado.frete, presente: estado.presente });
       irPara(3);
     });
 
@@ -545,7 +567,8 @@
         '<dt>Cidade</dt><dd>' + en.cidade + ' / ' + en.uf + '</dd>' +
         '<dt>CEP</dt><dd>' + en.cep + '</dd>' +
         '<dt>Envio</dt><dd>' + estado.frete.nome + ' · ' + estado.frete.prazo + ' dias úteis · ' +
-          Loja.brl(estado.frete.valor) + '</dd>';
+          Loja.brl(estado.frete.valor) + '</dd>' +
+        (estado.presente ? '<dt>Presente</dt><dd>Sim, embalar para presente</dd>' : '');
     }
 
     document.getElementById('btnPagar').addEventListener('click', function () {
@@ -565,6 +588,7 @@
           entrega: estado.entrega,
           frete: estado.frete,
           metodo: estado.metodo,
+          presente: estado.presente,
           itens: Loja.Carrinho.itens()
         })
       })
@@ -603,10 +627,12 @@
          total e o Asaas cobra outro. */
       var subtotal = Loja.Carrinho.subtotal();
       var frete = estado.frete ? estado.frete.valor : 0;
+      var desconto = estado.metodo === 'PIX' ? Number((subtotal * 0.05).toFixed(2)) : 0;
       return {
         subtotal: subtotal,
         frete: frete,
-        total: Number((subtotal + frete).toFixed(2))
+        desconto: desconto,
+        total: Number((subtotal + frete - desconto).toFixed(2))
       };
     }
 
@@ -634,6 +660,10 @@
         elFrete.style.color = '';
         elFrete.style.fontSize = '';
       }
+
+      var linhaDesc = document.getElementById('linhaDesconto');
+      linhaDesc.hidden = t.desconto <= 0;
+      document.getElementById('resumoDesconto').textContent = '−' + Loja.brl(t.desconto);
 
       document.getElementById('resumoTotal').textContent = Loja.brl(t.total);
     }
