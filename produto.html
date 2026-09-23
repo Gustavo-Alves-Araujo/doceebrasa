@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Produto | Doce e Brasa</title>
-  <meta name="description" content="Geleia artesanal Doce e Brasa, pote de 300 g. Feita com ingredientes selecionados para elevar seu churrasco.">
+  <meta name="description" content="Geleia artesanal Doce e Brasa. Feita com ingredientes selecionados para elevar seu churrasco.">
   <meta name="robots" content="index, follow">
 
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -53,7 +53,7 @@
 
       <div class="produto-galeria">
         <div class="produto-palco" id="palco">
-          <span class="produto-selo">Artesanal · 300 g</span>
+          <span class="produto-selo" id="produtoSelo">Artesanal</span>
           <div class="cenario" id="palcoCenario"></div>
           <img class="pote" id="palcoPote" src="" alt="">
         </div>
@@ -227,7 +227,8 @@
     }
 
     /* ---- Cabeçalho da página ---- */
-    document.title = 'Geleia de ' + p.nome + ' · 300 g | Doce e Brasa';
+    document.title = 'Geleia de ' + p.nome + ' · ' + p.peso + ' | Doce e Brasa';
+    document.getElementById('produtoSelo').textContent = 'Artesanal · ' + p.peso;
     document.querySelector('meta[name="description"]').setAttribute('content', p.resumo);
     document.getElementById('migalhaNome').textContent = p.nome;
     document.getElementById('produtoLinha').textContent = p.linha || 'Doce e Brasa';

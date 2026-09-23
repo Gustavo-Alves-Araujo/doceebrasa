@@ -731,23 +731,23 @@
     .sdot.on { background: var(--red-bright); box-shadow: 0 0 6px rgba(239,68,68,0.8); }
 
     /* Product image inside sabor card */
+    /* O pote é item do flex, não absoluto: assim nunca cobre o texto,
+       por mais estreito que o card fique. */
     .sabor-product-img {
-      position: absolute;
-      top: 4%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: clamp(180px, 66%, 280px);
-      height: auto;
-      max-height: 52%;
-      object-fit: contain;
+      position: relative;
       z-index: 1;
+      width: clamp(170px, 62%, 270px);
+      max-height: 340px;
+      height: auto;
+      object-fit: contain;
+      margin: 2.5rem auto 0;
       pointer-events: none;
       filter: drop-shadow(0 18px 48px rgba(0,0,0,0.75));
-      transition: transform 0.9s ease, filter 0.9s ease;
+      transition: transform 0.7s ease, filter 0.7s ease;
     }
 
     .sabor:hover .sabor-product-img {
-      transform: translateX(-50%) scale(1.06) translateY(-6px);
+      transform: scale(1.05) translateY(-6px);
       filter: drop-shadow(0 24px 60px rgba(0,0,0,0.85));
     }
 
@@ -1354,18 +1354,11 @@
       .loja-selo { letter-spacing: 1.5px; font-size: 0.63rem; line-height: 2; }
       .sabor-preco .agora { font-size: 2.1rem; }
       .sabor-product-img {
-        position: relative;
-        top: auto;
-        left: auto;
-        transform: none;
-        width: 65%;
+        width: 62%;
         max-height: none;
-        margin: 2.5rem auto 1rem;
+        margin: 2.5rem auto 0;
       }
-      .sabor:hover .sabor-product-img {
-        transform: none;
-        filter: drop-shadow(0 18px 48px rgba(0,0,0,0.75));
-      }
+      .sabor:hover .sabor-product-img { transform: none; }
       .sabor-body {
         position: relative;
         bottom: auto;
