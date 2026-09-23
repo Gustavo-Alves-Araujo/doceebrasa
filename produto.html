@@ -101,7 +101,7 @@
         <div class="garantias">
           <div class="garantia"><span class="ic">◆</span><span><strong>Entrega nacional</strong> pelos Correios, com frete calculado pelo seu CEP</span></div>
           <div class="garantia"><span class="ic">◆</span><span><strong>Pagamento seguro</strong> via Asaas — PIX, boleto ou cartão</span></div>
-          <div class="garantia"><span class="ic">◆</span><span><strong>Envasado a quente e lacrado</strong> · Validade de 24 meses</span></div>
+          <div class="garantia"><span class="ic">◆</span><span><strong>100% natural, sem glúten</strong> · Envasado a quente e lacrado · Validade de 24 meses</span></div>
           <div class="garantia"><span class="ic">◆</span><span><strong>Embalagem reforçada</strong> com proteção antichoque para o vidro</span></div>
         </div>
       </div>
@@ -178,6 +178,7 @@
           <ul>
             <li><a href="/produto.html?id=abacaxi">Abacaxi com Pimenta</a></li>
             <li><a href="/produto.html?id=cebola">Cebola Roxa com Vinho</a></li>
+            <li><a href="/produto.html?id=morango">Morango com Limão Siciliano</a></li>
             <li><a href="/carrinho.html">Meu Carrinho</a></li>
           </ul>
         </div>
@@ -253,11 +254,23 @@
       '<strong>' + Loja.brl(p.preco - Number((p.preco * 0.05).toFixed(2))) + '</strong> no PIX · 5% de desconto';
 
     /* ---- Galeria ---- */
+    /* Sabores com foto ambientada usam ela de cenário; os que só têm o pote
+       recortado ganham um degradê no lugar. */
     var vistas = [
-      { tipo: 'composta', pote: p.imagem, cenario: p.fundo, miniatura: p.imagem, alt: 'Pote de geleia de ' + p.nome },
-      { tipo: 'cheia', src: p.fundo, miniatura: p.fundo, alt: p.nome + ' harmonizando com churrasco' },
-      { tipo: 'cheia', src: 'Design sem nome(1).jpg', miniatura: 'Design sem nome(1).jpg', alt: 'Linha completa de geleias Doce e Brasa' }
+      { tipo: 'composta', pote: p.imagem, cenario: p.fundo, gradiente: p.gradiente,
+        miniatura: p.imagem, alt: 'Pote de geleia de ' + p.nome }
     ];
+    if (p.fundo) {
+      vistas.push({ tipo: 'cheia', src: p.fundo, miniatura: p.fundo,
+                    alt: p.nome + ' harmonizando com churrasco' });
+    }
+    if (p.estudio) {
+      vistas.push({ tipo: 'cheia', src: p.estudio, miniatura: p.estudio,
+                    alt: 'Pote de ' + p.nome + ' visto de frente' });
+    }
+    vistas.push({ tipo: 'cheia', src: 'Design sem nome(1).jpg',
+                  miniatura: 'Design sem nome(1).jpg',
+                  alt: 'Linha completa de geleias Doce e Brasa' });
 
     var palco = document.getElementById('palco');
     var cenarioEl = document.getElementById('palcoCenario');
@@ -267,7 +280,13 @@
       var v = vistas[idx];
       if (v.tipo === 'composta') {
         cenarioEl.hidden = false;
-        cenarioEl.style.backgroundImage = "url('" + v.cenario + "')";
+        if (v.cenario) {
+          cenarioEl.style.backgroundImage = "url('" + v.cenario + "')";
+          cenarioEl.style.backgroundColor = '';
+        } else {
+          cenarioEl.style.backgroundImage = 'none';
+          cenarioEl.style.background = v.gradiente;
+        }
         poteEl.className = 'pote';
         poteEl.src = v.pote;
       } else {

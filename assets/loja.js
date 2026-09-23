@@ -58,7 +58,9 @@
         ['Peso líquido', '300 g'],
         ['Ingredientes', 'Abacaxi, açúcar e pimenta dedo de moça'],
         ['Validade', '24 meses'],
-        ['Conservação', 'Manter em local fresco, seco e arejado. Após aberto, manter refrigerado entre 1 °C e 10 °C e consumir em até 30 dias']
+        ['Conservação', 'Manter em local fresco, seco e arejado. Após aberto, manter refrigerado entre 1 °C e 10 °C e consumir em até 30 dias'],
+        ['Selos do rótulo', '100% natural · Não contém glúten'],
+        ['Advertência', 'ALTO EM AÇÚCAR ADICIONADO']
       ]
     },
 
@@ -95,13 +97,58 @@
         ['Peso líquido', '300 g'],
         ['Ingredientes', 'Cebola roxa, açúcar, vinho tinto, vinagre balsâmico, azeite de oliva e sal'],
         ['Validade', '24 meses'],
-        ['Conservação', 'Manter em local fresco, seco e arejado. Após aberto, manter refrigerado entre 1 °C e 10 °C e consumir em até 30 dias']
+        ['Conservação', 'Manter em local fresco, seco e arejado. Após aberto, manter refrigerado entre 1 °C e 10 °C e consumir em até 30 dias'],
+        ['Selos do rótulo', '100% natural · Não contém glúten'],
+        ['Advertência', 'ALTO EM AÇÚCAR ADICIONADO']
+      ]
+    },
+
+    morango: {
+      id: 'morango',
+      nome: 'Morango com Limão Siciliano',
+      nomeCurto: 'Morango',
+      titulo: 'Morango<br>com Limão Siciliano',
+      numero: '03',
+      preco: 35.90,
+      precoDe: 44.90,
+      peso: '300 g',
+      pesoBruto: 450,
+      unidades: 1,
+      vitrine: true,
+      imagem: 'morangofinal.png',
+      /* Sem foto ambientada como os outros dois: o card usa um fundo em
+         degradê e o pote recortado por cima. */
+      gradiente: 'linear-gradient(160deg, #2b0a12 0%, #140409 58%, #23070f 100%)',
+      estudio: 'morango-estudio.webp',
+      ardencia: 0,
+      tags: ['Linha Gourmet', 'Adocicado', 'Cítrico'],
+      resumo: 'Morango maduro cozido devagar com limão siciliano. Doce cheio, ' +
+              'com um final cítrico que corta e limpa o paladar.',
+      descricao: 'A única da casa que não pede brasa. Morango maduro cozido devagar até ' +
+                 'concentrar, com raspas e suco de limão siciliano entrando no fim para dar ' +
+                 'o contraponto ácido. O resultado é uma geleia densa, de doçura redonda e ' +
+                 'final cítrico — feita para queijo, pão e sobremesa.',
+      harmoniza: [
+        'Queijo brie e camembert',
+        'Tábua de frios',
+        'Torrada e pão artesanal',
+        'Iogurte natural',
+        'Panqueca e waffle',
+        'Sorvete de creme'
+      ],
+      ficha: [
+        ['Peso líquido', '300 g'],
+        ['Ingredientes', 'Morango, açúcar e limão siciliano'],
+        ['Validade', '24 meses'],
+        ['Conservação', 'Manter em local fresco, seco e arejado. Após aberto, manter refrigerado entre 1 °C e 10 °C e consumir em até 30 dias'],
+        ['Selos do rótulo', '100% natural · Não contém glúten · Linha Gourmet'],
+        ['Advertência', 'ALTO EM AÇÚCAR ADICIONADO']
       ]
     }
   };
 
   /* Ordem da vitrine */
-  var VITRINE = ['abacaxi', 'cebola'];
+  var VITRINE = ['abacaxi', 'cebola', 'morango'];
 
   /* ------------------------------------------------------------
      HELPERS
