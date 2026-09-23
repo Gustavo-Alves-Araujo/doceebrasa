@@ -26,6 +26,7 @@
   var PRODUTOS = {
     abacaxi: {
       id: 'abacaxi',
+      linha: 'Linha BBQ',
       nome: 'Abacaxi com Pimenta',
       nomeCurto: 'Abacaxi',
       titulo: 'Abacaxi<br>com Pimenta',
@@ -66,6 +67,7 @@
 
     cebola: {
       id: 'cebola',
+      linha: 'Linha BBQ',
       nome: 'Cebola Roxa com Vinho',
       nomeCurto: 'Cebola Roxa',
       titulo: 'Cebola Roxa<br>com Vinho',
@@ -105,6 +107,7 @@
 
     morango: {
       id: 'morango',
+      linha: 'Linha Gourmet',
       nome: 'Morango com Limão Siciliano',
       nomeCurto: 'Morango',
       titulo: 'Morango<br>com Limão Siciliano',
@@ -118,7 +121,7 @@
       imagem: 'morangofinal.png',
       /* Sem foto ambientada como os outros dois: o card usa um fundo em
          degradê e o pote recortado por cima. */
-      gradiente: 'linear-gradient(160deg, #2b0a12 0%, #140409 58%, #23070f 100%)',
+      gradiente: 'radial-gradient(ellipse 65% 50% at 50% 42%, rgba(190,40,70,0.32) 0%, transparent 70%), linear-gradient(160deg, #2b0a12 0%, #140409 58%, #23070f 100%)',
       estudio: 'morango-estudio.webp',
       ardencia: 0,
       tags: ['Linha Gourmet', 'Adocicado', 'Cítrico'],
