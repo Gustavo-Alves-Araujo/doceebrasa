@@ -27,7 +27,8 @@ const SITE = process.env.SITE_URL || 'https://docebrasa.com.br';
 const PRECOS = {
   abacaxi: { nome: 'Geleia de Abacaxi com Pimenta 300g',   preco: 35.90 },
   cebola:  { nome: 'Geleia de Cebola Roxa com Vinho 300g', preco: 35.90 },
-  morango: { nome: 'Geleia de Morango com Limão Siciliano 300g', preco: 35.90 }
+  morango: { nome: 'Geleia de Morango com Limão Siciliano 300g', preco: 35.90 },
+  'morango-zero': { nome: 'Geleia de Morango com Limão Siciliano Zero Açúcar 200g', preco: 35.90 }
 };
 
 const DESCONTO_PIX = 0.05;

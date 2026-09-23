@@ -37,7 +37,7 @@
       pesoBruto: 450,
       unidades: 1,
       vitrine: true,
-      imagem: 'abacaxifinal.png',
+      imagem: 'pote-abacaxi.png',
       gradiente: 'radial-gradient(ellipse 65% 50% at 50% 42%, rgba(205,95,30,0.32) 0%, transparent 70%), linear-gradient(160deg, #2a1408 0%, #140904 58%, #221005 100%)',
       fundo: 'sabor-abacaxi.webp',
       ardencia: 3,
@@ -79,7 +79,7 @@
       pesoBruto: 450,
       unidades: 1,
       vitrine: true,
-      imagem: 'cebolafinal.png',
+      imagem: 'pote-cebola.png',
       gradiente: 'radial-gradient(ellipse 65% 50% at 50% 42%, rgba(150,45,95,0.32) 0%, transparent 70%), linear-gradient(160deg, #1e0a1d 0%, #0f050e 58%, #1a0819 100%)',
       fundo: 'sabor-cebola.webp',
       ardencia: 1,
@@ -120,7 +120,7 @@
       pesoBruto: 450,
       unidades: 1,
       vitrine: true,
-      imagem: 'morangofinal.png',
+      imagem: 'pote-morango.png',
       /* Sem foto ambientada como os outros dois: o card usa um fundo em
          degradê e o pote recortado por cima. */
       gradiente: 'radial-gradient(ellipse 65% 50% at 50% 42%, rgba(190,40,70,0.32) 0%, transparent 70%), linear-gradient(160deg, #2b0a12 0%, #140409 58%, #23070f 100%)',
@@ -149,11 +149,56 @@
         ['Selos do rótulo', '100% natural · Não contém glúten · Linha Gourmet'],
         ['Advertência', 'ALTO EM AÇÚCAR ADICIONADO']
       ]
+    },
+
+    'morango-zero': {
+      id: 'morango-zero',
+      linha: 'Linha Gourmet',
+      nome: 'Morango com Limão Siciliano Zero Açúcar',
+      nomeCurto: 'Morango Zero',
+      titulo: 'Morango Zero<br>com Limão Siciliano',
+      numero: '04',
+      preco: 35.90,
+      precoDe: 44.90,
+      peso: '200 g',
+      /* Pote menor que os outros três (200 g contra 300 g), mas o cliente não
+         mediu a caixa dele. Mantemos 450 g, que é o peso do pote de 300 g:
+         erra para mais no frete, nunca para menos. Vale confirmar. */
+      pesoBruto: 450,
+      unidades: 1,
+      vitrine: true,
+      imagem: 'pote-morango-zero.png',
+      gradiente: 'radial-gradient(ellipse 65% 50% at 50% 42%, rgba(70,160,95,0.26) 0%, transparent 70%), linear-gradient(160deg, #10210f 0%, #0a1109 58%, #131f12 100%)',
+      estudio: 'morango-zero-estudio.webp',
+      ardencia: 0,
+      tags: ['Zero Açúcar', 'Linha Gourmet', 'Cítrico'],
+      resumo: 'O mesmo morango com limão siciliano, sem adição de açúcares. ' +
+              'Adoçado com eritritol, mantém o corpo e o final cítrico.',
+      descricao: 'A versão sem adição de açúcares do morango com limão siciliano. ' +
+                 'Adoçada com eritritol, mantém a densidade e o final cítrico da receita ' +
+                 'original — para quem controla açúcar e não quer abrir mão da geleia. ' +
+                 'Pote de 200 g.',
+      harmoniza: [
+        'Queijo brie e camembert',
+        'Tábua de frios',
+        'Torrada e pão artesanal',
+        'Iogurte natural',
+        'Panqueca e waffle',
+        'Sobremesas sem açúcar'
+      ],
+      ficha: [
+        ['Peso líquido', '200 g'],
+        ['Ingredientes', 'Morango, edulcorante (adoçante) eritritol e limão siciliano'],
+        ['Validade', '24 meses'],
+        ['Conservação', 'Manter em local fresco, seco e arejado. Após aberto, manter refrigerado entre 1 °C e 10 °C e consumir em até 30 dias'],
+        ['Selos do rótulo', '100% natural · Sem glúten · Linha Gourmet'],
+        ['Zero', 'Sem adição de açúcares · Adoçado com eritritol']
+      ]
     }
   };
 
   /* Ordem da vitrine */
-  var VITRINE = ['abacaxi', 'cebola', 'morango'];
+  var VITRINE = ['abacaxi', 'cebola', 'morango', 'morango-zero'];
 
   /* ------------------------------------------------------------
      HELPERS
