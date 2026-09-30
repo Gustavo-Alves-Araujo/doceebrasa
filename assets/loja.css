@@ -29,14 +29,34 @@
 
 html { scroll-behavior: smooth; }
 
+/* Barra do cupom, acima da navegação */
+.barra-cupom {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1100;
+  display: flex; align-items: center; justify-content: center;
+  gap: 0.55rem; flex-wrap: wrap;
+  background: linear-gradient(90deg, var(--red-deep), var(--red), var(--ember));
+  color: var(--cream);
+  padding: 0.62rem 1.25rem;
+  font-size: 0.78rem; line-height: 1.4; text-align: center;
+}
+.barra-cupom strong {
+  font-family: var(--fn-display); font-size: 1.02rem;
+  letter-spacing: 2px; font-weight: 400;
+  border: 1px dashed rgba(250,247,242,0.6);
+  padding: 0.08rem 0.55rem;
+}
+.barra-cupom .detalhe { opacity: 0.85; }
+
 body.loja {
   background: var(--black);
   color: var(--warm);
   font-family: var(--fn-sans);
   line-height: 1.6;
   overflow-x: hidden;
-  padding-top: 92px;
+  padding-top: calc(92px + var(--altura-barra, 40px));
 }
+
+body.loja nav.loja-nav { top: var(--altura-barra, 40px); }
 
 img { max-width: 100%; height: auto; display: block; }
 a   { text-decoration: none; color: inherit; }
@@ -606,6 +626,46 @@ nav.loja-nav {
 }
 @keyframes girar { to { transform: rotate(360deg); } }
 
+/* Cupom de desconto */
+.cupom-caixa { margin-top: 1.5rem; }
+.cupom-caixa > label {
+  display: block; margin-bottom: 0.5rem;
+  font-size: 0.66rem; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--muted);
+}
+.cupom-linha { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+.cupom-linha input {
+  flex: 1 1 12rem; min-width: 0;
+  background: var(--dark); border: 1px solid var(--line);
+  color: var(--cream); padding: 0.85rem 1.1rem;
+  font-family: var(--fn-sans); font-size: 0.95rem;
+  text-transform: uppercase; letter-spacing: 1px;
+  transition: border-color 0.3s;
+}
+.cupom-linha input:focus { outline: none; border-color: var(--red); }
+.cupom-linha input::placeholder { color: rgba(156,163,175,0.6); letter-spacing: 0; text-transform: none; }
+.cupom-linha .btn-ghost { flex: 0 0 auto; padding: 0.85rem 1.6rem; }
+.cupom-retorno { font-size: 0.82rem; margin-top: 0.6rem; color: var(--muted); min-height: 1.2em; }
+.cupom-retorno.ok   { color: #4ade80; }
+.cupom-retorno.ruim { color: var(--red-bright); }
+
+/* Parcelamento */
+.parcelas-caixa { margin-top: 1.75rem; }
+.parcelas-caixa > label {
+  display: block; margin-bottom: 0.5rem;
+  font-size: 0.66rem; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--muted);
+}
+.parcelas-caixa select {
+  width: 100%; background: var(--dark); border: 1px solid var(--line);
+  color: var(--cream); padding: 0.85rem 1.1rem;
+  font-family: var(--fn-sans); font-size: 0.95rem;
+}
+.parcelas-caixa select:focus { outline: none; border-color: var(--red); }
+.ajuda-parcelas { font-size: 0.78rem; color: var(--muted); margin-top: 0.5rem; }
+
+.resumo-parcela { font-size: 0.82rem; color: var(--muted); text-align: right; margin-top: 0.4rem; }
+
 /* Métodos de pagamento */
 .metodos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; margin-top: 1.5rem; }
 .metodo {
@@ -730,7 +790,9 @@ footer.loja-footer {
 }
 
 @media (max-width: 760px) {
-  body.loja { padding-top: 78px; }
+  body.loja { padding-top: calc(78px + var(--altura-barra, 40px)); }
+  .barra-cupom { font-size: 0.72rem; padding: 0.55rem 1rem; }
+  .barra-cupom strong { font-size: 0.95rem; }
   .container { padding: 0 1.25rem; }
   nav.loja-nav { padding: 0.85rem 1.25rem; }
   .nav-logo img { height: 44px; }

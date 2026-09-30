@@ -435,6 +435,26 @@
   }
 
   /* ------------------------------------------------------------
+     BARRA DO CUPOM
+     A barra pode ocupar uma ou duas linhas conforme a largura da
+     tela. Em vez de chutar a altura no CSS, medimos e publicamos
+     em --altura-barra, que a navegação e o corpo usam.
+  ------------------------------------------------------------ */
+  function medirBarra() {
+    var barra = document.querySelector('.barra-cupom');
+    var altura = barra ? barra.offsetHeight : 0;
+    document.documentElement.style.setProperty('--altura-barra', altura + 'px');
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', medirBarra);
+  } else {
+    medirBarra();
+  }
+  global.addEventListener('resize', medirBarra);
+  global.addEventListener('load', medirBarra);
+
+  /* ------------------------------------------------------------
      TOAST "ADICIONADO AO CARRINHO"
   ------------------------------------------------------------ */
   var toastTimer;

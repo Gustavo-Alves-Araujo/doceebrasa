@@ -472,6 +472,8 @@
             '</div>' +
             '<dl style="margin-top:1rem">' +
               '<dt>Pagamento</dt><dd>' + (METODO[p.metodo] || esc(p.metodo)) + '</dd>' +
+              (p.cupom ? '<dt>Cupom</dt><dd style="color:var(--st-pago);font-weight:600">' + esc(p.cupom) + '</dd>' : '') +
+              (Number(p.desconto) > 0 ? '<dt>Desconto</dt><dd>−' + brl(p.desconto) + '</dd>' : '') +
               '<dt>Pago em</dt><dd>' + dataHora(p.pago_em) + '</dd>' +
               (p.invoice_url ? '<dt>Fatura</dt><dd><a href="' + esc(p.invoice_url) + '" target="_blank" rel="noopener">abrir no Asaas</a></dd>' : '') +
             '</dl></div>' +

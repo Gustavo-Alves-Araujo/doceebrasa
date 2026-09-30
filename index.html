@@ -183,7 +183,7 @@
     ============================================================ */
     #progress-bar {
       position: fixed;
-      top: 0;
+      top: var(--altura-barra, 40px);
       left: 0;
       height: 3px;
       background: linear-gradient(90deg, var(--red-deep), var(--red-bright), var(--amber));
@@ -221,9 +221,43 @@
     /* ============================================================
        NAV
     ============================================================ */
-    nav {
+    /* Barra do cupom, acima da navegação */
+    .barra-cupom {
       position: fixed;
       top: 0; left: 0; right: 0;
+      z-index: 1100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      flex-wrap: wrap;
+      background: linear-gradient(90deg, var(--red-deep), var(--red), var(--ember));
+      color: var(--cream);
+      padding: 0.62rem 1.25rem;
+      font-size: 0.78rem;
+      line-height: 1.4;
+      text-align: center;
+    }
+
+    .barra-cupom strong {
+      font-family: var(--fn-display);
+      font-size: 1.02rem;
+      letter-spacing: 2px;
+      font-weight: 400;
+      border: 1px dashed rgba(250,247,242,0.6);
+      padding: 0.08rem 0.55rem;
+    }
+
+    .barra-cupom .detalhe { opacity: 0.85; }
+
+    @media (max-width: 760px) {
+      .barra-cupom { font-size: 0.72rem; padding: 0.55rem 1rem; }
+      .barra-cupom strong { font-size: 0.95rem; }
+    }
+
+    nav {
+      position: fixed;
+      top: var(--altura-barra, 40px); left: 0; right: 0;
       z-index: 1000;
       padding: 2rem 4rem;
       display: flex;
@@ -1381,6 +1415,13 @@
 </head>
 <body>
 
+  <!-- BARRA DO CUPOM -->
+  <div class="barra-cupom">
+    <span>Primeira compra? Use o cupom</span>
+    <strong>SELAMBUZE</strong>
+    <span class="detalhe">e ganhe 10% de desconto</span>
+  </div>
+
   <!-- SCROLL PROGRESS -->
   <div id="progress-bar"></div>
 
@@ -1433,10 +1474,10 @@
     <div class="hero-bg"></div>
     <div class="hero-gradient"></div>
     <div class="hero-content">
-      <p class="hero-eye">Geleias Artesanais Para Churrasco</p>
+      <p class="hero-eye">Geleias Artesanais</p>
       <div class="hero-line"></div>
-      <h1 class="hero-title">DA BRASA<br>AO SABOR</h1>
-      <p class="hero-tag">Geleias artesanais que transformam cada corte em experiência inesquecível.</p>
+      <h1 class="hero-title">MAIS SABOR<br>EM CADA MOMENTO</h1>
+      <p class="hero-tag">Geleias artesanais que tornam cada momento inesquecível.</p>
       <div class="hero-btns">
         <a href="#produtos"     class="btn-fire">Explorar Sabores</a>
         <a href="#harmonizacao" class="btn-ghost">Guia de Harmonização</a>

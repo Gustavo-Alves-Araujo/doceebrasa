@@ -10,6 +10,7 @@
 ============================================================ */
 
 import { salvarPedido } from '../lib/supabase.js';
+import { validarCupom } from '../lib/cupons.js';
 
 const ASAAS_KEY = process.env.ASAAS_API_KEY;
 const ASAAS_BASE = process.env.ASAAS_API_BASE ||
@@ -32,6 +33,8 @@ const PRECOS = {
 };
 
 const DESCONTO_PIX = 0.05;
+const MAX_PARCELAS = 3;
+const VALOR_MINIMO_PARCELA = 5;
 const METODOS = ['PIX', 'BOLETO', 'CREDIT_CARD'];
 
 /* ------------------------------------------------------------
@@ -102,7 +105,8 @@ export default async function handler(req, res) {
   }
 
   const corpo = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body || {});
-  const { cliente = {}, entrega = {}, frete = {}, metodo = 'PIX', itens = [], presente = false } = corpo;
+  const { cliente = {}, entrega = {}, frete = {}, metodo = 'PIX', itens = [],
+          presente = false, cupom = '', parcelas: parcelasPedidas = 1 } = corpo;
 
   /* ---- Validação ---- */
   if (!Array.isArray(itens) || itens.length === 0) {
@@ -138,22 +142,48 @@ export default async function handler(req, res) {
 
   const subtotal = +linhas.reduce((t, l) => t + l.subtotal, 0).toFixed(2);
   const valorFrete = Math.max(0, Number(frete.valor) || 0);
-  const desconto = metodo === 'PIX' ? +(subtotal * DESCONTO_PIX).toFixed(2) : 0;
+
+  /* O cupom é reconferido aqui, não importa o que o navegador tenha dito. */
+  const cupomAplicado = cupom ? await validarCupom(cupom, cliente.cpf) : { valido: false };
+  const descontoCupom = cupomAplicado.valido
+    ? +(subtotal * cupomAplicado.percentual).toFixed(2)
+    : 0;
+  const descontoPix = metodo === 'PIX' ? +(subtotal * DESCONTO_PIX).toFixed(2) : 0;
+  const desconto = +(descontoCupom + descontoPix).toFixed(2);
   const total = +(subtotal + valorFrete - desconto).toFixed(2);
 
   if (total < 5) {
     return res.status(400).json({ erro: 'Valor mínimo de cobrança é R$ 5,00' });
   }
 
+  /* Parcelamento: só no cartão, no máximo 3x, e nunca com parcela
+     abaixo do mínimo que o Asaas aceita. */
+  let parcelas = 1;
+  if (metodo === 'CREDIT_CARD') {
+    parcelas = Math.min(MAX_PARCELAS, Math.max(1, parseInt(parcelasPedidas, 10) || 1));
+    while (parcelas > 1 && total / parcelas < VALOR_MINIMO_PARCELA) parcelas -= 1;
+  }
+
   const referencia = gerarReferencia();
-  const totais = { subtotal, frete: valorFrete, desconto, total };
+  const totais = {
+    subtotal,
+    frete: valorFrete,
+    descontoCupom,
+    descontoPix,
+    desconto,
+    total,
+    parcelas,
+    valorParcela: +(total / parcelas).toFixed(2)
+  };
 
   const descricao = [
     `Pedido ${referencia} · Doce e Brasa`,
     ...linhas.map((l) => `${l.qtd}× ${l.nome}`),
     `Envio: ${frete.nome || 'Correios'} — R$ ${valorFrete.toFixed(2)}`,
     ...(presente ? ['EMBALAR PARA PRESENTE'] : []),
-    ...(desconto > 0 ? [`Desconto PIX: -R$ ${desconto.toFixed(2)}`] : [])
+    ...(descontoCupom > 0 ? [`Cupom ${cupomAplicado.codigo}: -R$ ${descontoCupom.toFixed(2)}`] : []),
+    ...(descontoPix > 0 ? [`Desconto PIX: -R$ ${descontoPix.toFixed(2)}`] : []),
+    ...(parcelas > 1 ? [`Parcelado em ${parcelas}x`] : [])
   ].join(' | ').slice(0, 500);
 
   /* Dados do pedido que vão para o banco, iguais nos dois caminhos. */
@@ -178,6 +208,8 @@ export default async function handler(req, res) {
     total,
     metodo,
     presente: Boolean(presente),
+    cupom: cupomAplicado.valido ? cupomAplicado.codigo : null,
+    desconto,
     status: 'aguardando'
   };
 
@@ -229,10 +261,13 @@ export default async function handler(req, res) {
     const cobrancaBase = {
       customer: idCliente,
       billingType: metodo,
-      value: total,
       dueDate: dataEm(metodo === 'BOLETO' ? 3 : 1),
       description: descricao,
-      externalReference: referencia
+      externalReference: referencia,
+      /* Parcelado usa installmentCount + totalValue; à vista usa value. */
+      ...(parcelas > 1
+        ? { installmentCount: parcelas, totalValue: total }
+        : { value: total })
     };
 
     let cobranca;
@@ -268,6 +303,7 @@ export default async function handler(req, res) {
       referencia,
       idCobranca: cobranca.id,
       invoiceUrl: cobranca.invoiceUrl,
+      cupom: cupomAplicado.valido ? cupomAplicado.codigo : null,
       bankSlipUrl: cobranca.bankSlipUrl || null,
       totais,
       simulado: false
