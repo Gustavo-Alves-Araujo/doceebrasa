@@ -379,13 +379,19 @@
     ============================================================ */
     #hero {
       position: relative;
-      height: 100vh;
-      min-height: 700px;
+      /* min-height em vez de height: se o conteúdo crescer (título em três
+         linhas no celular), o hero acompanha em vez de cortar. */
+      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
       overflow: hidden;
+      /* Reserva a faixa do cupom e a navegação, que são fixas por cima.
+         Sem isso o conteúdo centraliza na tela inteira e o texto fica
+         embaixo do logo em telas baixas. */
+      padding-top: calc(var(--altura-barra, 40px) + var(--altura-nav, 110px));
+      padding-bottom: 5rem;
     }
 
     .hero-bg {
@@ -1381,7 +1387,12 @@
       .nav-links { display: none; }
       .hamburger { display: flex; }
 
-      .hero-title { font-size: clamp(4.5rem, 18vw, 8rem); }
+      /* Telas baixas: o hero já reserva barra + menu no topo, então
+         aliviamos embaixo para os botões não cairem abaixo da dobra. */
+      #hero { padding-bottom: 3rem; }
+      /* No celular o indicador de rolagem não ajuda e colide com o botão */
+      .hero-scroll-hint { display: none; }
+      .hero-title { font-size: clamp(3.4rem, 13vw, 5rem); }
 
       .sabores-strip { grid-template-columns: 1fr; }
       .sabor { min-height: 0; }

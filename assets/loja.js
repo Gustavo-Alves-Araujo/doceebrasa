@@ -440,19 +440,28 @@
      tela. Em vez de chutar a altura no CSS, medimos e publicamos
      em --altura-barra, que a navegação e o corpo usam.
   ------------------------------------------------------------ */
-  function medirBarra() {
+  function medirTopo() {
+    var raiz = document.documentElement;
+
     var barra = document.querySelector('.barra-cupom');
-    var altura = barra ? barra.offsetHeight : 0;
-    document.documentElement.style.setProperty('--altura-barra', altura + 'px');
+    raiz.style.setProperty('--altura-barra', (barra ? barra.offsetHeight : 0) + 'px');
+
+    /* A navegação encolhe ao rolar a página. Só medimos com a página no
+       topo, senão guardaríamos a altura reduzida e o conteúdo do hero
+       voltaria a ficar por baixo dela. */
+    var nav = document.querySelector('nav');
+    if (nav && global.scrollY < 10) {
+      raiz.style.setProperty('--altura-nav', nav.offsetHeight + 'px');
+    }
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', medirBarra);
+    document.addEventListener('DOMContentLoaded', medirTopo);
   } else {
-    medirBarra();
+    medirTopo();
   }
-  global.addEventListener('resize', medirBarra);
-  global.addEventListener('load', medirBarra);
+  global.addEventListener('resize', medirTopo);
+  global.addEventListener('load', medirTopo);
 
   /* ------------------------------------------------------------
      TOAST "ADICIONADO AO CARRINHO"
