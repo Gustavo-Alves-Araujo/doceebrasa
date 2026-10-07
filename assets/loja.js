@@ -498,6 +498,183 @@
   }
 
   /* ------------------------------------------------------------
+     AVALIAÇÕES
+     O cliente abre o formulário por qualquer elemento com
+     [data-avaliar] (o valor pré-seleciona o sabor) ou por um link
+     terminando em #avaliar — é esse link que a loja manda pelo
+     WhatsApp. Tudo chega como pendente e só vai para o site depois
+     de aprovado em /admin.html.
+  ------------------------------------------------------------ */
+  function esc(t) {
+    return String(t == null ? '' : t).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function estrelas(nota) {
+    var n = Math.max(0, Math.min(5, Math.round(nota)));
+    return new Array(n + 1).join('★') + new Array(6 - n).join('☆');
+  }
+
+  /* Avaliações aprovadas. Falha silenciosa: sem elas o site segue
+     só com os depoimentos fixos. */
+  function avaliacoes(produtoId) {
+    var url = '/api/avaliacoes' + (produtoId ? '?produto=' + encodeURIComponent(produtoId) : '');
+    /* Com a API lenta, desiste em 5 s em vez de segurar quem espera. */
+    var ctrl = global.AbortController ? new AbortController() : null;
+    if (ctrl) setTimeout(function () { ctrl.abort(); }, 5000);
+    return fetch(url, ctrl ? { signal: ctrl.signal } : undefined)
+      .then(function (r) { return r.ok ? r.json() : { avaliacoes: [] }; })
+      .then(function (d) { return d.avaliacoes || []; })
+      .catch(function () { return []; });
+  }
+
+  /* Sabor da página atual — a página de produto preenche. */
+  var avaliacaoPadrao = '';
+
+  function abrirAvaliacao(produtoId) {
+    var antigo = document.getElementById('aval-modal');
+    if (antigo) antigo.remove();
+
+    var sel = produtoId || avaliacaoPadrao;
+    var opcoes = '<option value="">Escolha o sabor</option>' + catalogo().map(function (p) {
+      return '<option value="' + p.id + '"' + (p.id === sel ? ' selected' : '') + '>' + esc(p.nome) + '</option>';
+    }).join('');
+
+    var modal = document.createElement('div');
+    modal.id = 'aval-modal';
+    modal.className = 'aval-modal';
+    modal.innerHTML =
+      '<div class="aval-fundo" data-fechar></div>' +
+      '<div class="aval-caixa" role="dialog" aria-modal="true" aria-labelledby="avalTitulo">' +
+        '<button type="button" class="aval-fechar" data-fechar aria-label="Fechar">×</button>' +
+        '<form id="avalForm" novalidate>' +
+          '<span class="section-label">Sua opinião</span>' +
+          '<h2 id="avalTitulo">Avalie nossa geleia</h2>' +
+          '<div class="campo"><label for="avalProduto">Sabor que você provou</label>' +
+            '<select id="avalProduto" name="produto" required>' + opcoes + '</select></div>' +
+          '<div class="campo"><label id="avalNotaRot">Sua nota</label>' +
+            '<div class="aval-estrelas" role="radiogroup" aria-labelledby="avalNotaRot">' +
+              [1, 2, 3, 4, 5].map(function (n) {
+                return '<button type="button" role="radio" data-nota="' + n + '" aria-label="' + n + (n > 1 ? ' estrelas' : ' estrela') + '">★</button>';
+              }).join('') +
+            '</div></div>' +
+          '<div class="campo"><label for="avalTexto">Conte como foi</label>' +
+            '<textarea id="avalTexto" name="texto" rows="4" maxlength="600" required ' +
+            'placeholder="Com o que você serviu? O que achou do sabor?"></textarea></div>' +
+          '<div class="aval-duas">' +
+            '<div class="campo"><label for="avalNome">Seu nome</label>' +
+              '<input id="avalNome" name="nome" maxlength="60" autocomplete="name" required></div>' +
+            '<div class="campo"><label for="avalCidade">Cidade <span class="opc">(opcional)</span></label>' +
+              '<input id="avalCidade" name="cidade" maxlength="60" placeholder="Ex.: Uberlândia/MG"></div>' +
+          '</div>' +
+          '<div class="campo"><label for="avalEmail">E-mail <span class="opc">(opcional · não aparece no site)</span></label>' +
+            '<input id="avalEmail" name="email" type="email" maxlength="120" autocomplete="email"></div>' +
+          '<input class="aval-isca" name="site" tabindex="-1" autocomplete="off" aria-hidden="true">' +
+          '<p class="aval-retorno" id="avalRetorno" role="alert"></p>' +
+          '<button type="submit" class="btn-fire btn-bloco" id="avalEnviar">Enviar avaliação</button>' +
+          '<p class="aval-nota">Sua avaliação aparece no site depois de passar pela nossa equipe.</p>' +
+        '</form>' +
+      '</div>';
+    document.body.appendChild(modal);
+    document.body.classList.add('aval-aberto');
+
+    var form = modal.querySelector('form');
+    var nota = 5;
+    function pintar() {
+      Array.prototype.forEach.call(modal.querySelectorAll('[data-nota]'), function (b) {
+        var n = parseInt(b.dataset.nota, 10);
+        b.classList.toggle('on', n <= nota);
+        b.setAttribute('aria-checked', n === nota ? 'true' : 'false');
+      });
+    }
+    pintar();
+
+    function fechar() {
+      modal.remove();
+      document.body.classList.remove('aval-aberto');
+      document.removeEventListener('keydown', teclado);
+      /* Limpa o #avaliar para o mesmo link poder abrir de novo. */
+      if (location.hash === '#avaliar') history.replaceState(null, '', location.pathname + location.search);
+    }
+    function teclado(e) { if (e.key === 'Escape') fechar(); }
+    document.addEventListener('keydown', teclado);
+
+    modal.addEventListener('click', function (e) {
+      if (e.target.closest('[data-fechar]')) { fechar(); return; }
+      var estrela = e.target.closest('[data-nota]');
+      if (estrela) { nota = parseInt(estrela.dataset.nota, 10); pintar(); }
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var retorno = document.getElementById('avalRetorno');
+      var btn = document.getElementById('avalEnviar');
+      var dados = {
+        produto: form.produto.value,
+        nota: nota,
+        texto: form.texto.value.trim(),
+        nome: form.nome.value.trim(),
+        cidade: form.cidade.value.trim(),
+        email: form.email.value.trim(),
+        site: form.site.value
+      };
+
+      var erro = !dados.produto ? 'Escolha o sabor que você provou.'
+        : dados.texto.length < 10 ? 'Conte um pouco mais sobre a geleia.'
+        : dados.nome.length < 2 ? 'Informe seu nome.'
+        : (dados.email && !emailValido(dados.email)) ? 'Confira o e-mail — ou deixe em branco.'
+        : '';
+      if (erro) { retorno.textContent = erro; return; }
+
+      retorno.textContent = '';
+      btn.disabled = true; btn.textContent = 'Enviando…';
+      fetch('/api/avaliacoes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(dados)
+      })
+        .then(function (r) {
+          return r.json().catch(function () { return {}; }).then(function (j) {
+            if (!r.ok) throw new Error(j.erro || 'Não consegui enviar sua avaliação.');
+          });
+        })
+        .then(function () {
+          form.innerHTML =
+            '<div class="aval-ok">' +
+              '<span class="aval-ok-ic">★</span>' +
+              '<h2>Obrigado!</h2>' +
+              '<p>Recebemos sua avaliação. Ela aparece no site assim que nossa equipe aprovar.</p>' +
+              '<button type="button" class="btn-ghost btn-bloco" data-fechar>Fechar</button>' +
+            '</div>';
+        })
+        .catch(function (err) {
+          retorno.textContent = err.message;
+          btn.disabled = false; btn.textContent = 'Enviar avaliação';
+        });
+    });
+
+    setTimeout(function () { (sel ? form.texto : form.produto).focus(); }, 50);
+  }
+
+  document.addEventListener('click', function (e) {
+    var gatilho = e.target.closest('[data-avaliar]');
+    if (!gatilho) return;
+    e.preventDefault();
+    abrirAvaliacao(gatilho.dataset.avaliar);
+  });
+
+  function avaliarPeloLink() {
+    if (location.hash === '#avaliar') abrirAvaliacao();
+  }
+  global.addEventListener('hashchange', avaliarPeloLink);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', avaliarPeloLink);
+  } else {
+    setTimeout(avaliarPeloLink, 0);
+  }
+
+  /* ------------------------------------------------------------
      API PÚBLICA
   ------------------------------------------------------------ */
   global.Loja = {
@@ -515,7 +692,13 @@
     emailValido: emailValido,
     Carrinho: Carrinho,
     Pedido: Pedido,
-    toast: toast
+    toast: toast,
+    esc: esc,
+    estrelas: estrelas,
+    avaliacoes: avaliacoes,
+    abrirAvaliacao: abrirAvaliacao,
+    /* A página de produto chama com o próprio sabor. */
+    definirAvaliacaoPadrao: function (id) { avaliacaoPadrao = id; }
   };
 
 })(window);

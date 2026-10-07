@@ -72,8 +72,8 @@
         <h1 class="produto-nome" id="produtoNome"></h1>
 
         <div class="produto-avaliacao">
-          <span class="estrelas">★★★★★</span>
-          <span>5,0 · 5 avaliações</span>
+          <span class="estrelas" id="resumoEstrelas">★★★★★</span>
+          <a href="#avaliacoes" id="resumoAvaliacoes">5,0 · 5 avaliações</a>
         </div>
 
         <div class="produto-tags" id="produtoTags"></div>
@@ -153,6 +153,18 @@
           <a href="/politicas.html#trocas" style="color:var(--red-bright)">trocas e devoluções</a>.
         </p>
       </div>
+    </section>
+
+    <!-- ── AVALIAÇÕES ─────────────────────────────────── -->
+    <section class="avaliacoes-produto" id="avaliacoes" hidden>
+      <div class="avaliacoes-topo">
+        <div>
+          <span class="section-label">Quem provou</span>
+          <h2>Avaliações</h2>
+        </div>
+        <button type="button" class="btn-ghost" data-avaliar>Avaliar este sabor</button>
+      </div>
+      <div class="avaliacoes-grade" id="listaAvaliacoes"></div>
     </section>
 
     <!-- ── PRODUTO RELACIONADO ────────────────────────── -->
@@ -401,6 +413,37 @@
     document.getElementById('produtoWrap').hidden = false;
     document.getElementById('detalhes').hidden = false;
     document.getElementById('relacionado').hidden = false;
+    document.getElementById('avaliacoes').hidden = false;
+
+    /* ---- Avaliações ---- */
+    /* As 5 avaliações nota 5 que o site já exibia continuam contando;
+       as aprovadas pelo painel somam a elas. */
+    Loja.definirAvaliacaoPadrao(p.id);
+    var listaAval = document.getElementById('listaAvaliacoes');
+    listaAval.innerHTML = '<p class="avaliacoes-vazio">Carregando avaliações…</p>';
+    Loja.avaliacoes(p.id).then(function (lista) {
+      var total = 5 + lista.length;
+      var soma = 25 + lista.reduce(function (t, a) { return t + a.nota; }, 0);
+      var media = soma / total;
+      document.getElementById('resumoEstrelas').textContent = Loja.estrelas(media);
+      document.getElementById('resumoAvaliacoes').textContent =
+        media.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) +
+        ' · ' + total + ' avaliações';
+
+      if (!lista.length) {
+        listaAval.innerHTML = '<p class="avaliacoes-vazio">Já provou o ' + Loja.esc(p.nome) +
+          '? Seja o primeiro a contar aqui o que achou.</p>';
+        return;
+      }
+      listaAval.innerHTML = lista.map(function (a) {
+        return '<article class="avaliacao">' +
+          '<span class="estrelas" aria-label="Nota ' + a.nota + ' de 5">' + Loja.estrelas(a.nota) + '</span>' +
+          '<p>“' + Loja.esc(a.texto) + '”</p>' +
+          '<div class="quem">' + Loja.esc(a.nome) +
+            (a.cidade ? '<span>' + Loja.esc(a.cidade) + '</span>' : '') + '</div>' +
+        '</article>';
+      }).join('');
+    });
 
     /* ---- Dados estruturados ---- */
     var ld = document.createElement('script');

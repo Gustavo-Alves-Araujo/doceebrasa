@@ -1181,6 +1181,11 @@
 
     .dep-dot.active { background: var(--red); width: 20px; border-radius: 3px; }
 
+    .dep-acoes {
+      display: flex; justify-content: center; flex-wrap: wrap;
+      gap: 1rem; margin-top: 3rem;
+    }
+
     /* ============================================================
        SECTION 8: CTA / PEDIDO
     ============================================================ */
@@ -1951,8 +1956,9 @@
         <button class="dep-btn" id="depNext" aria-label="Próximo">→</button>
       </div>
 
-      <div style="text-align:center;margin-top:3rem">
+      <div class="dep-acoes">
         <a href="#produtos" class="btn-fire">Pedir e Experimentar</a>
+        <button type="button" class="btn-ghost" data-avaliar>Deixe sua avaliação</button>
       </div>
 
     </div>
@@ -2223,8 +2229,30 @@
       document.getElementById('hamburger').classList.remove('open');
     }
 
-    /* ─── Testimonials slider ─── */
-    (function () {
+    /* ─── Testimonials slider ───
+       Os depoimentos fixos vêm primeiro; as avaliações aprovadas no
+       painel entram depois deles, antes de o slider ser montado. */
+    function cardAvaliacao(a) {
+      var p = Loja.produto(a.produto);
+      var quem = (p ? p.nome : '') + (a.cidade ? ' · ' + a.cidade : '');
+      return '<div class="dep-card">' +
+        '<span class="dep-quote">"</span>' +
+        '<div class="dep-stars">' + Loja.estrelas(a.nota) + '</div>' +
+        '<p class="dep-text">"' + Loja.esc(a.texto) + '"</p>' +
+        '<div class="dep-author">' +
+          '<span class="dep-avatar dep-inicial" aria-hidden="true">' + Loja.esc(a.nome.charAt(0).toUpperCase()) + '</span>' +
+          '<div><p class="dep-name">' + Loja.esc(a.nome) + '</p>' +
+          '<p class="dep-role">' + Loja.esc(quem) + '</p></div>' +
+        '</div>' +
+      '</div>';
+    }
+
+    Loja.avaliacoes().then(function (lista) {
+      document.getElementById('depTrack').insertAdjacentHTML('beforeend', lista.map(cardAvaliacao).join(''));
+      iniciarDepoimentos();
+    });
+
+    function iniciarDepoimentos() {
       const track = document.getElementById('depTrack');
       const cards = Array.from(track.querySelectorAll('.dep-card'));
       const dotsEl = document.getElementById('depDots');
@@ -2276,7 +2304,7 @@
 
       buildDots();
       resetAuto();
-    })();
+    }
 
     /* ─── Botões "Comprar" da vitrine ─── */
     document.querySelectorAll('[data-comprar]').forEach(function (btn) {

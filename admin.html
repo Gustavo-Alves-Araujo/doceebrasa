@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pedidos | Doce e Brasa</title>
+  <title>Painel | Doce e Brasa</title>
   <meta name="robots" content="noindex, nofollow">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <meta name="theme-color" content="#b91c1c">
@@ -225,6 +225,49 @@
       padding: 1rem 1.25rem; margin: 1.5rem 0; font-size: .88rem;
     }
 
+    /* ── Abas do painel ───────────────────────────── */
+    .abas-admin { display: flex; gap: 0; border-bottom: 1px solid var(--line); margin-top: 1.25rem; }
+    .abas-admin button {
+      background: none; border: 0; border-bottom: 2px solid transparent;
+      color: var(--muted); padding: .8rem 1.2rem; cursor: pointer;
+      font-size: .74rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      display: inline-flex; align-items: center; gap: .5rem;
+    }
+    .abas-admin button.ativa { color: var(--cream); border-bottom-color: var(--red); }
+    .abas-admin .contador {
+      background: var(--red); color: var(--cream); border-radius: 999px;
+      font-size: .66rem; letter-spacing: 0; padding: .05rem .5rem; min-width: 1.4rem; text-align: center;
+    }
+    .abas-admin .contador:empty { display: none; }
+
+    /* ── Avaliações ───────────────────────────────── */
+    .aval {
+      background: var(--dark); border: 1px solid var(--line);
+      padding: 1.15rem 1.25rem; margin-bottom: .6rem;
+    }
+    .aval-cab { display: flex; align-items: center; gap: .8rem; flex-wrap: wrap; margin-bottom: .6rem; }
+    .aval-cab .estrelas { color: #d97706; letter-spacing: 2px; }
+    .aval-cab b { color: var(--cream); font-weight: 600; }
+    .aval-cab .quando { margin-left: auto; font-size: .76rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+    .aval-texto { color: var(--warm); font-size: .93rem; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere; }
+    .aval-autor { font-size: .8rem; color: var(--muted); margin-top: .6rem; }
+    .aval-autor strong { color: var(--cream); font-weight: 600; }
+    .aval-acoes { display: flex; gap: .5rem; flex-wrap: wrap; margin-top: 1rem; }
+    .aval-acoes .btn { padding: .45rem .9rem; font-size: .66rem; }
+    .aval-acoes .btn.perigo { background: transparent; border-color: rgba(248,113,113,.4); color: var(--st-grave); }
+    .aval-acoes .btn.perigo:hover { border-color: var(--st-grave); }
+    .chip.pendente { color: var(--st-espera); background: var(--st-espera-bg); }
+    .chip.aprovada { color: var(--st-pago);   background: var(--st-pago-bg); }
+    .chip.recusada { color: var(--st-morto);  background: var(--st-morto-bg); }
+    .link-avaliar {
+      font-size: .82rem; color: var(--muted); margin-bottom: 1.25rem;
+      display: flex; gap: .6rem; align-items: center; flex-wrap: wrap;
+    }
+    .link-avaliar code {
+      font-family: ui-monospace, Menlo, monospace; color: var(--cream);
+      background: var(--dark); border: 1px solid var(--line); padding: .25rem .5rem;
+    }
+
     @media (max-width: 900px) {
       .pedido-linha {
         grid-template-columns: 1fr auto; gap: .5rem 1rem; padding: 1rem;
@@ -244,8 +287,8 @@
   <div class="tela-login" id="telaLogin">
     <form class="caixa-login" id="formLogin">
       <img src="logo.webp" alt="Doce e Brasa">
-      <h2>Pedidos</h2>
-      <p>Painel interno da loja</p>
+      <h2>Painel</h2>
+      <p>Pedidos e avaliações da loja</p>
       <input type="password" id="senha" placeholder="Senha" autocomplete="current-password" required>
       <button type="submit" class="btn" id="btnEntrar">Entrar</button>
       <p class="erro-login" id="erroLogin"></p>
@@ -258,7 +301,7 @@
       <div class="container topo-inner">
         <div class="marca">
           <img src="logo.webp" alt="Doce e Brasa">
-          <h1>Pedidos</h1>
+          <h1>Painel</h1>
         </div>
         <div class="topo-acoes">
           <button class="btn fantasma" id="btnAtualizar">Atualizar</button>
@@ -267,7 +310,14 @@
       </div>
     </header>
 
-    <main class="container">
+    <div class="container">
+      <nav class="abas-admin">
+        <button type="button" class="ativa" data-aba="pedidos">Pedidos</button>
+        <button type="button" data-aba="avaliacoes">Avaliações <span class="contador" id="contPendentes"></span></button>
+      </nav>
+    </div>
+
+    <main class="container" id="abaPedidos">
       <div class="indicadores" id="indicadores"></div>
 
       <div class="filtros">
@@ -287,6 +337,23 @@
       </div>
 
       <div id="lista"></div>
+    </main>
+
+    <main class="container" id="abaAvaliacoes" hidden>
+      <div class="filtros" style="margin-top:1.75rem">
+        <select id="filtroAval">
+          <option value="pendente">Aguardando aprovação</option>
+          <option value="aprovada">Aprovadas (no site)</option>
+          <option value="recusada">Recusadas</option>
+          <option value="">Todas</option>
+        </select>
+      </div>
+      <p class="link-avaliar">
+        Link para pedir avaliação pelo WhatsApp:
+        <code id="linkAvaliar"></code>
+        <button class="copiar" style="margin:0" id="copiarLinkAvaliar">Copiar link</button>
+      </p>
+      <div id="listaAval"></div>
     </main>
   </div>
 
@@ -322,7 +389,7 @@
 
     function api(opcoes) {
       opcoes = opcoes || {};
-      var url = '/api/admin-pedidos' + (opcoes.query || '');
+      var url = (opcoes.rota || '/api/admin-pedidos') + (opcoes.query || '');
       return fetch(url, {
         method: opcoes.method || 'GET',
         headers: Object.assign({ 'x-admin-senha': senha }, opcoes.body ? { 'Content-Type': 'application/json' } : {}),
@@ -359,7 +426,9 @@
       sessionStorage.removeItem(CHAVE);
       location.reload();
     });
-    document.getElementById('btnAtualizar').addEventListener('click', carregar);
+    document.getElementById('btnAtualizar').addEventListener('click', function () {
+      if (abaAtual === 'avaliacoes') carregarAvaliacoes(); else carregar();
+    });
     document.getElementById('filtroStatus').addEventListener('change', carregar);
 
     var timerBusca;
@@ -372,7 +441,103 @@
       document.getElementById('telaLogin').hidden = true;
       document.getElementById('painel').hidden = false;
       carregar();
+      carregarAvaliacoes();
     }
+
+    /* ── Abas ────────────────────────────────────── */
+    var abaAtual = 'pedidos';
+    document.querySelector('.abas-admin').addEventListener('click', function (e) {
+      var b = e.target.closest('[data-aba]');
+      if (!b) return;
+      abaAtual = b.dataset.aba;
+      document.querySelectorAll('.abas-admin button').forEach(function (x) { x.classList.toggle('ativa', x === b); });
+      document.getElementById('abaPedidos').hidden = abaAtual !== 'pedidos';
+      document.getElementById('abaAvaliacoes').hidden = abaAtual !== 'avaliacoes';
+    });
+
+    /* ── Avaliações ──────────────────────────────── */
+    var NOME_PRODUTO = {
+      abacaxi: 'Abacaxi com Pimenta', cebola: 'Cebola Roxa com Vinho',
+      morango: 'Morango com Limão Siciliano', 'morango-zero': 'Morango Zero Açúcar'
+    };
+    var ROTULO_AVAL = { pendente: 'Aguardando', aprovada: 'No site', recusada: 'Recusada' };
+    var linkAvaliar = location.origin + '/#avaliar';
+    document.getElementById('linkAvaliar').textContent = linkAvaliar;
+    document.getElementById('copiarLinkAvaliar').addEventListener('click', function () {
+      var b = this;
+      navigator.clipboard.writeText(linkAvaliar).then(function () {
+        b.textContent = 'Copiado ✓';
+        setTimeout(function () { b.textContent = 'Copiar link'; }, 1600);
+      });
+    });
+    document.getElementById('filtroAval').addEventListener('change', carregarAvaliacoes);
+
+    function carregarAvaliacoes() {
+      var status = document.getElementById('filtroAval').value;
+      var el = document.getElementById('listaAval');
+      el.innerHTML = '<div class="carregando">Carregando…</div>';
+      api({ rota: '/api/admin-avaliacoes', query: status ? '?status=' + status : '' })
+        .then(function (d) {
+          var c = d.contagem || {};
+          document.getElementById('contPendentes').textContent = c.pendente ? c.pendente : '';
+          var lista = d.avaliacoes || [];
+          if (!lista.length) {
+            el.innerHTML = '<div class="vazio"><h2>Nada por aqui</h2><p>' +
+              (status === 'pendente' ? 'Nenhuma avaliação esperando aprovação.' : 'Nenhuma avaliação neste filtro.') + '</p></div>';
+            return;
+          }
+          el.innerHTML = lista.map(cardAval).join('');
+        })
+        .catch(function (err) {
+          if (err.status === 401) { sessionStorage.removeItem(CHAVE); location.reload(); return; }
+          el.innerHTML = '<div class="aviso-erro"><b>Não consegui carregar as avaliações.</b><br>' + esc(err.message) +
+            (/docebrasa_avaliacoes|schema cache|does not exist/i.test(err.message)
+              ? '<br>A tabela ainda não existe: rode o arquivo sql/avaliacoes.sql no Supabase.' : '') + '</div>';
+        });
+    }
+
+    function cardAval(a) {
+      var n = Math.max(0, Math.min(5, a.nota));
+      var acoes = '';
+      if (a.status !== 'aprovada') acoes += '<button class="btn" data-acao="aprovada">Aprovar</button>';
+      if (a.status !== 'recusada') acoes += '<button class="btn fantasma" data-acao="recusada">Recusar</button>';
+      if (a.status !== 'pendente') acoes += '<button class="btn fantasma" data-acao="pendente">Voltar para pendente</button>';
+      acoes += '<button class="btn perigo" data-acao="excluir">Excluir</button>';
+      return '<article class="aval" data-id="' + a.id + '">' +
+        '<div class="aval-cab">' +
+          '<span class="estrelas" title="Nota ' + n + '">' + new Array(n + 1).join('★') + new Array(6 - n).join('☆') + '</span>' +
+          '<b>' + esc(NOME_PRODUTO[a.produto] || a.produto) + '</b>' +
+          '<span class="chip ' + esc(a.status) + '">' + (ROTULO_AVAL[a.status] || a.status) + '</span>' +
+          '<span class="quando">' + dataHora(a.criado_em) + '</span>' +
+        '</div>' +
+        '<p class="aval-texto">' + esc(a.texto) + '</p>' +
+        '<p class="aval-autor"><strong>' + esc(a.nome) + '</strong>' +
+          (a.cidade ? ' · ' + esc(a.cidade) : '') +
+          (a.email ? ' · <a href="mailto:' + esc(a.email) + '">' + esc(a.email) + '</a>' : '') + '</p>' +
+        '<div class="aval-acoes">' + acoes + '</div>' +
+      '</article>';
+    }
+
+    document.getElementById('listaAval').addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-acao]');
+      if (!btn) return;
+      var art = btn.closest('.aval');
+      var id = art.dataset.id;
+      var acao = btn.dataset.acao;
+
+      var pedido;
+      if (acao === 'excluir') {
+        if (!confirm('Excluir esta avaliação de vez? Não dá para desfazer.')) return;
+        pedido = api({ rota: '/api/admin-avaliacoes', method: 'DELETE', query: '?id=' + id });
+      } else {
+        pedido = api({ rota: '/api/admin-avaliacoes', method: 'PATCH', body: { id: id, status: acao } });
+      }
+      art.querySelectorAll('button').forEach(function (b) { b.disabled = true; });
+      pedido.then(carregarAvaliacoes).catch(function (err) {
+        alert('Não consegui salvar: ' + err.message);
+        art.querySelectorAll('button').forEach(function (b) { b.disabled = false; });
+      });
+    });
 
     /* ── Carregar ────────────────────────────────── */
     function carregar() {

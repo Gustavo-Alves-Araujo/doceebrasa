@@ -831,3 +831,91 @@ footer.loja-footer {
   width: 100%; height: 100%; max-height: none;
   object-fit: cover; filter: none;
 }
+
+/* ============================================================
+   AVALIAÇÕES · formulário (modal) e lista na página do produto
+============================================================ */
+body.aval-aberto { overflow: hidden; }
+
+.aval-modal {
+  position: fixed; inset: 0; z-index: 2000;
+  display: flex; align-items: center; justify-content: center;
+  padding: 1rem;
+}
+.aval-fundo { position: absolute; inset: 0; background: rgba(0,0,0,0.78); backdrop-filter: blur(4px); }
+.aval-caixa {
+  position: relative; width: 100%; max-width: 34rem;
+  max-height: calc(100vh - 2rem); max-height: calc(100dvh - 2rem); overflow-y: auto;
+  background: var(--dark); border: 1px solid rgba(185,28,28,0.35);
+  padding: 2.5rem 2.25rem 2rem;
+  animation: aval-entra 0.3s ease;
+}
+@keyframes aval-entra { from { opacity: 0; transform: translateY(14px); } }
+.aval-caixa h2 {
+  font-family: var(--fn-display); font-weight: 400; font-size: 2.1rem;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--cream);
+  line-height: 1.05; margin: 0.4rem 0 1.5rem;
+}
+.aval-caixa form { display: flex; flex-direction: column; gap: 1.1rem; }
+.aval-caixa .campo textarea { resize: vertical; min-height: 6rem; }
+.aval-caixa .opc { text-transform: none; letter-spacing: 0; font-weight: 400; }
+.aval-fechar {
+  position: absolute; top: 0.6rem; right: 0.8rem;
+  background: none; border: 0; color: var(--muted);
+  font-size: 1.9rem; line-height: 1; cursor: pointer; padding: 0.3rem;
+}
+.aval-fechar:hover { color: var(--red-bright); }
+.aval-duas { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.aval-duas .campo { min-width: 0; }
+.aval-caixa .campo input, .aval-caixa .campo select, .aval-caixa .campo textarea { width: 100%; }
+.aval-estrelas { display: flex; gap: 0.3rem; }
+.aval-estrelas button {
+  background: none; border: 0; cursor: pointer; padding: 0 0.1rem;
+  font-size: 2rem; line-height: 1; color: rgba(240,230,214,0.18);
+  transition: color 0.2s, transform 0.2s;
+}
+.aval-estrelas button.on { color: var(--amber); }
+.aval-estrelas button:hover { transform: scale(1.12); }
+.aval-isca { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.aval-retorno { color: var(--red-bright); font-size: 0.85rem; min-height: 1.2em; }
+.aval-retorno:empty { display: none; }
+.aval-nota { font-size: 0.76rem; color: var(--muted); text-align: center; }
+.aval-ok { text-align: center; padding: 1rem 0 0.5rem; }
+.aval-ok-ic { display: block; font-size: 3rem; color: var(--amber); line-height: 1; margin-bottom: 0.5rem; }
+.aval-ok p { color: rgba(240,230,214,0.85); margin-bottom: 1.75rem; }
+
+/* Lista na página do produto */
+.avaliacoes-produto { border-top: 1px solid var(--line); padding: 4rem 0 1rem; }
+.avaliacoes-topo {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 1.5rem; flex-wrap: wrap; margin-bottom: 2.25rem;
+}
+.avaliacoes-topo h2 {
+  font-family: var(--fn-display); font-weight: 400; font-size: clamp(2rem, 4vw, 2.6rem);
+  letter-spacing: 2px; text-transform: uppercase; color: var(--cream); line-height: 1;
+  margin-top: 0.4rem;
+}
+.avaliacoes-grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
+.avaliacao {
+  background: var(--dark-2); border: 1px solid rgba(255,255,255,0.055);
+  padding: 1.75rem; display: flex; flex-direction: column; gap: 0.9rem;
+}
+.avaliacao .estrelas { color: var(--amber); letter-spacing: 3px; }
+.avaliacao p { color: rgba(240,230,214,0.85); font-size: 0.93rem; line-height: 1.75; flex: 1; overflow-wrap: anywhere; }
+.avaliacao .quem { font-size: 0.85rem; color: var(--cream); font-weight: 700; }
+.avaliacao .quem span { display: block; font-weight: 400; font-size: 0.72rem; color: var(--red-bright); letter-spacing: 1px; margin-top: 0.15rem; }
+.avaliacoes-vazio { color: var(--muted); font-size: 0.92rem; }
+.produto-avaliacao a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.produto-avaliacao a:hover { color: var(--red-bright); }
+
+/* Avatar com a inicial, para avaliações sem foto (home) */
+.dep-inicial {
+  display: flex; align-items: center; justify-content: center;
+  background: var(--red-deep); color: var(--cream);
+  font-family: var(--fn-display); font-size: 1.5rem; letter-spacing: 1px;
+}
+
+@media (max-width: 560px) {
+  .aval-caixa { padding: 2.25rem 1.25rem 1.5rem; }
+  .aval-duas { grid-template-columns: 1fr; }
+}

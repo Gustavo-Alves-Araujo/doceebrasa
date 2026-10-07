@@ -9,19 +9,8 @@
    roda no servidor — a página admin.html não tem chave nenhuma.
 ============================================================ */
 
-import crypto from 'node:crypto';
 import { sb, TABELA, bancoConfigurado } from '../lib/supabase.js';
-
-const SENHA = process.env.ADMIN_SENHA;
-
-/* Comparação em tempo constante, para a senha não vazar pelo tempo de resposta. */
-function senhaConfere(enviada) {
-  if (!SENHA || !enviada) return false;
-  const a = Buffer.from(String(enviada));
-  const b = Buffer.from(SENHA);
-  if (a.length !== b.length) return false;
-  return crypto.timingSafeEqual(a, b);
-}
+import { SENHA_ADMIN, senhaConfere } from '../lib/admin.js';
 
 const STATUS_VALIDOS = [
   'aguardando', 'pago', 'separando', 'enviado', 'entregue',
@@ -37,7 +26,7 @@ const CAMPOS = [
 ].join(',');
 
 export default async function handler(req, res) {
-  if (!SENHA) {
+  if (!SENHA_ADMIN) {
     return res.status(503).json({ erro: 'Painel sem senha configurada (ADMIN_SENHA).' });
   }
   if (!bancoConfigurado) {
