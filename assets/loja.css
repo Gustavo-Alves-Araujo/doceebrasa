@@ -667,7 +667,7 @@ nav.loja-nav {
 .resumo-parcela { font-size: 0.82rem; color: var(--muted); text-align: right; margin-top: 0.4rem; }
 
 /* Métodos de pagamento */
-.metodos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; margin-top: 1.5rem; }
+.metodos { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.8rem; margin-top: 1.5rem; }
 .metodo {
   display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
   padding: 1.4rem 1rem; background: var(--dark);

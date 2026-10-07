@@ -791,6 +791,46 @@
       filter: drop-shadow(0 24px 60px rgba(0,0,0,0.85));
     }
 
+    /* Foto do card: leva à página do produto e, no hover, passa pelas
+       outras fotos do sabor (as mesmas da galeria da página). */
+    .sabor-galeria {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      margin-top: 2.5rem;
+    }
+    .sabor-galeria .sabor-product-img { margin-top: 0; }
+
+    .sabor-foto {
+      position: absolute;
+      inset: 0 2rem;
+      width: calc(100% - 4rem);
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      box-shadow: 0 18px 48px rgba(0,0,0,0.6);
+    }
+    .sabor-foto.ativa { opacity: 1; }
+    .sabor-galeria.com-foto .sabor-product-img { opacity: 0; }
+
+    .sabor-galeria-pontos {
+      position: absolute;
+      left: 0; right: 0; bottom: -1rem;
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .sabor:hover .sabor-galeria-pontos { opacity: 1; }
+    .sabor-galeria-pontos span {
+      width: 18px; height: 3px;
+      background: rgba(240,230,214,0.3);
+      transition: background 0.3s;
+    }
+    .sabor-galeria-pontos span.ativo { background: var(--red-bright); }
+
     /* ============================================================
        SECTION 4: HARMONIZAÇÃO
     ============================================================ */
@@ -1521,7 +1561,9 @@
       <article class="sabor" data-aos="fade-up" data-aos-delay="0">
         <div class="sabor-bg" style="background:radial-gradient(ellipse 70% 45% at 50% 28%, rgba(205,95,30,0.30) 0%, transparent 70%), linear-gradient(160deg, #2a1408 0%, #140904 58%, #221005 100%)"></div>
         <div class="sabor-shade"></div>
-        <img src="pote-abacaxi.png" alt="Pote de geleia artesanal de Abacaxi com Pimenta 300 g" class="sabor-product-img" loading="lazy">
+        <a href="produto.html?id=abacaxi" class="sabor-galeria" data-produto="abacaxi" aria-label="Ver detalhes de Abacaxi com Pimenta">
+          <img src="pote-abacaxi.png" alt="Pote de geleia artesanal de Abacaxi com Pimenta 300 g" class="sabor-product-img" loading="lazy">
+        </a>
         <div class="sabor-body">
           <div class="sabor-no">01</div>
           <h3 class="sabor-nm"><a href="produto.html?id=abacaxi">Abacaxi<br>com Pimenta</a></h3>
@@ -1536,13 +1578,13 @@
               <span class="sdot on"></span>
               <span class="sdot on"></span>
               <span class="sdot on"></span>
-              <span class="sdot"></span>
+              <span class="sdot on"></span>
               <span class="sdot"></span>
             </div>
           </div>
           <p class="sabor-desc">
             Suculência tropical do abacaxi encontra o calor da pimenta dedo-de-moça.
-            Cada garfada é uma explosão de doçura seguida de um ardor irresistível.
+            Cada colherada é uma explosão de doçura seguida de um ardor na medida certa.
           </p>
           <div class="sabor-preco">
             <span class="de">R$ 44,90</span>
@@ -1560,7 +1602,9 @@
       <article class="sabor" data-aos="fade-up" data-aos-delay="240">
         <div class="sabor-bg" style="background:radial-gradient(ellipse 70% 45% at 50% 28%, rgba(150,45,95,0.30) 0%, transparent 70%), linear-gradient(160deg, #1e0a1d 0%, #0f050e 58%, #1a0819 100%)"></div>
         <div class="sabor-shade"></div>
-        <img src="pote-cebola.png" alt="Pote de geleia artesanal de Cebola Roxa com Vinho 300 g" class="sabor-product-img" loading="lazy">
+        <a href="produto.html?id=cebola" class="sabor-galeria" data-produto="cebola" aria-label="Ver detalhes de Cebola Roxa com Vinho">
+          <img src="pote-cebola.png" alt="Pote de geleia artesanal de Cebola Roxa com Vinho 300 g" class="sabor-product-img" loading="lazy">
+        </a>
         <div class="sabor-body">
           <div class="sabor-no">02</div>
           <h3 class="sabor-nm"><a href="produto.html?id=cebola">Cebola Roxa<br>com Vinho</a></h3>
@@ -1572,7 +1616,7 @@
           <div class="spice-meter">
             <span class="lbl">Ardência</span>
             <div class="spice-dots">
-              <span class="sdot on"></span>
+              <span class="sdot"></span>
               <span class="sdot"></span>
               <span class="sdot"></span>
               <span class="sdot"></span>
@@ -1580,8 +1624,9 @@
             </div>
           </div>
           <p class="sabor-desc">
-            Cebola roxa caramelizada lentamente, enriquecida com vinho tinto seco.
-            Profundidade de sabor que transforma qualquer combinação em algo extraordinário.
+            Caramelizada, a cebola roxa revela sua doçura e se une ao vinho tinto,
+            enquanto um ingrediente especial dá o toque final a essa receita. Um sabor rico
+            e marcante, que surpreende o paladar de qualquer apaixonado por gastronomia.
           </p>
           <div class="sabor-preco">
             <span class="de">R$ 44,90</span>
@@ -1600,7 +1645,9 @@
       <article class="sabor" data-aos="fade-up" data-aos-delay="120">
         <div class="sabor-bg" style="background:radial-gradient(ellipse 70% 45% at 50% 28%, rgba(190,40,70,0.30) 0%, transparent 70%), linear-gradient(160deg, #2b0a12 0%, #140409 58%, #23070f 100%)"></div>
         <div class="sabor-shade"></div>
-        <img src="pote-morango.png" alt="Pote de geleia artesanal de Morango com Limão Siciliano 300 g" class="sabor-product-img" loading="lazy">
+        <a href="produto.html?id=morango" class="sabor-galeria" data-produto="morango" aria-label="Ver detalhes de Morango com Limão Siciliano">
+          <img src="pote-morango.png" alt="Pote de geleia artesanal de Morango com Limão Siciliano 300 g" class="sabor-product-img" loading="lazy">
+        </a>
         <div class="sabor-body">
           <div class="sabor-no">03</div>
           <h3 class="sabor-nm"><a href="produto.html?id=morango">Morango<br>com Limão Siciliano</a></h3>
@@ -1620,8 +1667,9 @@
             </div>
           </div>
           <p class="sabor-desc">
-            Morango maduro cozido devagar com limão siciliano. Doce cheio,
-            com um final cítrico que corta e limpa o paladar.
+            Morangos cozidos lentamente com suco e raspas de limão siciliano. Uma receita
+            artesanal com doçura na medida certa, um toque cítrico envolvente e um perfume
+            irresistível. Simples e verdadeiramente espetacular.
           </p>
           <div class="sabor-preco">
             <span class="de">R$ 44,90</span>
@@ -1640,7 +1688,9 @@
       <article class="sabor" data-aos="fade-up" data-aos-delay="180">
         <div class="sabor-bg" style="background:radial-gradient(ellipse 70% 45% at 50% 28%, rgba(70,160,95,0.26) 0%, transparent 70%), linear-gradient(160deg, #10210f 0%, #0a1109 58%, #131f12 100%)"></div>
         <div class="sabor-shade"></div>
-        <img src="pote-morango-zero.png" alt="Pote de geleia artesanal de Morango com Limão Siciliano Zero Açúcar 200 g" class="sabor-product-img" loading="lazy">
+        <a href="produto.html?id=morango-zero" class="sabor-galeria" data-produto="morango-zero" aria-label="Ver detalhes de Morango com Limão Siciliano Zero Açúcar">
+          <img src="pote-morango-zero.png" alt="Pote de geleia artesanal de Morango com Limão Siciliano Zero Açúcar 200 g" class="sabor-product-img" loading="lazy">
+        </a>
         <div class="sabor-body">
           <div class="sabor-no">04</div>
           <h3 class="sabor-nm"><a href="produto.html?id=morango-zero">Morango Zero<br>com Limão Siciliano</a></h3>
@@ -1657,8 +1707,9 @@
             </div>
           </div>
           <p class="sabor-desc">
-            O mesmo morango com limão siciliano, sem adição de açúcares.
-            Adoçado com eritritol, mantém o corpo e o final cítrico.
+            Todo o sabor da já conhecida geleia de morango com limão siciliano, só que sem
+            adição de açúcares. Adoçada com eritritol, sem aquele sabor residual, mantém a
+            textura e o toque cítrico irresistível dessa combinação.
           </p>
           <div class="sabor-preco">
             <span class="de">R$ 44,90</span>
@@ -1704,12 +1755,15 @@
             <p class="harm-fl">Sabor 01</p>
             <h3 class="harm-ttl">Abacaxi com Pimenta</h3>
             <ul class="harm-list">
-              <li>Frango na brasa</li>
-              <li>Picanha selada</li>
-              <li>Costelinha de porco</li>
               <li>Queijo coalho grelhado</li>
-              <li>Camarão na churrasqueira</li>
-              <li>Espetinho misto</li>
+              <li>Costela bovina assada</li>
+              <li>Dadinhos de tapioca</li>
+              <li>Queijo brie aquecido</li>
+              <li>Hambúrguer artesanal com bacon</li>
+              <li>Frango empanado crocante</li>
+              <li>Churrasco completo</li>
+              <li>Pastel de queijo</li>
+              <li>Canapés com cream cheese</li>
             </ul>
           </div>
 
@@ -1718,12 +1772,15 @@
             <p class="harm-fl">Sabor 02</p>
             <h3 class="harm-ttl">Cebola Roxa c/ Vinho</h3>
             <ul class="harm-list">
-              <li>Picanha premium</li>
-              <li>Ancho e chorizo</li>
-              <li>Queijos nobres</li>
-              <li>Cordeiro na grelha</li>
-              <li>Tábua fria gourmet</li>
-              <li>Hambúrguer artesanal</li>
+              <li>Hambúrguer artesanal com queijo e bacon</li>
+              <li>Filé-mignon grelhado</li>
+              <li>Queijo brie aquecido</li>
+              <li>Queijo Canastra curado</li>
+              <li>Bruschettas de gorgonzola</li>
+              <li>Pernil suíno assado</li>
+              <li>Linguiça artesanal na brasa</li>
+              <li>Pizza de diversos sabores</li>
+              <li>Risoto de parmesão</li>
             </ul>
           </div>
 
@@ -1738,6 +1795,23 @@
               <li>Iogurte natural</li>
               <li>Panqueca e waffle</li>
               <li>Sorvete de creme</li>
+              <li>Cheesecake tradicional</li>
+              <li>Tapioca com queijo minas</li>
+              <li>Bolo de fubá e baunilha</li>
+            </ul>
+          </div>
+
+          <div class="harm-card" data-aos="fade-up" data-aos-delay="450">
+            <span class="harm-badge">04</span>
+            <p class="harm-fl">Sabor 04</p>
+            <h3 class="harm-ttl">Morango Zero c/ Limão Siciliano</h3>
+            <ul class="harm-list">
+              <li>Queijo brie e camembert</li>
+              <li>Tábua de frios</li>
+              <li>Torrada e pão artesanal</li>
+              <li>Iogurte natural</li>
+              <li>Panqueca e waffle</li>
+              <li>Sobremesas sem açúcar</li>
             </ul>
           </div>
 
@@ -1774,14 +1848,14 @@
 
         <div class="proc-card" data-aos="fade-up" data-aos-delay="200">
           <span class="proc-num">03</span>
-          <h3>Defumação Exclusiva</h3>
-          <p>Nossa técnica artesanal de defumação confere profundidade e complexidade únicas, impossíveis de replicar pela indústria alimentícia.</p>
+          <h3>Higienização Criteriosa</h3>
+          <p>Ingredientes, utensílios e embalagens passam por uma higienização criteriosa, reforçando nosso compromisso com a qualidade e a segurança de cada pote de geleia.</p>
         </div>
 
         <div class="proc-card" data-aos="fade-up" data-aos-delay="300">
           <span class="proc-num">04</span>
-          <h3>Envasamento com Carinho</h3>
-          <p>Cada pote é envasado a quente e lacrado com o cuidado de quem entrega o melhor da mesa para a sua churrasqueira.</p>
+          <h3>Cuidado em Cada Pote</h3>
+          <p>Cada pote é envasado a quente e cuidadosamente lacrado, levando à sua mesa o sabor autêntico, e a dedicação e amor que tornam nossas receitas especiais.</p>
         </div>
 
       </div>
@@ -1892,7 +1966,7 @@
     <div class="pedido-veil"></div>
     <img src="sobre-o-pote.webp" alt="" class="mascot-pedido" aria-hidden="true">
     <div class="pedido-inner" data-aos="fade-up">
-      <span class="section-label" style="display:block;text-align:center">Pronto para Elevar seu Churrasco?</span>
+      <span class="section-label" style="display:block;text-align:center">Pronto para Elevar o seu Nível Gastronômico?</span>
       <h2 class="section-title">PEÇA<br>AGORA</h2>
       <span class="red-bar center"></span>
 
@@ -1927,7 +2001,7 @@
           <a href="#" class="nav-logo">
             <img src="logo.webp" alt="Doce e Brasa" width="110" height="110">
           </a>
-          <p>Geleias artesanais criadas para transformar cada churrasco em uma experiência gastronômica inesquecível.</p>
+          <p>Geleias artesanais que realçam o sabor do seu paladar e transformam cada combinação em uma experiência gastronômica inesquecível.</p>
           <div class="socials">
             <a href="#" class="soc" aria-label="Instagram">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
@@ -2020,7 +2094,7 @@
         "item": {
           "@type": "Product",
           "name": "Geleia de Abacaxi com Pimenta",
-          "description": "A doçura tropical do abacaxi encontra o calor da pimenta numa combinação que transforma qualquer assado.",
+          "description": "Suculência tropical do abacaxi encontra o calor da pimenta dedo-de-moça. Cada colherada é uma explosão de doçura seguida de um ardor na medida certa.",
           "brand": { "@type": "Brand", "name": "Doce e Brasa" },
           "image": "https://docebrasa.com.br/pote-abacaxi.png",
           "url": "https://docebrasa.com.br/produto.html?id=abacaxi",
@@ -2048,7 +2122,7 @@
         "item": {
           "@type": "Product",
           "name": "Geleia de Cebola Roxa com Vinho",
-          "description": "A cebola roxa caramelizada encontra o vinho tinto num molho sofisticado perfeito para carnes nobres.",
+          "description": "Caramelizada, a cebola roxa revela sua doçura e se une ao vinho tinto, enquanto um ingrediente especial dá o toque final a essa receita. Um sabor rico e marcante, que surpreende o paladar de qualquer apaixonado por gastronomia.",
           "brand": { "@type": "Brand", "name": "Doce e Brasa" },
           "image": "https://docebrasa.com.br/pote-cebola.png",
           "url": "https://docebrasa.com.br/produto.html?id=cebola",
@@ -2076,7 +2150,7 @@
         "item": {
           "@type": "Product",
           "name": "Geleia de Morango com Limão Siciliano",
-          "description": "Morango maduro cozido devagar com limão siciliano. Doce cheio, com um final cítrico que corta e limpa o paladar.",
+          "description": "Morangos cozidos lentamente com suco e raspas de limão siciliano. Uma receita artesanal com doçura na medida certa, um toque cítrico envolvente e um perfume irresistível. Simples e verdadeiramente espetacular.",
           "brand": { "@type": "Brand", "name": "Doce e Brasa" },
           "image": "https://docebrasa.com.br/pote-morango.png",
           "url": "https://docebrasa.com.br/produto.html?id=morango",
@@ -2097,7 +2171,7 @@
         "item": {
           "@type": "Product",
           "name": "Geleia de Morango com Limão Siciliano Zero Açúcar",
-          "description": "O mesmo morango com limão siciliano, sem adição de açúcares. Adoçado com eritritol, mantém o corpo e o final cítrico.",
+          "description": "Todo o sabor da já conhecida geleia de morango com limão siciliano, só que sem adição de açúcares. Adoçada com eritritol, sem aquele sabor residual, mantém a textura e o toque cítrico irresistível dessa combinação.",
           "brand": { "@type": "Brand", "name": "Doce e Brasa" },
           "image": "https://docebrasa.com.br/pote-morango-zero.png",
           "url": "https://docebrasa.com.br/produto.html?id=morango-zero",
@@ -2212,6 +2286,47 @@
         Loja.toast(p.nome + ' no carrinho.', { href: 'carrinho.html', texto: 'Finalizar compra' });
       });
     });
+
+    /* ─── Vitrine: fotos passando no hover ───
+       Só em telas com mouse; no celular a foto é apenas o link. */
+    if (window.matchMedia('(hover: hover)').matches) {
+      document.querySelectorAll('.sabor-galeria').forEach(function (galeria) {
+        var p = Loja.produto(galeria.dataset.produto);
+        var fotos = [p.fundo, p.estudio, 'Design sem nome(1).jpg'].filter(Boolean);
+        var camadas = fotos.map(function (src) {
+          var img = document.createElement('img');
+          img.src = src;
+          img.alt = '';
+          img.loading = 'lazy';
+          img.className = 'sabor-foto';
+          galeria.appendChild(img);
+          return img;
+        });
+        var pontos = document.createElement('div');
+        pontos.className = 'sabor-galeria-pontos';
+        pontos.innerHTML = new Array(fotos.length + 2).join('<span></span>');
+        galeria.appendChild(pontos);
+
+        var atual = 0, timer;
+        function mostrar(i) {
+          atual = i;
+          galeria.classList.toggle('com-foto', i > 0);
+          camadas.forEach(function (c, j) { c.classList.toggle('ativa', j === i - 1); });
+          Array.prototype.forEach.call(pontos.children, function (pt, j) { pt.classList.toggle('ativo', j === i); });
+        }
+        var card = galeria.closest('.sabor');
+        card.addEventListener('mouseenter', function () {
+          clearInterval(timer);
+          mostrar(1);
+          timer = setInterval(function () { mostrar((atual + 1) % (fotos.length + 1)); }, 1800);
+        });
+        card.addEventListener('mouseleave', function () {
+          clearInterval(timer);
+          mostrar(0);
+        });
+        mostrar(0);
+      });
+    }
 
     /* ─── Subtle hero parallax ─── */
     const heroBg = document.querySelector('.hero-bg');

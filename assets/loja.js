@@ -40,21 +40,25 @@
       imagem: 'pote-abacaxi.png',
       gradiente: 'radial-gradient(ellipse 65% 50% at 50% 42%, rgba(205,95,30,0.32) 0%, transparent 70%), linear-gradient(160deg, #2a1408 0%, #140904 58%, #221005 100%)',
       fundo: 'sabor-abacaxi.webp',
-      ardencia: 3,
+      ardencia: 4,
       tags: ['Tropical', 'Picante', 'Irresistível'],
       resumo: 'Suculência tropical do abacaxi encontra o calor da pimenta dedo-de-moça. ' +
-              'Cada garfada é uma explosão de doçura seguida de um ardor irresistível.',
-      descricao: 'A doçura tropical do abacaxi encontra o calor da pimenta dedo-de-moça numa ' +
-                 'combinação que transforma qualquer assado. Cozida lentamente em panela de cobre ' +
-                 'até atingir o ponto exato entre o doce e o ardido, é a geleia que faz o convidado ' +
-                 'parar no meio da garfada para perguntar o que é aquilo.',
+              'Cada colherada é uma explosão de doçura seguida de um ardor na medida certa.',
+      descricao: 'Nossa queridíssima geleia de abacaxi com pimenta dedo-de-moça é a mais procurada, ' +
+                 'e não é por acaso: a doçura tropical do abacaxi encontra o calor da pimenta numa ' +
+                 'combinação que transforma qualquer momento à mesa em uma experiência cheia de sabor. ' +
+                 'Cozida lentamente em tacho de cobre, ela alcança o equilíbrio perfeito entre o doce ' +
+                 'e o picante.',
       harmoniza: [
-        'Frango na brasa',
-        'Picanha selada',
-        'Costelinha de porco',
         'Queijo coalho grelhado',
-        'Camarão na churrasqueira',
-        'Espetinho misto'
+        'Costela bovina assada',
+        'Dadinhos de tapioca',
+        'Queijo brie aquecido',
+        'Hambúrguer artesanal com bacon',
+        'Frango empanado crocante',
+        'Churrasco completo',
+        'Pastel de queijo',
+        'Canapés com cream cheese'
       ],
       ficha: [
         ['Peso líquido', '300 g'],
@@ -82,20 +86,24 @@
       imagem: 'pote-cebola.png',
       gradiente: 'radial-gradient(ellipse 65% 50% at 50% 42%, rgba(150,45,95,0.32) 0%, transparent 70%), linear-gradient(160deg, #1e0a1d 0%, #0f050e 58%, #1a0819 100%)',
       fundo: 'sabor-cebola.webp',
-      ardencia: 1,
+      ardencia: 0,
       tags: ['Sofisticado', 'Agridoce', 'Exótica'],
-      resumo: 'Cebola roxa caramelizada lentamente, enriquecida com vinho tinto seco. ' +
-              'Profundidade de sabor que transforma qualquer combinação em algo extraordinário.',
+      resumo: 'Caramelizada, a cebola roxa revela sua doçura e se une ao vinho tinto, ' +
+              'enquanto um ingrediente especial dá o toque final a essa receita. Um sabor rico ' +
+              'e marcante, que surpreende o paladar de qualquer apaixonado por gastronomia.',
       descricao: 'Cebola roxa caramelizada em fogo baixo por horas, enriquecida com vinho tinto ' +
                  'seco até virar um agridoce denso e aveludado. É a geleia dos cortes nobres: ' +
                  'profundidade de sabor que transforma qualquer combinação em algo extraordinário.',
       harmoniza: [
-        'Picanha premium',
-        'Ancho e chorizo',
-        'Queijos nobres',
-        'Cordeiro na grelha',
-        'Tábua fria gourmet',
-        'Hambúrguer artesanal'
+        'Hambúrguer artesanal com queijo e bacon',
+        'Filé-mignon grelhado',
+        'Queijo brie aquecido',
+        'Queijo Canastra curado',
+        'Bruschettas de gorgonzola',
+        'Pernil suíno assado',
+        'Linguiça artesanal na brasa',
+        'Pizza de diversos sabores',
+        'Risoto de parmesão'
       ],
       ficha: [
         ['Peso líquido', '300 g'],
@@ -127,8 +135,9 @@
       estudio: 'morango-estudio.webp',
       ardencia: 0,
       tags: ['Linha Gourmet', 'Adocicado', 'Cítrico'],
-      resumo: 'Morango maduro cozido devagar com limão siciliano. Doce cheio, ' +
-              'com um final cítrico que corta e limpa o paladar.',
+      resumo: 'Morangos cozidos lentamente com suco e raspas de limão siciliano. Uma receita ' +
+              'artesanal com doçura na medida certa, um toque cítrico envolvente e um perfume ' +
+              'irresistível. Simples e verdadeiramente espetacular.',
       descricao: 'A única da casa que não pede brasa. Morango maduro cozido devagar até ' +
                  'concentrar, com raspas e suco de limão siciliano entrando no fim para dar ' +
                  'o contraponto ácido. O resultado é uma geleia densa, de doçura redonda e ' +
@@ -139,7 +148,10 @@
         'Torrada e pão artesanal',
         'Iogurte natural',
         'Panqueca e waffle',
-        'Sorvete de creme'
+        'Sorvete de creme',
+        'Cheesecake tradicional',
+        'Tapioca com queijo minas',
+        'Bolo de fubá e baunilha'
       ],
       ficha: [
         ['Peso líquido', '300 g'],
@@ -172,8 +184,9 @@
       estudio: 'morango-zero-estudio.webp',
       ardencia: 0,
       tags: ['Zero Açúcar', 'Linha Gourmet', 'Cítrico'],
-      resumo: 'O mesmo morango com limão siciliano, sem adição de açúcares. ' +
-              'Adoçado com eritritol, mantém o corpo e o final cítrico.',
+      resumo: 'Todo o sabor da já conhecida geleia de morango com limão siciliano, só que sem ' +
+              'adição de açúcares. Adoçada com eritritol, sem aquele sabor residual, mantém a ' +
+              'textura e o toque cítrico irresistível dessa combinação.',
       descricao: 'A versão sem adição de açúcares do morango com limão siciliano. ' +
                  'Adoçada com eritritol, mantém a densidade e o final cítrico da receita ' +
                  'original — para quem controla açúcar e não quer abrir mão da geleia. ' +
@@ -189,7 +202,7 @@
       ficha: [
         ['Peso líquido', '200 g'],
         ['Ingredientes', 'Morango, edulcorante (adoçante) eritritol e limão siciliano'],
-        ['Validade', '24 meses'],
+        ['Validade', '6 meses'],
         ['Conservação', 'Manter em local fresco, seco e arejado. Após aberto, manter refrigerado entre 1 °C e 10 °C e consumir em até 30 dias'],
         ['Selos do rótulo', '100% natural · Sem glúten · Linha Gourmet'],
         ['Zero', 'Sem adição de açúcares · Adoçado com eritritol']

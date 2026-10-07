@@ -35,7 +35,8 @@ const PRECOS = {
 const DESCONTO_PIX = 0.05;
 const MAX_PARCELAS = 3;
 const VALOR_MINIMO_PARCELA = 5;
-const METODOS = ['PIX', 'BOLETO', 'CREDIT_CARD'];
+/* Boleto saiu a pedido do cliente em 07/10/2026. */
+const METODOS = ['PIX', 'CREDIT_CARD'];
 
 /* ------------------------------------------------------------
    HELPERS
@@ -261,7 +262,7 @@ export default async function handler(req, res) {
     const cobrancaBase = {
       customer: idCliente,
       billingType: metodo,
-      dueDate: dataEm(metodo === 'BOLETO' ? 3 : 1),
+      dueDate: dataEm(1),
       description: descricao,
       externalReference: referencia,
       /* Parcelado usa installmentCount + totalValue; à vista usa value. */

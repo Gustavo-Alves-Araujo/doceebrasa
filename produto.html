@@ -107,8 +107,8 @@
 
         <div class="garantias">
           <div class="garantia"><span class="ic">◆</span><span><strong>Entrega nacional</strong> pelos Correios, com frete calculado pelo seu CEP</span></div>
-          <div class="garantia"><span class="ic">◆</span><span><strong>Pagamento seguro</strong> via Asaas — PIX, boleto ou cartão</span></div>
-          <div class="garantia"><span class="ic">◆</span><span><strong>100% natural, sem glúten</strong> · Envasado a quente e lacrado · Validade de 24 meses</span></div>
+          <div class="garantia"><span class="ic">◆</span><span><strong>Pagamento seguro</strong> via Asaas — PIX ou cartão</span></div>
+          <div class="garantia"><span class="ic">◆</span><span><strong>100% natural, sem glúten</strong> · Envasado a quente e lacrado<span id="garantiaValidade"></span></span></div>
           <div class="garantia"><span class="ic">◆</span><span><strong>Embalagem reforçada</strong> com proteção antichoque para o vidro</span></div>
         </div>
       </div>
@@ -178,7 +178,7 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <a href="/"><img src="logo.webp" alt="Doce e Brasa" width="110" height="110"></a>
-          <p>Geleias artesanais criadas para transformar cada churrasco em uma experiência gastronômica inesquecível.</p>
+          <p>Geleias artesanais que realçam o sabor do seu paladar e transformam cada combinação em uma experiência gastronômica inesquecível.</p>
         </div>
         <div class="footer-col">
           <h4>Sabores</h4>
@@ -321,6 +321,10 @@
     });
 
     mostrarVista(0);
+
+    /* A validade muda por sabor (a Zero dura menos), então vem da ficha. */
+    var validade = p.ficha.filter(function (par) { return par[0] === 'Validade'; })[0];
+    if (validade) document.getElementById('garantiaValidade').textContent = ' · Validade de ' + validade[1];
 
     /* ---- Ficha técnica ---- */
     document.getElementById('corpoFicha').innerHTML = p.ficha.map(function (par) {
